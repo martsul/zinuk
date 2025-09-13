@@ -2,13 +2,89 @@
 
 :root {
   --blue: #30326D;
+  --blue-1: #20487F;
   --preview-background: linear-gradient(270deg, #FFFFFF -2.29%, #E9C3F8 58.69%, #9B7DB5 100%);
   --font-a: 'Assistant', sans-serif;
   --font-i: "Inter", sans-serif;
   --yellow: #FFE700;
+  --intro-background: #E8ECF1;
+  --grey: #AAB0D8;
 }
 
 body {
   height: 100vh;
   overflow: hidden;
+}
+
+.intro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: var(--intro-background);
+  width: 100%;
+}
+
+.intro-window {
+  width: calc(100% - 40px);
+  height: calc(100% - 40px);
+  background: #fff;
+  position: relative;
+}
+
+.intro-head {
+  background: var(--blue);
+  position: relative;
+  height: 154px;
+  padding-inline-start: 34px;
+  display: flex;
+  align-items: center;
+}
+
+.intro-head svg {
+  position: absolute;
+  top: 0;
+  right: -4px;
+}
+
+.intro-head__img-conatiner {
+  height: 193px;
+  width: 193px;
+  border-radius: 50%;
+  position: relative;
+  background: var(--grey);
+  top: 35px;
+  margin-right: 40px;
+  align-self: start;
+}
+
+.intro-head__title {
+  color: var(--yellow);
+  font: 700 48px/1 var(--font-i);
+}
+
+.intro-contnt__svg {
+  position: absolute;
+  bottom: 0;
+  inset-inline-start: 0;
+}
+
+.intro-content {
+  padding-top: 114px;
+  padding-inline-end: 40px;
+  padding-inline-start: 200px;
+  padding-bottom: 20px;
+}
+
+.intro-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.intro-content__text {
+  color: var(--blue-1);
+  font: 300 25px/1.3 var(--font-i);
+  border-inline-start: 5px solid var(--yellow);
+  padding-inline-start: 16px;
 }
