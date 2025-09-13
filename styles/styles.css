@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root {
+  --blue: #30326D;
+  --preview-background: linear-gradient(270deg, #FFFFFF -2.29%, #E9C3F8 58.69%, #9B7DB5 100%);
+  --font-a: 'Assistant', sans-serif;
+  --font-i: "Inter", sans-serif;
+  --yellow: #FFE700;
+}
+
+body {
+  height: 100vh;
+  overflow: hidden;
+}
