@@ -9,6 +9,7 @@
   --yellow: #FFE700;
   --intro-background: #E8ECF1;
   --grey: #AAB0D8;
+  --pink: #E9C3F8;
 }
 
 body {
@@ -47,7 +48,7 @@ body {
   right: -4px;
 }
 
-.intro-head__img-conatiner {
+.intro-head__img-container {
   height: 193px;
   width: 193px;
   border-radius: 50%;
