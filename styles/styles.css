@@ -17,8 +17,8 @@
   --pink: #e9c3f8;
 }
 
-body {
-  height: 100vh;
+html, body {
+  height: 100%;
   width: 100vw;
   overflow: hidden;
 }
@@ -112,6 +112,8 @@ body {
 .question-content {
   grid-column: 1 / 2;
   grid-row: 1 / 2;
+  min-height: 0; 
+  min-width: 0;
 }
 
 .question-aside {
@@ -135,6 +137,7 @@ body {
   flex-direction: column;
   gap: 25px;
   padding: 40px;
+  overflow: auto;
 }
 
 .question__text-container,
