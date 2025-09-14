@@ -387,3 +387,9 @@ html, body {
   top: 50%;
   transform: translate(-50%, -50%);
 }
+
+@media (max-height: 960px) {
+  .question-aside__person {
+    display: none;
+  }
+}
