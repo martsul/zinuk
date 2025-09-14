@@ -135,4 +135,5 @@
   position: absolute;
   bottom: 0;
   left: 20%;
+  max-height: 100%;
 }
