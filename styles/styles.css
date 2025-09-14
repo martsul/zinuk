@@ -3,7 +3,7 @@
 :root {
   --blue: #30326d;
   --blue-1: #20487f;
-  --preview-background: linear-gradient(
+  --main-background: linear-gradient(
     270deg,
     #ffffff -2.29%,
     #e9c3f8 58.69%,
@@ -359,4 +359,31 @@ html, body {
 
 .question-details__text {
   font: 400 24px/1 var(--font-a);
+}
+
+.main-head {
+  height: 168px;
+  background: var(--blue);
+  position: relative;
+}
+
+.main-head-trig {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.main-head__logo-container {
+  position: absolute;
+  top: 50%;
+  right: 140px;
+  transform: translate(0, -50%);
+  z-index: 1;
+}
+
+.main-head__logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }

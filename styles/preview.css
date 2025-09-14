@@ -1,35 +1,8 @@
 .preview {
-  background: var(--preview-background);
+  background: var(--main-background);
   height: 100vh;
   display: grid;
   grid-template-rows: 168px 1fr 308px;
-}
-
-.preview-head {
-  height: 168px;
-  background: var(--blue);
-  position: relative;
-}
-
-.preview-head-trig {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-.preview-head__logo-container {
-  position: absolute;
-  top: 50%;
-  right: 140px;
-  transform: translate(0, -50%);
-  z-index: 1;
-}
-
-.preview-head__logo {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .preview-content {
