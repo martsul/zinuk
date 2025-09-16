@@ -18,6 +18,11 @@ export class ControlService {
   #questionsParagraphs = document.querySelectorAll('.question__text-container');
   #activeAudio = new Audio(this.#questionsParagraphs[0]?.dataset?.audio);
   #timer = document.querySelector('#timer');
+  #onPause = () => {};
+
+  set onPause(callback) {
+    this.#onPause = callback
+  }
 
   init() {
     this.#initHandlers();
