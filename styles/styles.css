@@ -24,6 +24,10 @@ html, body {
   overflow: hidden;
 }
 
+.hidden {
+  display: none !important;
+}
+
 .page-container {
   height: 100vh;
   width: 100vw;
@@ -151,6 +155,10 @@ html, body {
   justify-content: space-between;
 }
 
+.question__text-container .question__text {
+  max-width: calc(100% - 75px);
+}
+
 .question__answer-title {
   font: 700 24px/1 var(--font-a);
 }
@@ -187,6 +195,10 @@ html, body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+}
+
+.question__choice-input-container:has(.question__choice-input.error) {
+  border-color: red;
 }
 
 .question__choice-input {
