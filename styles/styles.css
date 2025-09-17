@@ -402,6 +402,66 @@ html, body {
   transform: translate(-50%, -50%);
 }
 
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #30326DB2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal > .modal-close {
+  position: absolute;
+  inset-inline-end: 10px;
+  top: 10px;
+  cursor: pointer;
+}
+
+.modal-wrapper {
+  max-height: calc(100% - 30px);
+  max-width: calc(100% - 30px);
+  width: 1095px;
+  background: #D2DAE5;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.qws-modal__content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: #fff;
+  padding: 40px;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.modal-wrapper .modal-close {
+  background: #ED2374;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 50px;
+  border-radius: 30px;
+  color: #fff;
+  font: 400 16px/1 var(--font-i);
+  cursor: pointer;
+}
+
+.qws-modal__note {
+  color: var(--blue);
+  text-align: center;
+  font: 400 16px/1 var(--font-i);
+}
+
 @media (max-height: 960px) {
   .question-aside__person {
     display: none;

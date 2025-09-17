@@ -13,7 +13,7 @@
         <div class="intro question-content">
           <div class="question-content-double">
             <div class="intro-window question-wrapper">
-              <div class="question-details">
+              <div class="question-details" id="question">
                 <div class="question__text-container" data-audio="https://www.learningcontainer.com/sample-audio-file/#:~:text=or%20decrease%20volume.-,Sample%20MP3%20File,-1%20file(s">
                   <img
                     src="img/question-text.png"
@@ -630,7 +630,7 @@
             </div>
 
             <div class="intro-window question-wrapper">
-              <div class="question-details">
+              <div class="question-details" id="answer">
                 <div class="question-details__text">
                   Find the relationship between the meanings of the two
                   highlighted words, and choose from the answers?
@@ -826,7 +826,7 @@
             Select an answer and press &lt;Enter&gt; to confirm.
           </p>
           <div class="question__footer-btns">
-            <button>
+            <button id="question-full">
               <svg
                 width="28"
                 height="35"
@@ -854,7 +854,7 @@
               </svg>
             </button>
 
-            <button>
+            <button id="answer-full">
               <svg
                 width="44"
                 height="44"
@@ -877,6 +877,10 @@
         </div>
       </div>
     </div>
+    <script type="module" src="scripts/question-with-scrolling.js"></script>
     <script type="module" src="scripts/main.js"></script>
   </body>
 </html>
+
+
+
