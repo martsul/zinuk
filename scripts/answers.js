@@ -1,5 +1,5 @@
 class Answers {
-  #answers = JSON.parse(sessionStorage.getItem("quizResults"));
+  #answers = JSON.parse(sessionStorage.getItem("quizResults")) || {};
   #cards = document.querySelectorAll(".answer__card");
 
   constructor() {
@@ -31,19 +31,21 @@ class Answers {
   #setPercents({ partsAnswers, typeAnswers }) {
     this.#setPartPercents(partsAnswers);
     this.#setTypeAnswers(typeAnswers);
-    this.#setAllPercents(partsAnswers)
+    this.#setAllPercents(partsAnswers);
   }
 
   #setAllPercents(partsAnswers) {
     let countAnswers = 0;
-    const fields = document.querySelectorAll('.main-head__progress-text .percents')
+    const fields = document.querySelectorAll(
+      ".main-head__progress-text .percents"
+    );
     for (const key in partsAnswers) {
-      countAnswers += partsAnswers[key]
+      countAnswers += partsAnswers[key];
     }
 
-    fields.forEach(e => {
-      e.innerText = Math.round((countAnswers * 100) / 33) + "%"
-    })
+    fields.forEach((e) => {
+      e.innerText = Math.round((countAnswers * 100) / 11) + "%";
+    });
   }
 
   #setPartPercents(partsAnswers) {
@@ -51,7 +53,7 @@ class Answers {
       const mainPercent = c.querySelector(
         ".answer__head .answer__head-text:nth-child(2)"
       );
-      const allCount = i === 2 ? 9 : 12;
+      const allCount = i === 2 ? 3 : 4;
       const countAnswers = partsAnswers[i + 1] || 0;
       mainPercent.innerText = Math.round((countAnswers * 100) / allCount) + "%";
     });
@@ -59,20 +61,25 @@ class Answers {
 
   #setTypeAnswers(typeAnswers) {
     this.#cards.forEach((card, cardI) => {
-      card.querySelectorAll('.answer__card-item').forEach((ci, ciIndex) => {
+      card.querySelectorAll(".answer__card-item").forEach((ci, ciIndex) => {
         const type = ci.dataset.type;
-        const percentsField = ci.querySelector('.answer__card-item-percents');
+        const percentsField = ci.querySelector(".answer__card-item-percents");
         const countAnswers = typeAnswers[type] || 0;
-        percentsField.innerText = Math.round((countAnswers * 100) / 3) + "%"
+        percentsField.innerText = Math.round((countAnswers * 100) / 1) + "%";
 
-        ci.querySelectorAll('.answer__card-item-circle').forEach((circle, circleI) => {
-          const [answer, result] = (this.#answers[`${cardI + 1}-${type}-${circleI + 1}`] || '-').split('-');
-          if (result === 'c') {
-            circle.classList.add('active');
+        ci.querySelectorAll(".answer__card-item-circle").forEach(
+          (circle, circleI) => {
+            const result = this.#answers[`${cardI + 1}-${type}-${circleI + 1}`];
+            if (!result) return;
+
+            const [_, status] = result.split("-");
+            if (status === "c") {
+              circle.classList.add("active");
+            }
           }
-        })
-      })
-    })
+        );
+      });
+    });
   }
 }
 

@@ -676,6 +676,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
+  cursor: pointer;
 }
 
 .answer-details__card-item {
