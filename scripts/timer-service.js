@@ -2,7 +2,9 @@ export class TimerService {
   #fullTimeField = document.querySelector(
     "#full-time .question-aside__box-time"
   );
-  #timerFiled = document.querySelector("#timer .question-aside__box-time");
+  #timerFiled =
+    document.querySelector("#timer .question-aside__box-time") ||
+    document.querySelector("#timer");
   #fullTime = document.body.dataset.time * 60;
   #currentTime = this.#fullTime;
   #timerId;
@@ -21,16 +23,26 @@ export class TimerService {
     clearInterval(this.#timerId);
   }
 
+  endTimer() {
+    this.stopTimer();
+  }
+
   #initTime() {
-    if (this.#fullTimeField && this.#timerFiled) {
+    if (this.#fullTimeField) {
       this.#setFullTimeField();
+    }
+    if (this.#timerFiled) {
       this.#setTimerField();
     }
   }
 
   #decreaseTimer() {
     this.#currentTime -= 1;
-    this.#setTimerField();
+    if (this.#currentTime < 0) {
+      this.endTimer();
+    } else {
+      this.#setTimerField();
+    }
   }
 
   #setFullTimeField() {

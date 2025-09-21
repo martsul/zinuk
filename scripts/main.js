@@ -9,6 +9,7 @@ class Main {
   constructor() {
     this.#initControls();
     this.#initTimer();
+    this.#timerService.endTimer = this.#controlService.nextPage;
   }
 
   #initTimer() {

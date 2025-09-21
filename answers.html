@@ -76,10 +76,12 @@
         </div>
         <div class="main-head__content">
           <div class="main-head__progress">
-            <span class="main-head__progress-text">ציון באחוזים: 65%</span>
+            <span class="main-head__progress-text"
+              >ציון באחוזים: <span class="percents"></span
+            ></span>
             <span class="main-head__progress-text yellow"
-              >ציון במספרים: 45%</span
-            >
+              >ציון במספרים: <span class="percents"></span
+            ></span>
           </div>
         </div>
         <div style="width: 130px"></div>
@@ -107,100 +109,45 @@
             </div>
 
             <div class="answer__card-content">
-              <div class="answer__card-item">
+              <div class="answer__card-item" data-type="Inference">
                 <div class="answer__card-item-title">השלמת משפטים</div>
                 <div class="answer__card-item-progress">
                   <div class="answer__card-item-circles">
                     <div class="answer__card-item-circle"></div>
-                    <div class="answer__card-item-circle active"></div>
+                    <div class="answer__card-item-circle"></div>
                     <div class="answer__card-item-circle"></div>
                   </div>
                   <span class="answer__card-item-percents">37%</span>
                 </div>
               </div>
-              <div class="answer__card-item">
+              <div class="answer__card-item" data-type="Reading">
                 <div class="answer__card-item-title">השלמת משפטים</div>
                 <div class="answer__card-item-progress">
                   <div class="answer__card-item-circles">
                     <div class="answer__card-item-circle"></div>
-                    <div class="answer__card-item-circle active"></div>
+                    <div class="answer__card-item-circle"></div>
                     <div class="answer__card-item-circle"></div>
                   </div>
                   <span class="answer__card-item-percents">37%</span>
                 </div>
               </div>
-              <div class="answer__card-item">
+              <div class="answer__card-item" data-type="Analogies">
                 <div class="answer__card-item-title">השלמת משפטים</div>
                 <div class="answer__card-item-progress">
                   <div class="answer__card-item-circles">
                     <div class="answer__card-item-circle"></div>
-                    <div class="answer__card-item-circle active"></div>
+                    <div class="answer__card-item-circle"></div>
                     <div class="answer__card-item-circle"></div>
                   </div>
                   <span class="answer__card-item-percents">37%</span>
                 </div>
               </div>
-              <div class="answer__card-item">
+              <div class="answer__card-item" data-type="Sentence Completion">
                 <div class="answer__card-item-title">השלמת משפטים</div>
                 <div class="answer__card-item-progress">
                   <div class="answer__card-item-circles">
                     <div class="answer__card-item-circle"></div>
-                    <div class="answer__card-item-circle active"></div>
                     <div class="answer__card-item-circle"></div>
-                  </div>
-                  <span class="answer__card-item-percents">37%</span>
-                </div>
-              </div>
-            </div>
-
-            <button class="answer__card-more">לפרטים נוספים</button>
-          </div>
-          <div class="answer__card">
-            <div class="answer__head">
-              <span class="answer__head-text">מילולית</span>
-              <span class="answer__head-text">100%</span>
-            </div>
-
-            <div class="answer__card-content">
-              <div class="answer__card-item">
-                <div class="answer__card-item-title">השלמת משפטים</div>
-                <div class="answer__card-item-progress">
-                  <div class="answer__card-item-circles">
-                    <div class="answer__card-item-circle"></div>
-                    <div class="answer__card-item-circle active"></div>
-                    <div class="answer__card-item-circle"></div>
-                  </div>
-                  <span class="answer__card-item-percents">37%</span>
-                </div>
-              </div>
-              <div class="answer__card-item">
-                <div class="answer__card-item-title">השלמת משפטים</div>
-                <div class="answer__card-item-progress">
-                  <div class="answer__card-item-circles">
-                    <div class="answer__card-item-circle"></div>
-                    <div class="answer__card-item-circle active"></div>
-                    <div class="answer__card-item-circle"></div>
-                  </div>
-                  <span class="answer__card-item-percents">37%</span>
-                </div>
-              </div>
-              <div class="answer__card-item">
-                <div class="answer__card-item-title">השלמת משפטים</div>
-                <div class="answer__card-item-progress">
-                  <div class="answer__card-item-circles">
-                    <div class="answer__card-item-circle"></div>
-                    <div class="answer__card-item-circle active"></div>
-                    <div class="answer__card-item-circle"></div>
-                  </div>
-                  <span class="answer__card-item-percents">37%</span>
-                </div>
-              </div>
-              <div class="answer__card-item">
-                <div class="answer__card-item-title">השלמת משפטים</div>
-                <div class="answer__card-item-progress">
-                  <div class="answer__card-item-circles">
-                    <div class="answer__card-item-circle"></div>
-                    <div class="answer__card-item-circle active"></div>
                     <div class="answer__card-item-circle"></div>
                   </div>
                   <span class="answer__card-item-percents">37%</span>
@@ -217,45 +164,89 @@
             </div>
 
             <div class="answer__card-content">
-              <div class="answer__card-item">
+              <div class="answer__card-item" data-type="Graphs">
                 <div class="answer__card-item-title">השלמת משפטים</div>
                 <div class="answer__card-item-progress">
                   <div class="answer__card-item-circles">
                     <div class="answer__card-item-circle"></div>
-                    <div class="answer__card-item-circle active"></div>
+                    <div class="answer__card-item-circle"></div>
                     <div class="answer__card-item-circle"></div>
                   </div>
                   <span class="answer__card-item-percents">37%</span>
                 </div>
               </div>
-              <div class="answer__card-item">
+              <div class="answer__card-item" data-type="Problem Solving">
                 <div class="answer__card-item-title">השלמת משפטים</div>
                 <div class="answer__card-item-progress">
                   <div class="answer__card-item-circles">
                     <div class="answer__card-item-circle"></div>
-                    <div class="answer__card-item-circle active"></div>
+                    <div class="answer__card-item-circle"></div>
                     <div class="answer__card-item-circle"></div>
                   </div>
                   <span class="answer__card-item-percents">37%</span>
                 </div>
               </div>
-              <div class="answer__card-item">
+              <div class="answer__card-item" data-type="Geometry">
                 <div class="answer__card-item-title">השלמת משפטים</div>
                 <div class="answer__card-item-progress">
                   <div class="answer__card-item-circles">
                     <div class="answer__card-item-circle"></div>
-                    <div class="answer__card-item-circle active"></div>
+                    <div class="answer__card-item-circle"></div>
                     <div class="answer__card-item-circle"></div>
                   </div>
                   <span class="answer__card-item-percents">37%</span>
                 </div>
               </div>
-              <div class="answer__card-item">
+              <div class="answer__card-item" data-type="Algebra">
                 <div class="answer__card-item-title">השלמת משפטים</div>
                 <div class="answer__card-item-progress">
                   <div class="answer__card-item-circles">
                     <div class="answer__card-item-circle"></div>
-                    <div class="answer__card-item-circle active"></div>
+                    <div class="answer__card-item-circle"></div>
+                    <div class="answer__card-item-circle"></div>
+                  </div>
+                  <span class="answer__card-item-percents">37%</span>
+                </div>
+              </div>
+            </div>
+
+            <button class="answer__card-more">לפרטים נוספים</button>
+          </div>
+          <div class="answer__card">
+            <div class="answer__head">
+              <span class="answer__head-text">מילולית</span>
+              <span class="answer__head-text">100%</span>
+            </div>
+
+            <div class="answer__card-content">
+              <div class="answer__card-item" data-type="Sentence Completion">
+                <div class="answer__card-item-title">השלמת משפטים</div>
+                <div class="answer__card-item-progress">
+                  <div class="answer__card-item-circles">
+                    <div class="answer__card-item-circle"></div>
+                    <div class="answer__card-item-circle"></div>
+                    <div class="answer__card-item-circle"></div>
+                  </div>
+                  <span class="answer__card-item-percents">37%</span>
+                </div>
+              </div>
+              <div class="answer__card-item" data-type="Restatements">
+                <div class="answer__card-item-title">השלמת משפטים</div>
+                <div class="answer__card-item-progress">
+                  <div class="answer__card-item-circles">
+                    <div class="answer__card-item-circle"></div>
+                    <div class="answer__card-item-circle"></div>
+                    <div class="answer__card-item-circle"></div>
+                  </div>
+                  <span class="answer__card-item-percents">37%</span>
+                </div>
+              </div>
+              <div class="answer__card-item" data-type="Reading Comprehension">
+                <div class="answer__card-item-title">השלמת משפטים</div>
+                <div class="answer__card-item-progress">
+                  <div class="answer__card-item-circles">
+                    <div class="answer__card-item-circle"></div>
+                    <div class="answer__card-item-circle"></div>
                     <div class="answer__card-item-circle"></div>
                   </div>
                   <span class="answer__card-item-percents">37%</span>
@@ -271,5 +262,6 @@
       <div class="answer__footer"></div>
     </div>
     <script type="module" src="scripts/main.js"></script>
+    <script src="scripts/answers.js"></script>
   </body>
 </html>
