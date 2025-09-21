@@ -54,6 +54,8 @@ export class ControlService {
         this.#playAudio();
       } else if (code === "F11") {
         this.#stopAudio();
+      } else if (code === "Space") {
+        this.#nextPage();
       } else if (code === "F12") {
         event.preventDefault();
         this.#toggleTimer();
