@@ -9,7 +9,8 @@ class Main {
   constructor() {
     this.#initControls();
     this.#initTimer();
-    this.#timerService.endTimer = this.#controlService.nextPage;
+    this.#timerService.endTimer = this.#controlService.nextPage.bind(this.#controlService);
+    this.#controlService.pauseSkip = this.#timerService.pauseSkip.bind(this.#timerService);
   }
 
   #initTimer() {

@@ -27,6 +27,16 @@ export class TimerService {
     this.stopTimer();
   }
 
+  pauseSkip() {
+    this.#pauseSkip();
+  }
+
+  #pauseSkip() {
+    this.stopTimer();
+    this.#currentTime = 0;
+    this.#setTimerField();
+  }
+
   #initTime() {
     if (this.#fullTimeField) {
       this.#setFullTimeField();

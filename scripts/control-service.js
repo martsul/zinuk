@@ -21,11 +21,9 @@ export class ControlService {
   #questionsParagraphs = document.querySelectorAll(".question__text-container");
   #activeAudio = new Audio(this.#questionsParagraphs[0]?.dataset?.audio);
   #timer = document.querySelector("#timer");
-  #onPause = () => {};
+  #skipPause = false;
 
-  set onPause(callback) {
-    this.#onPause = callback;
-  }
+  pauseSkip() {}
 
   init() {
     this.#initHandlers();
@@ -77,6 +75,10 @@ export class ControlService {
   }
 
   #checkContinue() {
+    if (this.#isPause() && !this.#skipPause) {
+      return;
+    }
+
     if (
       !(!this.#nextPageLink || (this.#answerField && !this.#answerField.value))
     ) {
@@ -100,9 +102,12 @@ export class ControlService {
   }
 
   #pauseSkip() {
-    if (document.querySelector(".pause")) {
-      window.location.href = "/preview-page.html";
-    }
+    this.pauseSkip();
+    this.#skipPause = true;
+  }
+
+  #isPause() {
+    return Boolean(document.querySelector(".pause"));
   }
 
   #changeParagraph(num) {
