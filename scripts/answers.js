@@ -53,7 +53,7 @@ class Answers {
       );
       const allCount = i === 2 ? 9 : 12;
       const countAnswers = partsAnswers[i + 1] || 0;
-      mainPercent.innerText = (countAnswers * 100) / allCount + "%";
+      mainPercent.innerText = Math.round((countAnswers * 100) / allCount) + "%";
     });
   }
 
@@ -63,7 +63,7 @@ class Answers {
         const type = ci.dataset.type;
         const percentsField = ci.querySelector('.answer__card-item-percents');
         const countAnswers = typeAnswers[type] || 0;
-        percentsField.innerText = (countAnswers * 100) / 3 + "%"
+        percentsField.innerText = Math.round((countAnswers * 100) / 3) + "%"
 
         ci.querySelectorAll('.answer__card-item-circle').forEach((circle, circleI) => {
           const [answer, result] = (this.#answers[`${cardI + 1}-${type}-${circleI + 1}`] || '-').split('-');
