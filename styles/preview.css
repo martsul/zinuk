@@ -41,6 +41,7 @@
   border: 5px solid var(--blue);
   color: var(--blue);
   font: 700 96px/1 var(--font-a);
+  position: relative;
 }
 
 .preview-content__left-svg {
@@ -70,4 +71,35 @@
 
 .preview-footer__back {
   position: relative;
+}
+
+@media (max-width: 1330px) {
+  .preview-content__title {
+    font-size: 56px;
+  }
+
+  .preview-footer__img {
+    max-width: 700px;
+    bottom: -120px;
+  }
+}
+
+@media (max-width: 991px) {
+  .preview-footer__img {
+    max-width: 500px;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .preview-content-container {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .preview-content__title {
+    font-size: 32px;
+    padding: 10px 20px;
+  }
 }

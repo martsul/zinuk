@@ -43,9 +43,8 @@ class Answers {
       countAnswers += partsAnswers[key];
     }
 
-    fields.forEach((e) => {
-      e.innerText = Math.round((countAnswers * 100) / 11) + "%";
-    });
+    fields[0].innerText = Math.round((countAnswers * 100) / 11) + "%";
+    fields[1].innerHTML = countAnswers
   }
 
   #setPartPercents(partsAnswers) {

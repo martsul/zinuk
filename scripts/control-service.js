@@ -84,7 +84,12 @@ export class ControlService {
     ) {
       this.#nextPage();
     } else if (this.#answerField && !this.#answerField.value) {
+      const div = document.createElement("div");
+      div.innerText = "Select the answer and press ENTER";
+      div.classList.add("question__choice-note");
+      this.#answerField.parentElement.appendChild(div);
       this.#answerField.classList.add("error");
+      document.querySelector('.question__choice').appendChild(div);
     }
   }
 
@@ -104,6 +109,7 @@ export class ControlService {
   #pauseSkip() {
     this.pauseSkip();
     this.#skipPause = true;
+    document.querySelector('.five').innerText = 5;
   }
 
   #isPause() {

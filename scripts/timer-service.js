@@ -33,7 +33,6 @@ export class TimerService {
 
   #pauseSkip() {
     this.stopTimer();
-    this.#currentTime = 0;
     this.#setTimerField();
   }
 

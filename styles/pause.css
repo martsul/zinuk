@@ -137,3 +137,25 @@
   left: 20%;
   max-height: 100%;
 }
+
+@media (max-width: 1500px) {
+  .pause-content__person {
+    left: 0;
+  }
+}
+
+@media (max-width: 1200px) {
+  .pause-content__person {
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 991px) {
+  .pause-content__person {
+    display: none;
+  }
+
+  .pause-content__details-container {
+    justify-content: center;
+  }
+}
