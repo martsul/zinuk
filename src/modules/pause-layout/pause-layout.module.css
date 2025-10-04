@@ -1,0 +1,144 @@
+.pauseContainer {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 168px 1fr 105px;
+  background: linear-gradient(
+    270deg,
+    #ffffff -2.29%,
+    #e9c3f8 58.69%,
+    #9b7db5 100%
+  );
+  height: 100%;
+  min-height: 0;
+}
+
+.contentContainer {
+  height: 100%;
+  min-height: 0;
+  width: calc(100% - 40px);
+  max-width: var(--container-width);
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.footer {
+  background: var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+}
+
+.footerText,
+.footerFive {
+  color: #fff;
+  font: 400 32px / 1 var(--font-i);
+}
+
+.footerFive {
+  width: 35px;
+  height: 35px;
+  border: 2px solid #fff;
+  margin-inline: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.person {
+  position: absolute;
+  max-width: 700px;
+  bottom: -120px;
+  max-height: 100%;
+  left: 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  align-items: center;
+  width: 100%;
+}
+
+.title {
+  font: 700 96px / 1 var(--font-a);
+  color: var(--blue);
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.box {
+  position: relative;
+  border: 3px solid var(--blue);
+  max-width: 310px;
+  width: 100%;
+  height: 245px;
+  border-top: none;
+  padding: 45px 20px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.clock {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+}
+
+.clock::before,
+.clock::after {
+  content: "";
+  display: inline-block;
+  width: calc(50% - 48px);
+  height: 3px;
+  background: var(--blue);
+  position: absolute;
+  top: 50%;
+}
+
+.clock::before {
+  left: 0;
+}
+
+.clock::after {
+  right: 0;
+}
+
+.boxTitle {
+  color: var(--blue);
+  font: 600 36px / 1 var(--font-a);
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.boxSubtitle {
+  color: var(--blue);
+  font: 600 20px / 1 var(--font-a);
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.boxTime {
+  text-align: center;
+  color: var(--blue);
+  font: 700 96px / 1 var(--font-a);
+}
+
+.subBox {
+  text-align: center;
+  color: var(--blue);
+  font: 600 24px / 1.2 var(--font-a);
+}

@@ -97,7 +97,7 @@ export class ControlService {
     if (this.#isAnswer()) {
       this.#questionService.saveAnswer();
     }
-    window.location.href = this.#nextPageLink;
+    window.location.href = '/old' + this.#nextPageLink;
   }
 
   #answerNumHandle(code) {

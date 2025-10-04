@@ -1,0 +1,34 @@
+.container {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  padding: 20px;
+  min-height: 0;
+}
+
+.content {
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.questionContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+}
+
+.imgContainer {
+  max-width: 100%;
+}
+
+.img {
+  width: 100%;
+}
+
+.audio {
+  flex-shrink: 0;
+}

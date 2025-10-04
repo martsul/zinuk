@@ -1,0 +1,27 @@
+.logoHeader {
+  background: var(--blue);
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.trig {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.logoContainer {
+  position: absolute;
+  top: 50%;
+  right: 140px;
+  transform: translate(0, -50%);
+  z-index: 1;
+}
+
+.logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

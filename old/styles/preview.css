@@ -11,7 +11,7 @@
 
 .preview-content-container {
   max-width: var(--container-width);
-  width: 100%;
+  width: calc(100% - 40px);
   display: flex;
   margin: 0 auto;
   justify-content: end;

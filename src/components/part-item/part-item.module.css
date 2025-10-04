@@ -1,0 +1,42 @@
+.container {
+  padding: 10px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.title {
+  font: 600 20px/1 var(--font-a);
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  gap: 15px;
+  overflow: auto;
+  scrollbar-width: none;
+}
+
+.circles {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.circle {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1px solid #000;
+}
+
+.circle.active {
+  background: #000;
+}
+
+.percents {
+  font: 700 20px/1 var(--font-i);
+}
