@@ -12,7 +12,8 @@ export enum RouterUrl {
   QUESTION_TQ = "question-tq",
   PAUSE = "pause",
   RESULTS = "results",
-  RESULTS_DETAILS = "results-details"
+  RESULTS_DETAILS = "results-details",
+  SETTINGS = "settings",
 }
 
 export const ExamTypeRoute: Record<ExamType, RouterUrl> = {

@@ -11,6 +11,7 @@ import { PauseLayout } from "./modules/pause-layout/pause-layout";
 import { ResultsLayout } from "./modules/results-layout/results-layout";
 import { ResultsDetails } from "./modules/results-content/results-details/results-details";
 import { ResultsBase } from "./modules/results-content/results-base/results-base";
+import { Settings } from "./modules/settings/settings";
 
 export const App = () => {
   const router = createBrowserRouter([
@@ -68,6 +69,10 @@ export const App = () => {
         },
       ],
     },
+    {
+      path: `${RouterUrl.SETTINGS}`,
+      element: <Settings />,
+    }
   ]);
 
   return <RouterProvider router={router} />;

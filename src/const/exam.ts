@@ -37,6 +37,8 @@ export interface IntroItem extends ExamItem {
   type: ExamType.EXAM_INTRO | ExamType.QUESTION_INTRO;
   img: string;
   texts: string[];
+  part: number;
+  questionPart?: string;
 }
 
 export interface Question extends ExamItem {
@@ -98,6 +100,7 @@ export const EXAM: ExamDto = {
     next: 3,
     type: ExamType.EXAM_INTRO,
     img: examIntro1,
+    part: 1,
     texts: [
       `At the end of the test, the scores in the three areas (verbal reasoning, quantitative reasoning and English) and general scores will be displayed: a general multidisciplinary score, a general score with a verbal emphasis and a score with a quantitative emphasis.
 In the real test, the scores will not appear at the end of the test, but only with the official publication of the scores
@@ -111,6 +114,8 @@ As a reminder, unlike in a real psychometric exam, in this test the score in the
     next: 4,
     type: ExamType.QUESTION_INTRO,
     img: questionIntro1,
+    part: 1,
+    questionPart: "Inference",
     texts: [
       `At the end of the test, the scores in the three areas (verbal reasoning, quantitative reasoning and English) and general scores will be displayed: a general multidisciplinary score, a general score with a verbal emphasis and a score with a quantitative emphasis.
 In the real test, the scores will not appear at the end of the test, but only with the official publication of the scores
@@ -141,6 +146,8 @@ As a reminder, unlike in a real psychometric exam, in this test the score in the
     next: 6,
     type: ExamType.QUESTION_INTRO,
     img: questionIntro2,
+    part: 1,
+    questionPart: "Reading",
     texts: [
       `At the end of the test, the scores in the three areas (verbal reasoning, quantitative reasoning and English) and general scores will be displayed: a general multidisciplinary score, a general score with a verbal emphasis and a score with a quantitative emphasis.
 In the real test, the scores will not appear at the end of the test, but only with the official publication of the scores
@@ -171,6 +178,8 @@ As a reminder, unlike in a real psychometric exam, in this test the score in the
     next: 8,
     type: ExamType.QUESTION_INTRO,
     img: questionIntro3,
+    part: 1,
+    questionPart: "Analogies",
     texts: [
       `At the end of the test, the scores in the three areas (verbal reasoning, quantitative reasoning and English) and general scores will be displayed: a general multidisciplinary score, a general score with a verbal emphasis and a score with a quantitative emphasis.
 In the real test, the scores will not appear at the end of the test, but only with the official publication of the scores
@@ -366,6 +375,7 @@ As a reminder, unlike in a real psychometric exam, in this test the score in the
     next: 15,
     type: ExamType.EXAM_INTRO,
     img: examIntro1,
+    part: 2,
     texts: [
       `At the end of the test, the scores in the three areas (verbal reasoning, quantitative reasoning and English) and general scores will be displayed: a general multidisciplinary score, a general score with a verbal emphasis and a score with a quantitative emphasis.
 In the real test, the scores will not appear at the end of the test, but only with the official publication of the scores
@@ -379,6 +389,8 @@ As a reminder, unlike in a real psychometric exam, in this test the score in the
     next: 16,
     type: ExamType.QUESTION_INTRO,
     img: questionIntro1,
+    part: 2,
+    questionPart: "Graphs",
     texts: [
       `At the end of the test, the scores in the three areas (verbal reasoning, quantitative reasoning and English) and general scores will be displayed: a general multidisciplinary score, a general score with a verbal emphasis and a score with a quantitative emphasis.
 In the real test, the scores will not appear at the end of the test, but only with the official publication of the scores
@@ -409,6 +421,8 @@ As a reminder, unlike in a real psychometric exam, in this test the score in the
     next: 18,
     type: ExamType.QUESTION_INTRO,
     img: questionIntro2,
+    part: 2,
+    questionPart: "Problem Solving",
     texts: [
       `At the end of the test, the scores in the three areas (verbal reasoning, quantitative reasoning and English) and general scores will be displayed: a general multidisciplinary score, a general score with a verbal emphasis and a score with a quantitative emphasis.
 In the real test, the scores will not appear at the end of the test, but only with the official publication of the scores
@@ -439,6 +453,8 @@ As a reminder, unlike in a real psychometric exam, in this test the score in the
     next: 20,
     type: ExamType.QUESTION_INTRO,
     img: questionIntro3,
+    part: 2,
+    questionPart: "Geometry",
     texts: [
       `At the end of the test, the scores in the three areas (verbal reasoning, quantitative reasoning and English) and general scores will be displayed: a general multidisciplinary score, a general score with a verbal emphasis and a score with a quantitative emphasis.
 In the real test, the scores will not appear at the end of the test, but only with the official publication of the scores
@@ -634,6 +650,7 @@ As a reminder, unlike in a real psychometric exam, in this test the score in the
     next: 27,
     type: ExamType.EXAM_INTRO,
     img: examIntro1,
+    part: 3,
     texts: [
       `At the end of the test, the scores in the three areas (verbal reasoning, quantitative reasoning and English) and general scores will be displayed: a general multidisciplinary score, a general score with a verbal emphasis and a score with a quantitative emphasis.
 In the real test, the scores will not appear at the end of the test, but only with the official publication of the scores
@@ -647,6 +664,8 @@ As a reminder, unlike in a real psychometric exam, in this test the score in the
     next: 28,
     type: ExamType.QUESTION_INTRO,
     img: questionIntro1,
+    part: 3,
+    questionPart: "Sentenc Completion",
     texts: [
       `At the end of the test, the scores in the three areas (verbal reasoning, quantitative reasoning and English) and general scores will be displayed: a general multidisciplinary score, a general score with a verbal emphasis and a score with a quantitative emphasis.
 In the real test, the scores will not appear at the end of the test, but only with the official publication of the scores
@@ -677,6 +696,8 @@ As a reminder, unlike in a real psychometric exam, in this test the score in the
     next: 30,
     type: ExamType.QUESTION_INTRO,
     img: questionIntro2,
+    part: 3,
+    questionPart: "Restatements",
     texts: [
       `At the end of the test, the scores in the three areas (verbal reasoning, quantitative reasoning and English) and general scores will be displayed: a general multidisciplinary score, a general score with a verbal emphasis and a score with a quantitative emphasis.
 In the real test, the scores will not appear at the end of the test, but only with the official publication of the scores
@@ -707,6 +728,8 @@ As a reminder, unlike in a real psychometric exam, in this test the score in the
     next: 32,
     type: ExamType.QUESTION_INTRO,
     img: questionIntro3,
+    part: 3,
+    questionPart: "Reading Comprehension",
     texts: [
       `At the end of the test, the scores in the three areas (verbal reasoning, quantitative reasoning and English) and general scores will be displayed: a general multidisciplinary score, a general score with a verbal emphasis and a score with a quantitative emphasis.
 In the real test, the scores will not appear at the end of the test, but only with the official publication of the scores
@@ -837,7 +860,6 @@ for (const key in EXAM) {
     }
   }
 }
-
 
 export const AllQuestions: Record<string, SimpleQuestionItem | TQQuestionItem> =
   {};
