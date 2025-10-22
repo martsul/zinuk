@@ -1,17 +1,17 @@
 import { LogoHeader } from "../../components/logo-header/logo-header";
 import { Decor } from "../../svg/decor";
 import styles from "./preview-layout.module.css";
-import { useParams } from "react-router-dom";
-import { EXAM, type PreviewItem } from "../../const/exam";
+import { type PreviewItem } from "../../const/exam";
+import { useNavigationContext } from "../../contexts/navigation-context/use-navigation-context";
 
 export const PreviewLayout = () => {
-  const { id } = useParams();
+  const { pageData, activePage } = useNavigationContext();
 
-  if (!id) {
-    return null;
+  if (!activePage) {
+    return;
   }
 
-  const previewData: PreviewItem = EXAM[id] as PreviewItem;
+  const previewData: PreviewItem = pageData[activePage] as PreviewItem;
 
   return (
     <div className={styles.previewContainer}>

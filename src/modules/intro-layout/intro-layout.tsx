@@ -3,23 +3,22 @@ import styles from "./intro-layout.module.css";
 import { BlueDecor } from "../../svg/blue-decor";
 import { IntroTitle, type IntroType } from "./intro-layout.const";
 import type { FC } from "react";
-import { useParams } from "react-router-dom";
-import { EXAM, type IntroItem } from "../../const/exam";
-
+import { type IntroItem } from "../../const/exam";
+import { useNavigationContext } from "../../contexts/navigation-context/use-navigation-context";
 
 interface Props {
   type: IntroType;
 }
 
 export const IntroLayout: FC<Props> = ({ type }) => {
-  const { id } = useParams();
+  const { pageData, activePage } = useNavigationContext();
 
-  if (!id) {
-    return null;
+  if (!activePage) {
+    return;
   }
 
   const title: string = IntroTitle[type];
-  const introData: IntroItem = EXAM[id] as IntroItem;
+  const introData: IntroItem = pageData[activePage] as IntroItem;
 
   return (
     <div className={styles.introContainer}>

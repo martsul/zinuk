@@ -1,28 +1,29 @@
 import { useEffect, useState, type FC } from "react";
 import styles from "./part-item.module.css";
-import { EXAM, ExamStorageName } from "../../const/exam";
+import { ExamStorageName } from "../../const/exam";
 import classNames from "classnames";
+import { useNavigationContext } from "../../contexts/navigation-context/use-navigation-context";
 
 interface Props {
   type: string;
   part: number;
 }
 
-const results: Record<string, string> = JSON.parse(
-  sessionStorage.getItem(ExamStorageName) || "{}"
-);
-
 export const PartItem: FC<Props> = ({ type, part }) => {
+  const { pageData } = useNavigationContext();
   const [correct, setCorrect] = useState<{ correct: number; total: number }>({
     correct: 0,
     total: 0,
   });
+  const results: Record<string, string> = JSON.parse(
+    sessionStorage.getItem(ExamStorageName) || "{}"
+  );
 
   useEffect(() => {
     let total = 0;
     let correct = 0;
-    for (const key in EXAM) {
-      const element = EXAM[key];
+    for (const key in pageData) {
+      const element = pageData[key];
       if ("correctAnswer" in element) {
         if (element.part === part && element.questionsPart === type) {
           total++;
@@ -33,9 +34,7 @@ export const PartItem: FC<Props> = ({ type, part }) => {
       }
     }
     setCorrect({ total, correct });
-  }, [part, type]);
-
-  console.log(correct)
+  }, [pageData, part, results, type]);
 
   return (
     <div className={styles.container}>

@@ -7,10 +7,14 @@ import {
   type ReactElement,
 } from "react";
 import { NavigationContext } from ".";
-import { useNavigate, useParams } from "react-router-dom";
-import { EXAM, ExamStorageName, ExamType } from "../../const/exam";
-import { ExamTypeRoute, RouterUrl } from "../../const/router";
+import {
+  EXAM,
+  ExamStorageName,
+  ExamType,
+  type ExamDto,
+} from "../../const/exam";
 import type { AudioQuestion } from "../../models/question.models";
+import { getExamDataUrl, postExamResultUrl } from "../../const/routs";
 
 interface Props {
   children: ReactElement;
@@ -48,55 +52,60 @@ const formatSecondsToMMSS = (seconds: number | undefined): string => {
 };
 
 export const NavigationContextProvider: FC<Props> = ({ children }) => {
-  const { id } = useParams();
+  const testId: string = "1";
   const [answer, setAnswer] = useState<string | undefined>(undefined);
   const [error, setError] = useState<boolean>(false);
   const activeAudioRef = useRef<HTMLAudioElement | null>(null);
   const [canContinue, setCanContinue] = useState<boolean>(true);
   const [timerIsVisible, setTimerIsVisible] = useState<boolean>(true);
   const [timer, setTimer] = useState<number | undefined>(undefined);
-  const navigate = useNavigate();
+  const [pageData, setPageData] = useState<ExamDto>(EXAM);
+  const [activePage, setActivePage] = useState<
+    null | number | "results" | string
+  >(1);
   const intervalRef = useRef<number | undefined>(undefined);
 
   const saveResults = useCallback(() => {
-    if (id) {
-      const pageData = EXAM[id];
+    if (activePage) {
+      const currentPage = pageData[activePage];
       if (
-        pageData.type === ExamType.SIMPLE_QUESTION ||
-        pageData.type === ExamType.QUESTION_TQ
+        currentPage?.type === ExamType.SIMPLE_QUESTION ||
+        currentPage?.type === ExamType.QUESTION_TQ
       ) {
         const storage: Record<string, string | undefined> = JSON.parse(
           sessionStorage.getItem(ExamStorageName) || "{}"
         );
-        storage[id] = answer;
+        storage[activePage] = answer;
 
         sessionStorage.setItem(ExamStorageName, JSON.stringify(storage));
       }
     }
-  }, [answer, id]);
+  }, [activePage, pageData, answer]);
 
   const navigateToNextPage = useCallback(() => {
-    if (id) {
+    if (activePage) {
       saveResults();
-      const pageData = EXAM[id];
-      const nextPageId: number | undefined = pageData.next;
+      const currentPage = pageData[activePage];
+      const nextPageId: number | undefined = currentPage.next;
       if (!nextPageId) {
-        navigate(`/${RouterUrl.RESULTS}`);
+        setActivePage("results");
+        fetch(postExamResultUrl(testId), {
+          method: "POST",
+          body: sessionStorage.getItem(ExamStorageName) || "{}",
+        });
         return;
       }
 
-      const nextPageData = EXAM[nextPageId];
-      const nextPageUrl: string = ExamTypeRoute[nextPageData.type];
+      setActivePage(nextPageId);
       setAnswer(undefined);
-      navigate(`/${nextPageUrl}/${nextPageId}`);
     }
-  }, [id, navigate, saveResults]);
+  }, [activePage, pageData, saveResults]);
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
-      if (id) {
+      if (activePage) {
         const { code, key } = event;
-        const pageData = EXAM[id];
+        const currentPage = pageData[activePage];
 
         if (code === "Enter") {
           if (canContinue) {
@@ -107,12 +116,12 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
           }
         } else if (
           AvailableAnswers.has(code) &&
-          (pageData.type === ExamType.SIMPLE_QUESTION ||
-            pageData.type === ExamType.QUESTION_TQ)
+          (currentPage?.type === ExamType.SIMPLE_QUESTION ||
+            currentPage?.type === ExamType.QUESTION_TQ)
         ) {
           setAnswer(key);
           setCanContinue(true);
-        } else if (code === "Digit5" && pageData.type === ExamType.PAUSE) {
+        } else if (code === "Digit5" && currentPage?.type === ExamType.PAUSE) {
           setCanContinue(true);
         } else if (code === "F1") {
           activeAudioRef.current?.play();
@@ -126,10 +135,10 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
           setTimerIsVisible((prev) => !prev);
         } else if (
           Paragraphs[code] &&
-          (pageData.type === ExamType.QUESTION_TEXT ||
-            pageData.type === ExamType.QUESTION_TQ)
+          (currentPage?.type === ExamType.QUESTION_TEXT ||
+            currentPage?.type === ExamType.QUESTION_TQ)
         ) {
-          const questions: string[] | AudioQuestion[] = pageData.questions;
+          const questions: string[] | AudioQuestion[] = currentPage.questions;
           const number: number =
             questions.length >= Paragraphs[code]
               ? Paragraphs[code]
@@ -144,8 +153,18 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
         }
       }
     },
-    [canContinue, id, navigateToNextPage]
+    [activePage, pageData, canContinue, navigateToNextPage]
   );
+
+  useEffect(() => {
+    fetch(getExamDataUrl(testId))
+      .then(async (r) => {
+        const data: ExamDto = await r.json();
+        setPageData(data);
+        setActivePage(Object.keys(data)[0]);
+      })
+      .catch(console.log);
+  }, []);
 
   useEffect(() => {
     if (timer === 0) {
@@ -154,15 +173,15 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
   }, [timer, navigateToNextPage]);
 
   useEffect(() => {
-    if (id) {
-      const pageData = EXAM[id];
+    if (activePage) {
+      const currentPage = pageData[activePage];
       if (
-        pageData.type === ExamType.PAUSE ||
-        pageData.type === ExamType.SIMPLE_QUESTION ||
-        pageData.type === ExamType.QUESTION_TQ ||
-        pageData.type === ExamType.QUESTION_TEXT
+        currentPage?.type === ExamType.PAUSE ||
+        currentPage?.type === ExamType.SIMPLE_QUESTION ||
+        currentPage?.type === ExamType.QUESTION_TQ ||
+        currentPage?.type === ExamType.QUESTION_TEXT
       ) {
-        setTimer(pageData.time * 60);
+        setTimer(currentPage.time * 60);
         intervalRef.current = setInterval(() => {
           setTimer((prev) => {
             return typeof prev === "number" ? prev - 1 : undefined;
@@ -174,15 +193,15 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
     return () => {
       clearInterval(intervalRef.current);
     };
-  }, [id]);
+  }, [activePage, pageData]);
 
   useEffect(() => {
-    if (id) {
-      const pageData = EXAM[id];
+    if (activePage) {
+      const currentPage = pageData[activePage];
       if (
-        pageData.type === ExamType.PAUSE ||
-        pageData.type === ExamType.SIMPLE_QUESTION ||
-        pageData.type === ExamType.QUESTION_TQ
+        currentPage?.type === ExamType.PAUSE ||
+        currentPage?.type === ExamType.SIMPLE_QUESTION ||
+        currentPage?.type === ExamType.QUESTION_TQ
       ) {
         setCanContinue(false);
       }
@@ -191,7 +210,7 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
     return () => {
       setCanContinue(true);
     };
-  }, [id]);
+  }, [activePage, pageData]);
 
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
@@ -209,6 +228,8 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
         error,
         timer: formatSecondsToMMSS(timer),
         timerIsVisible,
+        pageData,
+        activePage,
       }}
     >
       {children}

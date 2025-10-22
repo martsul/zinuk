@@ -1,15 +1,15 @@
 import { QuestionContainer } from "../../../components/question-container/question-container";
-import { useParams } from "react-router-dom";
-import { EXAM, type SimpleQuestionItem } from "../../../const/exam";
+import { type SimpleQuestionItem } from "../../../const/exam";
+import { useNavigationContext } from "../../../contexts/navigation-context/use-navigation-context";
 
 export const SimpleQuestion = () => {
-  const { id } = useParams();
+  const { pageData, activePage } = useNavigationContext();
 
-  if (!id) {
+  if (!activePage) {
     return null;
   }
 
-  const questionData: SimpleQuestionItem = EXAM[id] as SimpleQuestionItem;
+  const questionData: SimpleQuestionItem = pageData[activePage] as SimpleQuestionItem;
 
   return (
     <QuestionContainer

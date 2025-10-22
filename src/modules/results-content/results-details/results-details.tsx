@@ -2,30 +2,31 @@ import { useState } from "react";
 import { PartDetails } from "../../../components/part-details/part-details";
 import { QuestionContainer } from "../../../components/question-container/question-container";
 import {
-  EXAM,
   ExamStorageName,
-  PartsCount,
+  getPartsCount,
   type SimpleQuestionItem,
   type TQQuestionItem,
 } from "../../../const/exam";
 import { Check } from "../../../svg/check";
 import { Copy } from "../../../svg/copy";
 import styles from "./results-details.module.css";
-
-const results: Record<string, string> = JSON.parse(
-  sessionStorage.getItem(ExamStorageName) || "{}"
-);
+import { useNavigationContext } from "../../../contexts/navigation-context/use-navigation-context";
 
 export const ResultsDetails = () => {
+  const { pageData } = useNavigationContext();
   const [selectedQuestion, setSelectedQuestion] = useState<
     SimpleQuestionItem | TQQuestionItem | null
   >(null);
   const [questionNumber, setQuestionNumber] = useState<number | null>(null);
+  const partsCount = getPartsCount(pageData);
+  const results: Record<string, string> = JSON.parse(
+    sessionStorage.getItem(ExamStorageName) || "{}"
+  );
 
   return (
     <div className={styles.container}>
       <div className={styles.all}>
-        {[...new Array(PartsCount)].map((_, i) => (
+        {[...new Array(partsCount)].map((_, i) => (
           <PartDetails
             onSelectQuestion={setSelectedQuestion}
             setQuestionNumber={setQuestionNumber}
@@ -59,11 +60,11 @@ export const ResultsDetails = () => {
               <span>Correct Answer: </span>
               <span className={styles.footerSq}>
                 {selectedQuestion?.id &&
-                "correctAnswer" in EXAM[selectedQuestion.id] ? (
+                "correctAnswer" in pageData[selectedQuestion.id] ? (
                   <>
                     {
                       (
-                        EXAM[selectedQuestion.id] as
+                        pageData[selectedQuestion.id] as
                           | SimpleQuestionItem
                           | TQQuestionItem
                       ).correctAnswer

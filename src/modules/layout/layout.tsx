@@ -1,27 +1,46 @@
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { ExamType } from "../../const/exam";
+import { useNavigationContext } from "../../contexts/navigation-context/use-navigation-context";
+import { IntroLayout } from "../intro-layout/intro-layout";
+import { IntroType } from "../intro-layout/intro-layout.const";
+import { PauseLayout } from "../pause-layout/pause-layout";
+import { PreviewLayout } from "../preview-layout/preview-layout";
+import { QuestionLayout } from "../question-layout/question-layout";
+import { QuestionType } from "../question-layout/question-layout.const";
+import { ResultsLayout } from "../results-layout/results-layout";
 import styles from "./layout.module.css";
-import { useEffect } from "react";
-import { EXAM } from "../../const/exam";
-import { ExamTypeRoute, RouterUrl } from "../../const/router";
-import { NavigationContextProvider } from "../../contexts/navigation-context/navigation-context-provider";
 
 export const Layout = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
+  const { activePage, pageData } = useNavigationContext();
 
-  useEffect(() => {
-    if (location.pathname === RouterUrl.ROOT) {
-      const pageUrl: RouterUrl = ExamTypeRoute[EXAM[1].type];
-      const pageId: number = EXAM[1].id;
-      navigate(`/${pageUrl}/${pageId}`);
-    }
-  }, [location, navigate]);
+  if (!activePage) {
+    return;
+  }
 
-  return (
-    <NavigationContextProvider>
-      <div className={styles.container}>
-        <Outlet />
-      </div>
-    </NavigationContextProvider>
+  const currentPageData =
+    activePage === "results" ? null : pageData[activePage];
+
+
+  return activePage === "results" ? (
+    <ResultsLayout />
+  ) : (
+    <div className={styles.container}>
+      {currentPageData?.type === ExamType.PREVIEW && <PreviewLayout />}
+      {currentPageData?.type === ExamType.EXAM_INTRO && (
+        <IntroLayout type={IntroType.EXAM} />
+      )}
+      {currentPageData?.type === ExamType.QUESTION_INTRO && (
+        <IntroLayout type={IntroType.QUESTION} />
+      )}
+      {currentPageData?.type === ExamType.SIMPLE_QUESTION && (
+        <QuestionLayout type={QuestionType.SIMPLE} />
+      )}
+      {currentPageData?.type === ExamType.QUESTION_TEXT && (
+        <QuestionLayout type={QuestionType.TEXT} />
+      )}
+      {currentPageData?.type === ExamType.QUESTION_TQ && (
+        <QuestionLayout type={QuestionType.TQ} />
+      )}
+      {currentPageData?.type === ExamType.PAUSE && <PauseLayout />}
+    </div>
   );
 };

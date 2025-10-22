@@ -11,8 +11,7 @@ import { Document } from "../../svg/document";
 import Logo from "../../assets/logo.png";
 import { Clock } from "../../svg/clock";
 import classNames from "classnames";
-import { useParams } from "react-router-dom";
-import { EXAM, type Question } from "../../const/exam";
+import { type Question } from "../../const/exam";
 import { useNavigationContext } from "../../contexts/navigation-context/use-navigation-context";
 
 interface Props {
@@ -20,16 +19,16 @@ interface Props {
 }
 
 export const QuestionLayout: FC<Props> = ({ type }) => {
+  const { pageData, activePage } = useNavigationContext();
   const Content: FC = QuestionContent[type];
   const personImg: string = QuestionPersonImg[type];
-  const { id } = useParams();
   const { timer, timerIsVisible } = useNavigationContext();
 
-  if (!id) {
+  if (!activePage) {
     return null;
   }
 
-  const { part, time }: Question = EXAM[id] as Question;
+  const { part, time }: Question = pageData[activePage] as Question;
 
   return (
     <div className={styles.questionContainer}>

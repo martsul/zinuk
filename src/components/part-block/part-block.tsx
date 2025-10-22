@@ -1,19 +1,16 @@
 import { useEffect, useState, type FC } from "react";
-import { Link } from "react-router-dom";
-import { RouterUrl } from "../../const/router";
 import styles from "./part-block.module.css";
-import { EXAM, ExamStorageName, QuestionTypeByParts } from "../../const/exam";
+import { ExamStorageName, getQuestionTypeByParts } from "../../const/exam";
 import { PartItem } from "../part-item/part-item";
+import { useNavigationContext } from "../../contexts/navigation-context/use-navigation-context";
 
 interface Props {
   part: number;
+  openDetails: () => void;
 }
 
-const results: Record<string, string> = JSON.parse(
-  sessionStorage.getItem(ExamStorageName) || "{}"
-);
-
-export const PartBlock: FC<Props> = ({ part }) => {
+export const PartBlock: FC<Props> = ({ part, openDetails }) => {
+  const { pageData } = useNavigationContext();
   const [correctCount, setCorrectCount] = useState<{
     correct: number;
     total: number;
@@ -21,13 +18,17 @@ export const PartBlock: FC<Props> = ({ part }) => {
     correct: 0,
     total: 0,
   });
-  const items: string[] = QuestionTypeByParts[part] || [];
+  const questionTypeByParts = getQuestionTypeByParts(pageData);
+  const items: string[] = questionTypeByParts[part] || [];
+  const results: Record<string, string> = JSON.parse(
+    sessionStorage.getItem(ExamStorageName) || "{}"
+  );
 
   useEffect(() => {
     let correct = 0;
     let total = 0;
-    for (const key in EXAM) {
-      const element = EXAM[key];
+    for (const key in pageData) {
+      const element = pageData[key];
       if ("correctAnswer" in element) {
         if (element.part === part) {
           total++;
@@ -38,7 +39,7 @@ export const PartBlock: FC<Props> = ({ part }) => {
       }
     }
     setCorrectCount({ total, correct });
-  }, [part]);
+  }, [pageData, part, results]);
 
   return (
     <div className={styles.container}>
@@ -53,9 +54,9 @@ export const PartBlock: FC<Props> = ({ part }) => {
           <PartItem type={item} part={part} key={i} />
         ))}
       </div>
-      <Link className={styles.link} to={`/${RouterUrl.RESULTS_DETAILS}`}>
+      <div className={styles.link} onClick={openDetails}>
         For more details
-      </Link>
+      </div>
     </div>
   );
 };

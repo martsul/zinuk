@@ -1,59 +1,68 @@
-import { Link } from "react-router-dom";
 import { LogoHeader } from "../../components/logo-header/logo-header";
 import styles from "./results-layout.module.css";
 import { Arrow } from "../../svg/arrow";
 import { Home } from "../../svg/home";
-import type { FC, ReactElement } from "react";
-import { EXAM, ExamStorageName, QuestionsCount } from "../../const/exam";
+import { ExamStorageName, getQuestionCount } from "../../const/exam";
+import { useEffect, useState } from "react";
+import { ResultsDetails } from "../results-content/results-details/results-details";
+import { ResultsBase } from "../results-content/results-base/results-base";
+import { useNavigationContext } from "../../contexts/navigation-context/use-navigation-context";
 
-interface Props {
-  children: ReactElement;
-}
+export const ResultsLayout = () => {
+  const [detailsIsOpen, setDetailsIsOpen] = useState(false);
+  const { pageData } = useNavigationContext();
+  const questionsCount = getQuestionCount(pageData);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
 
-const results: Record<string, string> = JSON.parse(
-  sessionStorage.getItem(ExamStorageName) || "{}"
-);
-let correctAnswers = 0;
+  useEffect(() => {
+    const results: Record<string, string> = JSON.parse(
+      sessionStorage.getItem(ExamStorageName) || "{}"
+    );
 
-for (const key in results) {
-  const result = results[key];
-  if ("correctAnswer" in EXAM[key]) {
-    if (EXAM[key].correctAnswer == +result) {
-      correctAnswers++;
+    for (const key in results) {
+      const result = results[key];
+      if ("correctAnswer" in pageData[key]) {
+        if (pageData[key].correctAnswer == +result) {
+          setCorrectAnswers((prev) => prev + 1);
+        }
+      }
     }
-  }
-}
+  }, [pageData]);
 
-export const ResultsLayout: FC<Props> = ({ children }) => {
   return (
     <div className={styles.container}>
       <LogoHeader>
         <div className={styles.headerContainer}>
           <div className={styles.actions}>
-            <Link to={"/"}>
-              <div className={styles.action}>
-                <Arrow />
-                <span className={styles.actionText}>Back</span>
-              </div>
-            </Link>
-            <Link to={"/"}>
-              <div className={styles.action}>
-                <Home />
-                <span className={styles.actionText}>Home</span>
-              </div>
-            </Link>
+            <div
+              onClick={() => setDetailsIsOpen(false)}
+              className={styles.action}
+            >
+              <Arrow />
+              <span className={styles.actionText}>Back</span>
+            </div>
+            <div className={styles.action}>
+              <Home />
+              <span className={styles.actionText}>Home</span>
+            </div>
           </div>
           <div className={styles.score}>
             <p className={styles.percent}>
               Percentage score:{" "}
-              {Math.round((correctAnswers * 100) / QuestionsCount)}%
+              {Math.round((correctAnswers * 100) / questionsCount)}%
             </p>
             <p className={styles.num}>Numerical score: {correctAnswers}</p>
           </div>
           <div className={styles.empty}></div>
         </div>
       </LogoHeader>
-      <div className={styles.content}>{children}</div>
+      <div className={styles.content}>
+        {detailsIsOpen ? (
+          <ResultsDetails />
+        ) : (
+          <ResultsBase openDetails={() => setDetailsIsOpen(true)} />
+        )}
+      </div>
       <div className={styles.footer}></div>
     </div>
   );

@@ -77,7 +77,7 @@ export interface PauseItem extends ExamItem {
   time: number;
 }
 
-type ExamDto = Record<
+export type ExamDto = Record<
   string,
   | PreviewItem
   | IntroItem
@@ -823,16 +823,18 @@ As a reminder, unlike in a real psychometric exam, in this test the score in the
   },
 };
 
-const parts = new Set<number>();
+export const getPartsCount = (exam: ExamDto): number => {
+  const parts = new Set<number>();
 
-for (const key in EXAM) {
-  const element = EXAM[key];
-  if ("part" in element) {
-    parts.add(element.part);
+  for (const key in exam) {
+    const element = exam[key];
+    if ("part" in element) {
+      parts.add(element.part);
+    }
   }
-}
 
-export const PartsCount = parts.size;
+  return parts.size;
+}
 
 export const QuestionByQuestionType: Record<string, number[]> = {};
 
@@ -846,28 +848,35 @@ for (const key in EXAM) {
   }
 }
 
-export const QuestionTypeByParts: Record<number, string[]> = {};
+export const getQuestionTypeByParts = (
+  exam: ExamDto
+): Record<number, string[]> => {
+  const questionTypeByParts: Record<number, string[]> = {};
 
-for (const key in EXAM) {
-  const element = EXAM[key];
-  if ("questionsPart" in element) {
-    const part = element.part;
-    if (!QuestionTypeByParts[part]) {
-      QuestionTypeByParts[part] = [];
-    }
-    if (!QuestionTypeByParts[part].includes(element.questionsPart)) {
-      QuestionTypeByParts[part].push(element.questionsPart);
+  for (const key in exam) {
+    const element = exam[key];
+    if ("questionsPart" in element) {
+      const part = element.part;
+      if (!questionTypeByParts[part]) {
+        questionTypeByParts[part] = [];
+      }
+      if (!questionTypeByParts[part].includes(element.questionsPart)) {
+        questionTypeByParts[part].push(element.questionsPart);
+      }
     }
   }
-}
 
-export const AllQuestions: Record<string, SimpleQuestionItem | TQQuestionItem> =
-  {};
-for (const key in EXAM) {
-  const element = EXAM[key];
-  if ("correctAnswer" in element) {
-    AllQuestions[key] = element;
+  return questionTypeByParts;
+};
+
+export const getQuestionCount = (exam: ExamDto) => {
+  const AllQuestions: Record<string, SimpleQuestionItem | TQQuestionItem> = {};
+  for (const key in exam) {
+    const element = exam[key];
+    if ("correctAnswer" in element) {
+      AllQuestions[key] = element;
+    }
   }
-}
 
-export const QuestionsCount = Object.keys(AllQuestions).length;
+  return Object.keys(AllQuestions).length;
+};

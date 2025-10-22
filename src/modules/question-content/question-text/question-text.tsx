@@ -1,15 +1,15 @@
-import { useParams } from "react-router-dom";
 import { QuestionTextContainer } from "../../../components/question-text-container/question-text-container";
-import { EXAM, type TextQuestionItem } from "../../../const/exam";
+import { type TextQuestionItem } from "../../../const/exam";
+import { useNavigationContext } from "../../../contexts/navigation-context/use-navigation-context";
 
 export const QuestionText = () => {
-  const { id } = useParams();
+  const { pageData, activePage } = useNavigationContext();
 
-  if (!id) {
+  if (activePage === null) {
     return null;
   }
 
-  const questionData: TextQuestionItem = EXAM[id] as TextQuestionItem;
+  const questionData: TextQuestionItem = pageData[activePage] as TextQuestionItem;
 
   return <QuestionTextContainer questions={questionData.questions} />;
 };

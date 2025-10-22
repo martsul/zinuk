@@ -1,14 +1,16 @@
 import { PartBlock } from "../../../components/part-block/part-block";
-import { PartsCount } from "../../../const/exam";
+import { getPartsCount } from "../../../const/exam";
+import { useNavigationContext } from "../../../contexts/navigation-context/use-navigation-context";
 import styles from "./results-base.module.css";
 
+export const ResultsBase = ({ openDetails }: { openDetails: () => void }) => {
+  const { pageData } = useNavigationContext();
+  const partsCount = getPartsCount(pageData);
 
-
-export const ResultsBase = () => {
   return (
     <div className={styles.container}>
-      {[...new Array(PartsCount)].map((_, i) => {
-        return <PartBlock key={i} part={i + 1} />;
+      {[...new Array(partsCount)].map((_, i) => {
+        return <PartBlock openDetails={openDetails} key={i} part={i + 1} />;
       })}
     </div>
   );

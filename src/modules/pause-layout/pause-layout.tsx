@@ -1,17 +1,23 @@
 import { LogoHeader } from "../../components/logo-header/logo-header";
 import { Clock } from "../../svg/clock";
 import styles from "./pause-layout.module.css";
-import Person from "../../assets/pause-1.png";
 import { useNavigationContext } from "../../contexts/navigation-context/use-navigation-context";
+import type { PauseItem } from "../../const/exam";
 
 export const PauseLayout = () => {
-  const { timer, timerIsVisible, canContinue } = useNavigationContext();
+  const { timer, timerIsVisible, canContinue, activePage, pageData } = useNavigationContext();
+
+  if (!activePage) {
+    return;
+  }
+
+  const pauseData = pageData[activePage] as PauseItem;
 
   return (
     <div className={styles.pauseContainer}>
       <LogoHeader />
       <div className={styles.contentContainer}>
-        <img src={Person} alt="person" className={styles.person} />
+        <img src={pauseData.img} alt="person" className={styles.person} />
         <div className={styles.content}>
           <div className={styles.title}>Pause</div>
           {timerIsVisible && (
