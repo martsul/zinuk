@@ -8,6 +8,7 @@ class ExamRepository {
 	
 	public function getExamData( int $examId ): array {
 		$exam = new Exam();
+		$examId = apply_filters( 'wpml_object_id', $examId, 'exam', true );
 		
 		if ( ! $exam->load( $examId ) ) {
 			throw new \Exception( 'Exam not found' );

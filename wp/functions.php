@@ -12,6 +12,8 @@ if (is_admin()) {
   require_once get_stylesheet_directory() . '/inc/ms-business-data-admin.php';
 }
 
+require_once get_stylesheet_directory() . '/app/bootstrap.php';
+
 // Подключаем шорткоды всегда (фронт и админ)
 require_once get_stylesheet_directory() . '/inc/ms-business-data-shortcodes.php';
 
@@ -177,3 +179,67 @@ function register_question_cpt() {
     ]);
 }
 add_action('init', 'register_question_cpt');
+
+if( function_exists('acf_add_options_page') ) {
+    acf_add_options_page([
+        'page_title'  => 'Exam Settings',
+        'menu_title'  => 'Exam Settings',
+        'menu_slug'   => 'exam-settings',
+        'capability'  => 'manage_options',
+        'redirect'    => false,
+        'position'    => 25,
+        'icon_url'    => 'dashicons-welcome-learn-more',
+    ]);
+}
+
+add_action('init', function() {
+  register_taxonomy('question_type', 'question', [
+    'label' => 'Questions Type',
+    'public' => false,
+    'show_ui' => true,
+    'hierarchical' => false,
+    'show_admin_column' => true,
+    'rewrite' => false,
+  ]);
+});
+
+add_filter('acf/load_field/name=question_type', function($field) {
+    $terms = get_terms([
+        'taxonomy' => 'question_type',
+        'hide_empty' => false,
+        'lang' => '',
+    ]);
+
+    $choices = [];
+    if (!is_wp_error($terms)) {
+        foreach ($terms as $term) {
+            $choices[$term->slug] = $term->name;
+        }
+    }
+
+    $field['choices'] = $choices;
+    return $field;
+});
+
+add_filter('acf/load_value/name=question_settings', function($value, $post_id, $field) {
+
+    if(!empty($value)) return $value;
+
+    $terms = get_terms([
+        'taxonomy' => 'question_type',
+        'hide_empty' => false,
+        'lang' => '',
+    ]);
+
+    if(!empty($terms) && !is_wp_error($terms)) {
+        $value = [];
+        foreach($terms as $term) {
+            $value[] = [
+                'question_type' => $term->name,             
+            ];
+        }
+    }
+
+    return $value;
+
+}, 10, 3);

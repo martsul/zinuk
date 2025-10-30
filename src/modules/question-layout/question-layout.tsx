@@ -1,5 +1,9 @@
-import type { FC } from "react";
-import { QuestionPersonImg, QuestionType } from "./question-layout.const";
+import { useEffect, type FC } from "react";
+import {
+  QuestionContent,
+  QuestionPersonImg,
+  QuestionType,
+} from "./question-layout.const";
 import styles from "./question-layout.module.css";
 import { Check } from "../../svg/check";
 import { Copy } from "../../svg/copy";
@@ -9,7 +13,6 @@ import { Clock } from "../../svg/clock";
 import classNames from "classnames";
 import { type Question } from "../../const/exam";
 import { useNavigationContext } from "../../contexts/navigation-context/use-navigation-context";
-import { SimpleQuestion } from "../question-content/simple-question/simple-question";
 
 interface Props {
   type: QuestionType;
@@ -25,9 +28,15 @@ const getType = (question: Question): string => {
 
 export const QuestionLayout: FC<Props> = ({ type }) => {
   const { pageData, activePage } = useNavigationContext();
-  // const Content: FC = QuestionContent[type];
+  const Content: FC = QuestionContent[type];
   const personImg: string = QuestionPersonImg[type];
   const { timer, timerIsVisible } = useNavigationContext();
+
+  useEffect(() => {
+    if (activePage) {
+      console.log(pageData[activePage]);
+    }
+  }, [activePage]);
 
   if (!activePage) {
     return null;
@@ -38,7 +47,7 @@ export const QuestionLayout: FC<Props> = ({ type }) => {
   return (
     <div className={styles.questionContainer}>
       <div className={styles.questionContent}>
-        <SimpleQuestion />
+        <Content />
       </div>
       <div className={styles.questionAside}>
         <svg

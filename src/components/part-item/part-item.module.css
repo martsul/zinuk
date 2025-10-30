@@ -24,6 +24,9 @@
   display: flex;
   align-items: center;
   gap: 15px;
+  overflow: auto;
+  width: 100%;
+  scrollbar-width: thin;
 }
 
 .circle {
@@ -31,6 +34,7 @@
   height: 15px;
   border-radius: 50%;
   border: 1px solid #000;
+  flex-shrink: 0;
 }
 
 .circle.active {
