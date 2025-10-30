@@ -1,4 +1,4 @@
-const BASE_URL: string = '';
+const BASE_URL: string = 'https://wordpress-1063351-5886060.cloudwaysapps.com/api/v1';
 
 export enum ENDPOINTS {
   TEST = 'test',

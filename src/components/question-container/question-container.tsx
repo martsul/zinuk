@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { useEffect, useState, type FC } from "react";
 import styles from "./question-container.module.css";
 import type { AudioQuestion } from "../../models/question.models";
 import { AudioButton } from "../audio-button/audio-button";
@@ -19,6 +19,18 @@ export const QuestionContainer: FC<Props> = ({
   showAnswer = true,
 }) => {
   const { error, answer } = useNavigationContext();
+  const [formattedAnswers, setFormattedAnswers] = useState<
+    { img: string; audio: string }[]
+  >([]);
+
+  useEffect(() => {
+    for (let index = 0; index < answers.length; index += 2) {
+      const img: string = answers[index];
+      const audio: string = answers[index + 1];
+
+      setFormattedAnswers([...formattedAnswers, { img, audio }]);
+    }
+  }, [answers]);
 
   return (
     <div className={styles.container}>
@@ -51,10 +63,11 @@ export const QuestionContainer: FC<Props> = ({
             )}
           </div>
           <div className={styles.answers}>
-            {answers.map((answer: string, index: number) => (
-              <p key={index} className={styles.answer}>
-                {answer} ({index + 1})
-              </p>
+            {formattedAnswers.map((answer, index: number) => (
+              <div className={styles.answer} key={index}>
+                <img src={answer.img} />
+                <AudioButton audioUrl={answer.audio} />
+              </div>
             ))}
           </div>
         </div>

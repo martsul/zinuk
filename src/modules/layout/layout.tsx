@@ -1,3 +1,4 @@
+import { Loader } from "../../components/loader/loader";
 import { ExamType } from "../../const/exam";
 import { useNavigationContext } from "../../contexts/navigation-context/use-navigation-context";
 import { IntroLayout } from "../intro-layout/intro-layout";
@@ -13,12 +14,15 @@ export const Layout = () => {
   const { activePage, pageData } = useNavigationContext();
 
   if (!activePage) {
-    return;
+    return (
+      <div className={styles.loaderContainer}>
+        <Loader />
+      </div>
+    );
   }
 
   const currentPageData =
     activePage === "results" ? null : pageData[activePage];
-
 
   return activePage === "results" ? (
     <ResultsLayout />

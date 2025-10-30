@@ -2,22 +2,42 @@ import { LogoHeader } from "../../components/logo-header/logo-header";
 import { Clock } from "../../svg/clock";
 import styles from "./pause-layout.module.css";
 import { useNavigationContext } from "../../contexts/navigation-context/use-navigation-context";
-import type { PauseItem } from "../../const/exam";
+import { ExamType } from "../../const/exam";
+import { useEffect, useState } from "react";
+import pause1 from "@/assets/pause-1.png";
+import pause2 from "@/assets/pause-2.png";
+
+const examPersons: Record<number, string> = {
+  0: pause1,
+  1: pause2,
+}
 
 export const PauseLayout = () => {
   const { timer, timerIsVisible, canContinue, activePage, pageData } = useNavigationContext();
+  const [pauseIndex, setPauseIndex] = useState(0);
+
+  useEffect(() => {
+    for (const key in pageData) {
+      const currentItem = pageData[key];
+      if (currentItem.id === activePage) {
+        return
+      } 
+
+      if (currentItem.type === ExamType.PAUSE) {
+        setPauseIndex(prev => prev + 1)
+      }
+    }
+  }, [activePage, pageData])
 
   if (!activePage) {
     return;
   }
 
-  const pauseData = pageData[activePage] as PauseItem;
-
   return (
     <div className={styles.pauseContainer}>
       <LogoHeader />
       <div className={styles.contentContainer}>
-        <img src={pauseData.img} alt="person" className={styles.person} />
+        <img src={examPersons[pauseIndex] || pause1} alt="person" className={styles.person} />
         <div className={styles.content}>
           <div className={styles.title}>Pause</div>
           {timerIsVisible && (

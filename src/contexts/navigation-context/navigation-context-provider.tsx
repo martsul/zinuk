@@ -8,7 +8,6 @@ import {
 } from "react";
 import { NavigationContext } from ".";
 import {
-  EXAM,
   ExamStorageName,
   ExamType,
   type ExamDto,
@@ -51,18 +50,24 @@ const formatSecondsToMMSS = (seconds: number | undefined): string => {
   return `${mm}:${ss}`;
 };
 
+declare global {
+  interface Window {
+    MS_TEST_ID?: string;
+  }
+}
+
 export const NavigationContextProvider: FC<Props> = ({ children }) => {
-  const testId: string = "1";
+  const testId: string = window.MS_TEST_ID || "1";
   const [answer, setAnswer] = useState<string | undefined>(undefined);
   const [error, setError] = useState<boolean>(false);
   const activeAudioRef = useRef<HTMLAudioElement | null>(null);
   const [canContinue, setCanContinue] = useState<boolean>(true);
   const [timerIsVisible, setTimerIsVisible] = useState<boolean>(true);
   const [timer, setTimer] = useState<number | undefined>(undefined);
-  const [pageData, setPageData] = useState<ExamDto>(EXAM);
+  const [pageData, setPageData] = useState<ExamDto>({});
   const [activePage, setActivePage] = useState<
     null | number | "results" | string
-  >(1);
+  >(null);
   const intervalRef = useRef<number | undefined>(undefined);
 
   const saveResults = useCallback(() => {

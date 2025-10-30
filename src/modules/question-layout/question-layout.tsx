@@ -1,9 +1,5 @@
 import type { FC } from "react";
-import {
-  QuestionContent,
-  QuestionPersonImg,
-  QuestionType,
-} from "./question-layout.const";
+import { QuestionPersonImg, QuestionType } from "./question-layout.const";
 import styles from "./question-layout.module.css";
 import { Check } from "../../svg/check";
 import { Copy } from "../../svg/copy";
@@ -13,14 +9,23 @@ import { Clock } from "../../svg/clock";
 import classNames from "classnames";
 import { type Question } from "../../const/exam";
 import { useNavigationContext } from "../../contexts/navigation-context/use-navigation-context";
+import { SimpleQuestion } from "../question-content/simple-question/simple-question";
 
 interface Props {
   type: QuestionType;
 }
 
+const getType = (question: Question): string => {
+  if ("questionsPart" in question) {
+    return question.questionsPart as string;
+  }
+
+  return "Question Type";
+};
+
 export const QuestionLayout: FC<Props> = ({ type }) => {
   const { pageData, activePage } = useNavigationContext();
-  const Content: FC = QuestionContent[type];
+  // const Content: FC = QuestionContent[type];
   const personImg: string = QuestionPersonImg[type];
   const { timer, timerIsVisible } = useNavigationContext();
 
@@ -33,7 +38,7 @@ export const QuestionLayout: FC<Props> = ({ type }) => {
   return (
     <div className={styles.questionContainer}>
       <div className={styles.questionContent}>
-        <Content />
+        <SimpleQuestion />
       </div>
       <div className={styles.questionAside}>
         <svg
@@ -65,7 +70,9 @@ export const QuestionLayout: FC<Props> = ({ type }) => {
           <img src={Logo} alt="logo" className={styles.questionLogoImage} />
         </div>
         <p className={styles.questionLogoTitle}>Exam Part {part}</p>
-        <p className={styles.questionLogoSubtitle}>Question Type</p>
+        <p className={styles.questionLogoSubtitle}>
+          {getType(pageData[activePage] as Question)}
+        </p>
         <div className={styles.questionBox}>
           <div className={styles.questionBoxClock}>
             <Clock />
