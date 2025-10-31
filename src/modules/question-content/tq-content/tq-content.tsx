@@ -18,7 +18,6 @@ export const TqContent = () => {
       <QuestionTextContainer questions={questionData.questions} />
       <QuestionContainer
         question={questionData.question}
-        title={questionData.title}
         answers={questionData.answers}
       />
     </div>

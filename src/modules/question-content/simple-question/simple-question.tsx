@@ -14,7 +14,6 @@ export const SimpleQuestion = () => {
   return (
     <QuestionContainer
       question={questionData.question}
-      title={questionData.title}
       answers={questionData.answers}
     />
   );

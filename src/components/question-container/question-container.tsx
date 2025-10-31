@@ -7,14 +7,12 @@ import { useNavigationContext } from "../../contexts/navigation-context/use-navi
 
 interface Props {
   question: AudioQuestion | string;
-  title: AudioQuestion | string;
   answers: string[];
   showAnswer?: boolean;
 }
 
 export const QuestionContainer: FC<Props> = ({
   question,
-  title,
   answers,
   showAnswer = true,
 }) => {
@@ -24,11 +22,12 @@ export const QuestionContainer: FC<Props> = ({
   >([]);
 
   useEffect(() => {
+    setFormattedAnswers([]);
     for (let index = 0; index < answers.length; index += 2) {
       const img: string = answers[index];
       const audio: string = answers[index + 1];
 
-      setFormattedAnswers([...formattedAnswers, { img, audio }]);
+      setFormattedAnswers((prev) => [...prev, { img, audio }]);
     }
   }, [answers]);
 
@@ -49,16 +48,6 @@ export const QuestionContainer: FC<Props> = ({
             {typeof question !== "string" && question.audio && (
               <div className={styles.audioButton}>
                 <AudioButton audioUrl={question.audio} />
-              </div>
-            )}
-          </div>
-          <div className={styles.audioContainer}>
-            <p className={styles.questionTitle}>
-              {typeof title === "string" ? title : title.question}
-            </p>
-            {typeof title !== "string" && (
-              <div className={styles.audioButton}>
-                <AudioButton audioUrl={title.audio} />
               </div>
             )}
           </div>

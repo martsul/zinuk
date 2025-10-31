@@ -48,7 +48,6 @@ export const ResultsDetails = () => {
           {selectedQuestion && (
             <QuestionContainer
               question={selectedQuestion.question}
-              title={selectedQuestion.title}
               answers={selectedQuestion.answers}
               showAnswer={false}
             />
