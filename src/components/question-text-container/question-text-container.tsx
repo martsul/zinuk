@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { useEffect, type FC } from "react";
 import type { AudioQuestion } from "../../models/question.models";
 import styles from "./question-text-container.module.css";
 import { AudioButton } from "../audio-button/audio-button";
@@ -8,6 +8,20 @@ interface Props {
 }
 
 export const QuestionTextContainer: FC<Props> = ({ questions }) => {
+  useEffect(() => {
+    document.addEventListener(
+      "wheel",
+      (e) => {
+        const el = document.querySelector(`.${styles.content}`);
+        if (el && e.target instanceof Node && el.contains(e.target)) {
+          e.stopPropagation();
+          el.scrollTop += e.deltaY;
+        }
+      },
+      { passive: false }
+    );
+  }, []);
+
   return (
     <div className={styles.container}>
       <div className={styles.content}>

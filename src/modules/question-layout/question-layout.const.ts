@@ -3,6 +3,7 @@ import YellowPerson from "../../assets/yellow-person.svg";
 import WhitePerson from "../../assets/white-person.svg";
 import type { FC } from "react";
 import { SimpleQuestion } from "../question-content/simple-question/simple-question";
+import { TqContent } from "../question-content/tq-content/tq-content";
 
 export enum QuestionType {
   SIMPLE = "simple",
@@ -19,5 +20,5 @@ export const QuestionPersonImg: Record<QuestionType, string> = {
 export const QuestionContent: Record<QuestionType, FC> = {
   [QuestionType.SIMPLE]: SimpleQuestion,
   [QuestionType.TEXT]: QuestionText,
-  [QuestionType.TQ]: SimpleQuestion,
+  [QuestionType.TQ]: TqContent,
 };

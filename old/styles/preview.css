@@ -30,7 +30,7 @@
   max-height: 100%;
   position: absolute;
   bottom: -65px;
-  inset-inline-start: 0;
+  inset-inline-start: 10%;
 }
 
 .preview-content__title {

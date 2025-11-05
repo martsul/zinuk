@@ -201,6 +201,16 @@
   display: flex;
 }
 
+.check {
+  fill: #ed2374;
+  height: 48px;
+  width: 48px;
+}
+
+button {
+  cursor: pointer;
+}
+
 @media (max-height: 760px) {
   .person {
     display: none;

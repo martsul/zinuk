@@ -36,11 +36,17 @@ export const IntroLayout: FC<Props> = ({ type }) => {
       </div>
       <div className={styles.content}>
         <div className={styles.contentContainer}>
-          {introData.texts.map((text, index) => (
-            <p key={index} className={styles.contentText}>
-              {text}
-            </p>
-          ))}
+          {type === IntroType.EXAM ? (
+            <div
+              className={styles.contentText}
+              dangerouslySetInnerHTML={{ __html: introData.img }}
+            />
+          ) : (
+            <div
+              className={styles.contentText}
+              dangerouslySetInnerHTML={{ __html: introData.texts }}
+            />
+          )}
         </div>
         <div className={styles.contentDecor}>
           <BlueDecor />

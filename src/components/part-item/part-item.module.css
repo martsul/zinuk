@@ -24,9 +24,10 @@
   display: flex;
   align-items: center;
   gap: 15px;
-  overflow: auto;
+  overflow: hidden;
   width: 100%;
   scrollbar-width: thin;
+  flex-wrap: wrap;
 }
 
 .circle {

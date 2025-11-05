@@ -31,6 +31,20 @@ export const QuestionContainer: FC<Props> = ({
     }
   }, [answers]);
 
+  useEffect(() => {
+    document.addEventListener(
+      "wheel",
+      (e) => {
+        const el = document.querySelector(`.${styles.contentContainer}`);
+        if (el && e.target instanceof Node && el.contains(e.target)) {
+          e.stopPropagation();
+          el.scrollTop += e.deltaY;
+        }
+      },
+      { passive: false }
+    );
+  }, []);
+
   return (
     <div className={styles.container}>
       <div className={styles.contentContainer}>
@@ -54,7 +68,9 @@ export const QuestionContainer: FC<Props> = ({
           <div className={styles.answers}>
             {formattedAnswers.map((answer, index: number) => (
               <div className={styles.answer} key={index}>
-                <img src={answer.img} />
+                <div>
+                  <img className={styles.img} src={answer.img} />
+                </div>
                 <AudioButton audioUrl={answer.audio} />
               </div>
             ))}

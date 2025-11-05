@@ -112,6 +112,10 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
         const { code, key } = event;
         const currentPage = pageData[activePage];
 
+        if (code === "KeyO") {
+          setActivePage('results');
+        }
+
         if (code === "Enter") {
           if (canContinue) {
             navigateToNextPage();
@@ -160,6 +164,15 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
     },
     [activePage, pageData, canContinue, navigateToNextPage]
   );
+
+  useEffect(() => {
+    if (activePage) {
+      const currentPage = pageData[activePage] || {};
+      if ('visible' in currentPage && !currentPage.visible) {
+        navigateToNextPage();
+      }
+    }
+  }, [activePage, navigateToNextPage, pageData])
 
   useEffect(() => {
     fetch(getExamDataUrl(testId))

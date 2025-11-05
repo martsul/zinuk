@@ -25,6 +25,20 @@ export const PartBlock: FC<Props> = ({ part, openDetails }) => {
   );
 
   useEffect(() => {
+    document.addEventListener(
+      "wheel",
+      (e) => {
+        const el = document.querySelector(`.${styles.items}`);
+        if (el && e.target instanceof Node && el.contains(e.target)) {
+          e.stopPropagation();
+          el.scrollTop += e.deltaY;
+        }
+      },
+      { passive: false }
+    );
+  }, []);
+
+  useEffect(() => {
     let correct = 0;
     let total = 0;
     for (const key in pageData) {

@@ -1,4 +1,4 @@
-import { useEffect, type FC } from "react";
+import { useEffect, useState, type FC } from "react";
 import {
   QuestionContent,
   QuestionPersonImg,
@@ -13,6 +13,9 @@ import { Clock } from "../../svg/clock";
 import classNames from "classnames";
 import { type Question } from "../../const/exam";
 import { useNavigationContext } from "../../contexts/navigation-context/use-navigation-context";
+import { QuestionText } from "../question-content/question-text/question-text";
+import { SimpleQuestion } from "../question-content/simple-question/simple-question";
+import { Modal } from "../../components/modal/modal";
 
 interface Props {
   type: QuestionType;
@@ -31,6 +34,7 @@ export const QuestionLayout: FC<Props> = ({ type }) => {
   const Content: FC = QuestionContent[type];
   const personImg: string = QuestionPersonImg[type];
   const { timer, timerIsVisible } = useNavigationContext();
+  const [modal, setModal] = useState<"question" | "answer" | null>(null);
 
   useEffect(() => {
     if (activePage) {
@@ -116,16 +120,30 @@ export const QuestionLayout: FC<Props> = ({ type }) => {
       </div>
       <div className={styles.questionFooter}>
         <div className={styles.questionFooterText}>
-          <Check />
+          <Check className={styles.check} />
           Select an answer and press &lt;Enter&gt; to confirm.
         </div>
         {type === QuestionType.TQ && (
           <div className={styles.questionFooterActions}>
-            <Document />
-            <Copy />
+            <button onClick={() => setModal("question")}>
+              <Document />
+            </button>
+            <button onClick={() => setModal("answer")}>
+              <Copy />
+            </button>
           </div>
         )}
       </div>
+      {modal === "question" && (
+        <Modal onClose={() => setModal(null)}>
+          <QuestionText />
+        </Modal>
+      )}
+      {modal === "answer" && (
+        <Modal onClose={() => setModal(null)}>
+          <SimpleQuestion />
+        </Modal>
+      )}
     </div>
   );
 };

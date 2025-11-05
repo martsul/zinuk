@@ -1,3 +1,7 @@
 .audioButton {
   cursor: pointer;
 }
+
+:global(.rtl) .audioButton  {
+  transform: scaleX(-1);
+}

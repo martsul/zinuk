@@ -10,24 +10,25 @@ import pause2 from "@/assets/pause-2.png";
 const examPersons: Record<number, string> = {
   0: pause1,
   1: pause2,
-}
+};
 
 export const PauseLayout = () => {
-  const { timer, timerIsVisible, canContinue, activePage, pageData } = useNavigationContext();
+  const { timer, timerIsVisible, activePage, pageData } =
+    useNavigationContext();
   const [pauseIndex, setPauseIndex] = useState(0);
 
   useEffect(() => {
     for (const key in pageData) {
       const currentItem = pageData[key];
       if (currentItem.id === activePage) {
-        return
-      } 
+        return;
+      }
 
       if (currentItem.type === ExamType.PAUSE) {
-        setPauseIndex(prev => prev + 1)
+        setPauseIndex((prev) => prev + 1);
       }
     }
-  }, [activePage, pageData])
+  }, [activePage, pageData]);
 
   if (!activePage) {
     return;
@@ -37,7 +38,11 @@ export const PauseLayout = () => {
     <div className={styles.pauseContainer}>
       <LogoHeader />
       <div className={styles.contentContainer}>
-        <img src={examPersons[pauseIndex] || pause1} alt="person" className={styles.person} />
+        <img
+          src={examPersons[pauseIndex] || pause1}
+          alt="person"
+          className={styles.person}
+        />
         <div className={styles.content}>
           <div className={styles.title}>Pause</div>
           {timerIsVisible && (
@@ -58,10 +63,9 @@ export const PauseLayout = () => {
       </div>
       <div className={styles.footer}>
         <span className={styles.footerText}>
-          To skip a paragraph, press the number
+          To skip a paragraph, press the number &lt;5&gt; followed by
+          &lt;Enter&gt;
         </span>
-        <span className={styles.footerFive}>{canContinue ? "5" : ""}</span>
-        <span className={styles.footerText}>followed by &lt;Enter&gt;</span>
       </div>
     </div>
   );

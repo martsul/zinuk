@@ -45,6 +45,7 @@ export interface Question extends ExamItem {
   part: number;
   id: number;
   time: number;
+  visible?: boolean;
 }
 
 export interface SimpleQuestionItem extends Question {

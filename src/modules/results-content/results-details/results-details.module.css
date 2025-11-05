@@ -1,19 +1,32 @@
 .container {
   display: grid;
-  grid-template-columns: 2fr 3fr;
+  grid-template-columns: 400px 1fr;
   gap: 20px;
   height: 100%;
   min-height: 0;
 }
 
-.all {
+.allContainer {
   padding: 15px;
+  height: 100%;
+  min-height: 0;
+  background: #d4e0ee;
+}
+
+.all {
   background: #d4e0ee;
   display: flex;
   flex-direction: column;
   gap: 15px;
   height: 100%;
   min-height: 0;
+  overflow: auto;
+}
+
+.detailsContainer {
+  width: 100%;
+  min-height: 0;
+  height: 100%;
 }
 
 .details {
@@ -21,6 +34,8 @@
   grid-template-rows: 60px 1fr 116px;
   height: 100%;
   min-height: 0;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .detailsHeader {
@@ -74,4 +89,47 @@
   border: 2px solid #fff;
   align-items: center;
   justify-content: center;
+}
+
+.check {
+  fill: #ed2374;
+  height: 48px;
+  width: 48px;
+}
+
+.help {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.helpRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.helpText {
+  font: 400 16px/1 var(--font-a);
+}
+
+.answerSq {
+  width: 18px;
+  height: 18px;
+  border: 1px solid #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.warning .answerSq {
+  background: #ffe700;
+}
+
+.correct .answerSq {
+  background: #009a40;
+}
+
+.wrong .answerSq {
+  background: #ed2374;
 }

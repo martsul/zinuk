@@ -7,9 +7,11 @@ import {
 } from "../../const/exam";
 import classNames from "classnames";
 import { useNavigationContext } from "../../contexts/navigation-context/use-navigation-context";
+import { Select } from "../../svg/select";
 
 interface Props {
   part: number;
+  selectedQuestion: SimpleQuestionItem | TQQuestionItem | null;
   onSelectQuestion: (
     question: SimpleQuestionItem | TQQuestionItem | null
   ) => void;
@@ -20,6 +22,7 @@ export const PartDetails: FC<Props> = ({
   part,
   onSelectQuestion,
   setQuestionNumber,
+  selectedQuestion,
 }) => {
   const { pageData } = useNavigationContext();
   const [questions, setQuestions] = useState<
@@ -65,7 +68,13 @@ export const PartDetails: FC<Props> = ({
               }}
             >
               <div className={styles.answerNum}>{i + 1}</div>
-              <div className={styles.answerSq}></div>
+              <div className={styles.answerSq}>
+                <Select
+                  className={classNames(styles.check, {
+                    [styles.active]: q.id === selectedQuestion?.id,
+                  })}
+                />
+              </div>
             </div>
           );
         })}
