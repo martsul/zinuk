@@ -21,6 +21,23 @@ interface Props {
   type: QuestionType;
 }
 
+const texts = {
+  en: {
+    examPart: "Exam Part",
+    timeAllotted: "Time allotted",
+    minutes: "Minutes",
+    f12: "(F12 to hide the clock)",
+    enter: "Select an answer and press <Enter>; to confirm.",
+  },
+  "he-IL": {
+    examPart: "חלק במבחן",
+    timeAllotted: "זמן מוקצב",
+    minutes: "דקות",
+    f12: "(F12 להסתרת השעון)",
+    enter: "בחר תשובה ולחץ על <Enter> לאישור.",
+  },
+};
+
 const getType = (question: Question): string => {
   if ("questionsPart" in question) {
     return question.questionsPart as string;
@@ -30,6 +47,7 @@ const getType = (question: Question): string => {
 };
 
 export const QuestionLayout: FC<Props> = ({ type }) => {
+  const lang: "en" | "he-IL" = document.documentElement.lang as "en" | "he-IL";
   const { pageData, activePage } = useNavigationContext();
   const Content: FC = QuestionContent[type];
   const personImg: string = QuestionPersonImg[type];
@@ -82,7 +100,9 @@ export const QuestionLayout: FC<Props> = ({ type }) => {
           </svg>
           <img src={Logo} alt="logo" className={styles.questionLogoImage} />
         </div>
-        <p className={styles.questionLogoTitle}>Exam Part {part}</p>
+        <p className={styles.questionLogoTitle}>
+          {texts[lang].examPart} {part}
+        </p>
         <p className={styles.questionLogoSubtitle}>
           {getType(pageData[activePage] as Question)}
         </p>
@@ -90,19 +110,19 @@ export const QuestionLayout: FC<Props> = ({ type }) => {
           <div className={styles.questionBoxClock}>
             <Clock />
           </div>
-          <p className={styles.questionBoxText}>Time allotted</p>
+          <p className={styles.questionBoxText}>{texts[lang].timeAllotted}</p>
           <p className={styles.questionBoxTime}>{time}</p>
-          <p className={styles.questionBoxText}>Minutes</p>
+          <p className={styles.questionBoxText}>{texts[lang].minutes}</p>
         </div>
         {timerIsVisible && (
           <div className={classNames(styles.questionBox, styles.yellow)}>
             <div className={styles.questionBoxClock}>
               <Clock color="#ffe700" />
             </div>
-            <p className={styles.questionBoxTitle}>Time allotted:</p>
-            <p className={styles.questionBoxSubtitle}>
-              (F12 to hide the clock)
+            <p className={styles.questionBoxTitle}>
+              {texts[lang].timeAllotted}:
             </p>
+            <p className={styles.questionBoxSubtitle}>{texts[lang].f12}</p>
             <p className={styles.questionBoxTime}>{timer}</p>
           </div>
         )}
@@ -121,7 +141,7 @@ export const QuestionLayout: FC<Props> = ({ type }) => {
       <div className={styles.questionFooter}>
         <div className={styles.questionFooterText}>
           <Check className={styles.check} />
-          Select an answer and press &lt;Enter&gt; to confirm.
+          {texts[lang].enter}
         </div>
         {type === QuestionType.TQ && (
           <div className={styles.questionFooterActions}>

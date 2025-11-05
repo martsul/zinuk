@@ -12,10 +12,26 @@ const examPersons: Record<number, string> = {
   1: pause2,
 };
 
+const text = {
+  en: {
+    pause: "Pause",
+    timeRemaining: "Time remaining",
+    f12: "(F12 to hide the clock)",
+    skip: "To skip a paragraph, press the number <5> followed by <Enter>",
+  },
+  "he-IL": {
+    pause: "הפסקה",
+    timeRemaining: "זמן שנותר",
+    f12: "(F12 להסתרת השעון)",
+    skip: "כדי לדלג על פסקה, לחץ על המספר <5> ואחריו <Enter>",
+  },
+};
+
 export const PauseLayout = () => {
   const { timer, timerIsVisible, activePage, pageData } =
     useNavigationContext();
   const [pauseIndex, setPauseIndex] = useState(0);
+  const lang: "en" | "he-IL" = document.documentElement.lang as "en" | "he-IL";
 
   useEffect(() => {
     for (const key in pageData) {
@@ -44,28 +60,22 @@ export const PauseLayout = () => {
           className={styles.person}
         />
         <div className={styles.content}>
-          <div className={styles.title}>Pause</div>
+          <div className={styles.title}>{text[lang].pause}</div>
           {timerIsVisible && (
             <div className={styles.box}>
               <div className={styles.clock}>
                 <Clock color="#30326d" />
               </div>
-              <p className={styles.boxTitle}>Time remaining:</p>
-              <p className={styles.boxSubtitle}>(F12 to hide the clock)</p>
+              <p className={styles.boxTitle}>{text[lang].timeRemaining}:</p>
+              <p className={styles.boxSubtitle}>{text[lang].f12}</p>
               <p className={styles.boxTime}>{timer}</p>
             </div>
           )}
-          <p className={styles.subBox}>
-            To skip a paragraph, press the number &lt;5&gt; followed by
-            &lt;Enter&gt;
-          </p>
+          <p className={styles.subBox}>{text[lang].skip}</p>
         </div>
       </div>
       <div className={styles.footer}>
-        <span className={styles.footerText}>
-          To skip a paragraph, press the number &lt;5&gt; followed by
-          &lt;Enter&gt;
-        </span>
+        <span className={styles.footerText}>{text[lang].skip}</span>
       </div>
     </div>
   );

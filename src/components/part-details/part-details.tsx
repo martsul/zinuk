@@ -25,6 +25,7 @@ export const PartDetails: FC<Props> = ({
   selectedQuestion,
 }) => {
   const { pageData } = useNavigationContext();
+  const lang: "en" | "he-IL" = document.documentElement.lang as "en" | "he-IL";
   const [questions, setQuestions] = useState<
     (SimpleQuestionItem | TQQuestionItem)[]
   >([]);
@@ -46,7 +47,9 @@ export const PartDetails: FC<Props> = ({
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>Part {part}</div>
+      <div className={styles.header}>
+        {lang === "en" ? "Part" : "חלק"} {part}
+      </div>
       <div className={styles.answers}>
         {questions.map((q, i) => {
           let status: string;

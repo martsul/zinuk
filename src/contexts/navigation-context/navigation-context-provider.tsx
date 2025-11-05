@@ -8,6 +8,7 @@ import {
 } from "react";
 import { NavigationContext } from ".";
 import {
+  EXAM,
   ExamStorageName,
   ExamType,
   type ExamDto,
@@ -64,10 +65,10 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
   const [canContinue, setCanContinue] = useState<boolean>(true);
   const [timerIsVisible, setTimerIsVisible] = useState<boolean>(true);
   const [timer, setTimer] = useState<number | undefined>(undefined);
-  const [pageData, setPageData] = useState<ExamDto>({});
+  const [pageData, setPageData] = useState<ExamDto>(EXAM);
   const [activePage, setActivePage] = useState<
     null | number | "results" | string
-  >(null);
+  >(1);
   const intervalRef = useRef<number | undefined>(undefined);
 
   const saveResults = useCallback(() => {

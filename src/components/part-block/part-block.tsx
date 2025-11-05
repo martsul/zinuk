@@ -9,8 +9,20 @@ interface Props {
   openDetails: () => void;
 }
 
+const texts = {
+  en: {
+    part: "Exam Part",
+    more: "For more details",
+  },
+  "he-IL": {
+    part: "חלק במבחן",
+    more: "למידע נוסף",
+  },
+};
+
 export const PartBlock: FC<Props> = ({ part, openDetails }) => {
   const { pageData } = useNavigationContext();
+  const lang: "en" | "he-IL" = document.documentElement.lang as "en" | "he-IL";
   const [correctCount, setCorrectCount] = useState<{
     correct: number;
     total: number;
@@ -58,7 +70,9 @@ export const PartBlock: FC<Props> = ({ part, openDetails }) => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <div className={styles.headerText}>Exam Part {part}</div>
+        <div className={styles.headerText}>
+          {texts[lang].part} {part}
+        </div>
         <div className={styles.headerText}>
           {Math.round((correctCount.correct * 100) / correctCount.total)}%
         </div>
@@ -69,7 +83,7 @@ export const PartBlock: FC<Props> = ({ part, openDetails }) => {
         ))}
       </div>
       <div className={styles.link} onClick={openDetails}>
-        For more details
+        {texts[lang].more}
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import { LogoHeader } from "../../components/logo-header/logo-header";
 import { Decor } from "../../svg/decor";
 import styles from "./preview-layout.module.css";
-import { ExamType, type PreviewItem } from "../../const/exam";
+import { ExamType } from "../../const/exam";
 import { useNavigationContext } from "../../contexts/navigation-context/use-navigation-context";
 import { useEffect, useState } from "react";
 import previewPerson1 from "@/assets/1-preview.png";
@@ -12,11 +12,37 @@ const personsImg: Record<number, string> = {
   0: previewPerson1,
   1: previewPerson2,
   2: previewPerson3,
-}
+};
+
+const previewTexts: Record<
+  "en" | "he-IL",
+  {
+    title: Record<0 | 1 | 2, string>;
+    enter: string;
+  }
+> = {
+  en: {
+    title: {
+      "0": "Exam Part 1 ",
+      "1": "Exam Part 2 ",
+      "2": "Exam Part 3 ",
+    },
+    enter: "To continue, press <Enter>.",
+  },
+  "he-IL": {
+    title: {
+      "0": "מילולי",
+      "1": "כמותי",
+      "2": "אנגלית",
+    },
+    enter: "להמשך יש להקיש <Enter>",
+  },
+};
 
 export const PreviewLayout = () => {
   const { pageData, activePage } = useNavigationContext();
   const [previewIndex, setPreviewIndex] = useState(0);
+  const lang: "en" | "he-IL" = document.documentElement.lang as "en" | "he-IL";
 
   useEffect(() => {
     for (const key in pageData) {
@@ -26,17 +52,14 @@ export const PreviewLayout = () => {
       }
 
       if (currentItem.type === ExamType.PREVIEW) {
-        setPreviewIndex((prev) => prev + 1)
+        setPreviewIndex((prev) => prev + 1);
       }
     }
-
-  }, [activePage, pageData])
+  }, [activePage, pageData]);
 
   if (!activePage) {
     return;
   }
-
-  const previewData: PreviewItem = pageData[activePage] as PreviewItem;
 
   return (
     <div className={styles.previewContainer}>
@@ -48,14 +71,18 @@ export const PreviewLayout = () => {
             alt="person"
             className={styles.contentImg}
           />
-          <p className={styles.contentTitle}>{previewData.title}</p>
+          <p className={styles.contentTitle}>
+            {lang === "en"
+              ? previewTexts["en"].title[`${previewIndex}` as "0" | "1" | "2"]
+              : "מילולי"}
+          </p>
         </div>
         <div className={styles.contentDecor}>
           <Decor />
         </div>
       </div>
       <div className={styles.footer}>
-        <p className={styles.footerText}>To continue, press &lt;Enter&gt;.</p>
+        <p className={styles.footerText}>{previewTexts[lang].enter}</p>
         <div className={styles.footerDecor}>
           <Decor />
         </div>

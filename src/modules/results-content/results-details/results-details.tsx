@@ -13,6 +13,25 @@ import styles from "./results-details.module.css";
 import { useNavigationContext } from "../../../contexts/navigation-context/use-navigation-context";
 import classNames from "classnames";
 
+const texts = {
+  en: {
+    correct: "Correct Answer",
+    notIncluded: "The question that was not included in the exam",
+    incorrect: "Incorrect answer",
+    part: "Part",
+    questions: "Question",
+    yourAnswer: "Your answer",
+  },
+  "he-IL": {
+    correct: "תשובה נכונה",
+    notIncluded: "שאלה שלא נכללה במבחן",
+    incorrect: "תשובה שגויה",
+    part: "חלק",
+    questions: "שאלה",
+    yourAnswer: "התשובה שלך",
+  },
+};
+
 export const ResultsDetails = () => {
   const { pageData } = useNavigationContext();
   const [selectedQuestion, setSelectedQuestion] = useState<
@@ -20,6 +39,7 @@ export const ResultsDetails = () => {
   >(null);
   const [questionNumber, setQuestionNumber] = useState<number | null>(null);
   const partsCount = getPartsCount(pageData);
+  const lang: "en" | "he-IL" = document.documentElement.lang as "en" | "he-IL";
   const results: Record<string, string> = JSON.parse(
     sessionStorage.getItem(ExamStorageName) || "{}"
   );
@@ -53,17 +73,15 @@ export const ResultsDetails = () => {
           <div className={styles.help}>
             <div className={classNames(styles.helpRow, styles.correct)}>
               <div className={styles.answerSq}></div>
-              <span className={styles.helpText}>Correct Answer</span>
+              <span className={styles.helpText}>{texts[lang].correct}</span>
             </div>
             <div className={classNames(styles.helpRow, styles.warning)}>
               <div className={styles.answerSq}></div>
-              <span className={styles.helpText}>
-                The question that was not included in the exam
-              </span>
+              <span className={styles.helpText}>{texts[lang].notIncluded}</span>
             </div>
             <div className={classNames(styles.helpRow, styles.wrong)}>
               <div className={styles.answerSq}></div>
-              <span className={styles.helpText}>Incorrect answer</span>
+              <span className={styles.helpText}>{texts[lang].incorrect}</span>
             </div>
           </div>
         </div>
@@ -72,8 +90,8 @@ export const ResultsDetails = () => {
         <div className={styles.details}>
           <div className={styles.detailsHeader}>
             <div className={styles.detailsTitle}>
-              Part {selectedQuestion?.part}, Question{" "}
-              {questionNumber ? questionNumber : ""}
+              {texts[lang].part} {selectedQuestion?.part},{" "}
+              {texts[lang].questions} {questionNumber ? questionNumber : ""}
             </div>
             <button>
               <Copy />
@@ -91,7 +109,7 @@ export const ResultsDetails = () => {
           <div className={styles.detailsFooter}>
             <div className={styles.footerTexts}>
               <div className={styles.footerText}>
-                <span>Correct Answer: </span>
+                <span>{texts[lang].correct}: </span>
                 <span className={styles.footerSq}>
                   {selectedQuestion?.id &&
                   "correctAnswer" in pageData[selectedQuestion.id] ? (
@@ -110,7 +128,7 @@ export const ResultsDetails = () => {
                 </span>
               </div>
               <div className={styles.footerText}>
-                <span>Your answer:</span>
+                <span>{texts[lang].yourAnswer}:</span>
                 <span className={styles.footerSq}>
                   {selectedQuestion ? results[selectedQuestion.id] : ""}
                 </span>

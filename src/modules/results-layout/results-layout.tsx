@@ -8,11 +8,27 @@ import { ResultsDetails } from "../results-content/results-details/results-detai
 import { ResultsBase } from "../results-content/results-base/results-base";
 import { useNavigationContext } from "../../contexts/navigation-context/use-navigation-context";
 
+const texts = {
+  en: {
+    back: "Back",
+    home: "Home",
+    percentage: "Percentage score:",
+    numerical: "Numerical score",
+  },
+  "he-IL": {
+    back: "חזרה",
+    home: "דף הבית",
+    percentage: "ציון באחוזים:",
+    numerical: "ציון מספרי",
+  },
+};
+
 export const ResultsLayout = () => {
   const [detailsIsOpen, setDetailsIsOpen] = useState(false);
   const { pageData } = useNavigationContext();
   const questionsCount = getQuestionCount(pageData);
   const [correctAnswers, setCorrectAnswers] = useState(0);
+  const lang: "en" | "he-IL" = document.documentElement.lang as "en" | "he-IL";
 
   useEffect(() => {
     const results: Record<string, string> = JSON.parse(
@@ -39,19 +55,21 @@ export const ResultsLayout = () => {
               className={styles.action}
             >
               <Arrow />
-              <span className={styles.actionText}>Back</span>
+              <span className={styles.actionText}>{texts[lang].back}</span>
             </div>
             <div className={styles.action}>
               <Home />
-              <span className={styles.actionText}>Home</span>
+              <span className={styles.actionText}>{texts[lang].home}</span>
             </div>
           </div>
           <div className={styles.score}>
             <p className={styles.percent}>
-              Percentage score:{" "}
+              {texts[lang].percentage}{" "}
               {Math.round((correctAnswers * 100) / questionsCount)}%
             </p>
-            <p className={styles.num}>Numerical score: {correctAnswers}</p>
+            <p className={styles.num}>
+              {texts[lang].numerical} {correctAnswers}
+            </p>
           </div>
           <div className={styles.empty}></div>
         </div>
