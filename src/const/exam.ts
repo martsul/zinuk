@@ -136,9 +136,9 @@ As a reminder, unlike in a real psychometric exam, in this test the score in the
     title: "Adviser of Justice: To the defense attorney -",
     answers: [
       "Prophet of Wrath: To be destroyed",
-      "Small faith: to believe",
+      "https://ringtonemaker.com/samples/ringtonemaker/1/body-rock.ogg",
       "Out of control: to irritate",
-      "To cast a spell: to frighten",
+      "https://ringtonemaker.com/samples/ringtonemaker/1/body-rock.ogg",
     ],
     correctAnswer: 2,
   },
@@ -168,9 +168,9 @@ As a reminder, unlike in a real psychometric exam, in this test the score in the
     title: "Adviser of Justice: To the defense attorney -",
     answers: [
       "Prophet of Wrath: To be destroyed",
-      "Small faith: to believe",
+      "https://ringtonemaker.com/samples/ringtonemaker/1/body-rock.ogg",
       "Out of control: to irritate",
-      "To cast a spell: to frighten",
+      "https://ringtonemaker.com/samples/ringtonemaker/1/body-rock.ogg",
     ],
     correctAnswer: 2,
   },
@@ -196,6 +196,46 @@ As a reminder, unlike in a real psychometric exam, in this test the score in the
     part: 1,
     time: 4,
     questions: [
+      {
+        question: questionImg,
+        audio:
+          "https://ringtonemaker.com/samples/ringtonemaker/1/body-rock.ogg",
+      },
+      {
+        question: questionImg,
+        audio:
+          "https://ringtonemaker.com/samples/ringtonemaker/1/body-rock.ogg",
+      },
+      {
+        question: questionImg,
+        audio:
+          "https://ringtonemaker.com/samples/ringtonemaker/1/body-rock.ogg",
+      },
+      {
+        question: questionImg,
+        audio:
+          "https://ringtonemaker.com/samples/ringtonemaker/1/body-rock.ogg",
+      },
+      {
+        question: questionImg,
+        audio:
+          "https://ringtonemaker.com/samples/ringtonemaker/1/body-rock.ogg",
+      },
+      {
+        question: questionImg,
+        audio:
+          "https://ringtonemaker.com/samples/ringtonemaker/1/body-rock.ogg",
+      },
+      {
+        question: questionImg,
+        audio:
+          "https://ringtonemaker.com/samples/ringtonemaker/1/body-rock.ogg",
+      },
+      {
+        question: questionImg,
+        audio:
+          "https://ringtonemaker.com/samples/ringtonemaker/1/body-rock.ogg",
+      },
       {
         question: questionImg,
         audio:

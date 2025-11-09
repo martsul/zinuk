@@ -3,6 +3,7 @@ import { PartDetails } from "../../../components/part-details/part-details";
 import { QuestionContainer } from "../../../components/question-container/question-container";
 import {
   ExamStorageName,
+  ExamType,
   getPartsCount,
   type SimpleQuestionItem,
   type TQQuestionItem,
@@ -37,12 +38,28 @@ export const ResultsDetails = () => {
   const [selectedQuestion, setSelectedQuestion] = useState<
     SimpleQuestionItem | TQQuestionItem | null
   >(null);
-  const [questionNumber, setQuestionNumber] = useState<number | null>(null);
+  const [questionNumber, setQuestionNumber] = useState<number | null>(1);
   const partsCount = getPartsCount(pageData);
-  const lang: "en" | "he-IL" = document.documentElement.lang as "en" | "he-IL";
+  const lang: "en" | "he-IL" = (document.documentElement.lang || "en") as
+    | "en"
+    | "he-IL";
   const results: Record<string, string> = JSON.parse(
     sessionStorage.getItem(ExamStorageName) || "{}"
   );
+
+  useEffect(() => {
+    for (const key in pageData) {
+      const currentPage = pageData[key];
+      if (
+        currentPage.type === ExamType.SIMPLE_QUESTION ||
+        currentPage.type === ExamType.QUESTION_TQ
+      ) {
+        setSelectedQuestion(currentPage);
+
+        return;
+      }
+    }
+  }, [pageData]);
 
   useEffect(() => {
     document.addEventListener(
@@ -51,7 +68,7 @@ export const ResultsDetails = () => {
         const el = document.querySelector(`.${styles.all}`);
         if (el && e.target instanceof Node && el.contains(e.target)) {
           e.stopPropagation();
-          el.scrollTop += e.deltaY;
+          el.scrollTop += e.deltaY * 0.6;
         }
       },
       { passive: false }
@@ -62,14 +79,6 @@ export const ResultsDetails = () => {
     <div className={styles.container}>
       <div className={styles.allContainer}>
         <div className={styles.all}>
-          {[...new Array(partsCount)].map((_, i) => (
-            <PartDetails
-              onSelectQuestion={setSelectedQuestion}
-              selectedQuestion={selectedQuestion}
-              setQuestionNumber={setQuestionNumber}
-              part={i + 1}
-            />
-          ))}
           <div className={styles.help}>
             <div className={classNames(styles.helpRow, styles.correct)}>
               <div className={styles.answerSq}></div>
@@ -84,6 +93,14 @@ export const ResultsDetails = () => {
               <span className={styles.helpText}>{texts[lang].incorrect}</span>
             </div>
           </div>
+          {[...new Array(partsCount)].map((_, i) => (
+            <PartDetails
+              onSelectQuestion={setSelectedQuestion}
+              selectedQuestion={selectedQuestion}
+              setQuestionNumber={setQuestionNumber}
+              part={i + 1}
+            />
+          ))}
         </div>
       </div>
       <div className={styles.detailsContainer}>

@@ -1,10 +1,17 @@
 export const Cross = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="20"
-    height="20"
-    viewBox="0 -960 960 960"
+    width="25"
+    height="25"
+    fill="none"
+    viewBox="0 0 33 33"
   >
-    <path d="m338-288-50-50 141-142-141-141 50-50 142 141 141-141 50 50-141 141 141 142-50 50-141-141z"></path>
+    <path
+      stroke="#fff"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="3"
+      d="m31.5 1.5-30 30m0-30 30 30"
+    ></path>
   </svg>
 );

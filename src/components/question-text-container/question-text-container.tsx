@@ -12,10 +12,10 @@ export const QuestionTextContainer: FC<Props> = ({ questions }) => {
     document.addEventListener(
       "wheel",
       (e) => {
-        const el = document.querySelector(`.${styles.content}`);
+        const el = document.querySelector(`.${styles.container}`);
         if (el && e.target instanceof Node && el.contains(e.target)) {
           e.stopPropagation();
-          el.scrollTop += e.deltaY;
+          el.scrollTop += e.deltaY * 0.6;
         }
       },
       { passive: false }

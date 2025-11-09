@@ -13,13 +13,13 @@ const texts = {
     back: "Back",
     home: "Home",
     percentage: "Percentage score:",
-    numerical: "Numerical score",
+    numerical: "Numerical score:",
   },
   "he-IL": {
     back: "חזרה",
     home: "דף הבית",
     percentage: "ציון באחוזים:",
-    numerical: "ציון מספרי",
+    numerical: "ציון מספרי:",
   },
 };
 
@@ -28,7 +28,7 @@ export const ResultsLayout = () => {
   const { pageData } = useNavigationContext();
   const questionsCount = getQuestionCount(pageData);
   const [correctAnswers, setCorrectAnswers] = useState(0);
-  const lang: "en" | "he-IL" = document.documentElement.lang as "en" | "he-IL";
+  const lang: "en" | "he-IL" = (document.documentElement.lang || 'en') as "en" | "he-IL";
 
   useEffect(() => {
     const results: Record<string, string> = JSON.parse(
@@ -52,7 +52,7 @@ export const ResultsLayout = () => {
           <div className={styles.actions}>
             <div
               onClick={() => setDetailsIsOpen(false)}
-              className={styles.action}
+              className={`${styles.action} ${styles.arrow}`}
             >
               <Arrow />
               <span className={styles.actionText}>{texts[lang].back}</span>

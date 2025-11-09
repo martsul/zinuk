@@ -11,6 +11,10 @@
   --error: #ed2374;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body.rtl {
   direction: rtl;
 }

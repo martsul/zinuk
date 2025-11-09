@@ -42,12 +42,15 @@ const previewTexts: Record<
 export const PreviewLayout = () => {
   const { pageData, activePage } = useNavigationContext();
   const [previewIndex, setPreviewIndex] = useState(0);
-  const lang: "en" | "he-IL" = document.documentElement.lang as "en" | "he-IL";
+  const lang: "en" | "he-IL" = (document.documentElement.lang || "he-IL") as
+    | "en"
+    | "he-IL";
 
   useEffect(() => {
+    setPreviewIndex(0);
     for (const key in pageData) {
       const currentItem = pageData[key];
-      if (activePage === currentItem.id) {
+      if (activePage == currentItem.id) {
         return;
       }
 
@@ -72,9 +75,7 @@ export const PreviewLayout = () => {
             className={styles.contentImg}
           />
           <p className={styles.contentTitle}>
-            {lang === "en"
-              ? previewTexts["en"].title[`${previewIndex}` as "0" | "1" | "2"]
-              : "מילולי"}
+            {previewTexts[lang].title[`${previewIndex}` as "0" | "1" | "2"]}
           </p>
         </div>
         <div className={styles.contentDecor}>

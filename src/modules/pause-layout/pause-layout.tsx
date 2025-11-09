@@ -31,7 +31,7 @@ export const PauseLayout = () => {
   const { timer, timerIsVisible, activePage, pageData } =
     useNavigationContext();
   const [pauseIndex, setPauseIndex] = useState(0);
-  const lang: "en" | "he-IL" = document.documentElement.lang as "en" | "he-IL";
+  const lang: "en" | "he-IL" = (document.documentElement.lang || 'en') as "en" | "he-IL";
 
   useEffect(() => {
     for (const key in pageData) {

@@ -37,7 +37,7 @@
 .footerText,
 .footerFive {
   color: #fff;
-  font: 400 32px / 1 var(--font-i);
+  font: 400 32px / 1 var(--font-a);
 }
 
 .footerFive {
@@ -53,9 +53,14 @@
 
 .person {
   position: absolute;
-  bottom: -120px;
+  bottom: -105px;
   inset-inline-start: 0;
-  height: 100%;
+  height: 115%;
+  z-index: 1;
+}
+
+:global(.rtl) .person {
+  transform: scaleX(-1);
 }
 
 .content {

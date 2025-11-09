@@ -70,6 +70,7 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
     null | number | "results" | string
   >(1);
   const intervalRef = useRef<number | undefined>(undefined);
+  const [modal, setModal] = useState<"question" | "answer" | null>(null);
 
   const saveResults = useCallback(() => {
     if (activePage) {
@@ -118,6 +119,13 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
         }
 
         if (code === "Enter") {
+          if (modal) {
+            event.preventDefault();
+            setModal(null);
+
+            return;
+          }
+
           if (canContinue) {
             navigateToNextPage();
             setError(false);
@@ -163,7 +171,7 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
         }
       }
     },
-    [activePage, pageData, canContinue, navigateToNextPage]
+    [activePage, pageData, canContinue, navigateToNextPage, modal]
   );
 
   useEffect(() => {
@@ -249,6 +257,8 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
         timerIsVisible,
         pageData,
         activePage,
+        modal,
+        setModal,
       }}
     >
       {children}

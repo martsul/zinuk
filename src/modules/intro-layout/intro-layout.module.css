@@ -47,15 +47,15 @@
 
 .title {
   color: var(--yellow);
-  font: 700 48px / 1 var(--font-i);
+  font: 700 48px / 1 var(--font-a);
 }
 
 .content {
   height: 100%;
   background: #fff;
   padding-top: 114px;
-  padding-inline-end: 40px;
-  padding-inline-start: 200px;
+  padding-inline-end: 80px;
+  padding-inline-start: 130px;
   padding-bottom: 80px;
   position: relative;
   min-height: 0;
@@ -78,7 +78,13 @@
 
 .contentText {
   color: var(--blue-1);
-  font: 300 25px / 1.3 var(--font-i);
+  font: 300 25px / 1.3 var(--font-a);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.contentText p {
   border-inline-start: 5px solid var(--yellow);
   padding-inline-start: 16px;
 }

@@ -22,7 +22,7 @@ const texts = {
 
 export const PartBlock: FC<Props> = ({ part, openDetails }) => {
   const { pageData } = useNavigationContext();
-  const lang: "en" | "he-IL" = document.documentElement.lang as "en" | "he-IL";
+  const lang: "en" | "he-IL" = (document.documentElement.lang || 'en') as "en" | "he-IL";
   const [correctCount, setCorrectCount] = useState<{
     correct: number;
     total: number;
@@ -43,7 +43,7 @@ export const PartBlock: FC<Props> = ({ part, openDetails }) => {
         const el = document.querySelector(`.${styles.items}`);
         if (el && e.target instanceof Node && el.contains(e.target)) {
           e.stopPropagation();
-          el.scrollTop += e.deltaY;
+          el.scrollTop += e.deltaY * 0.6;
         }
       },
       { passive: false }

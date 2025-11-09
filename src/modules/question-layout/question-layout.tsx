@@ -1,4 +1,4 @@
-import { useEffect, useState, type FC } from "react";
+import { useEffect, type FC } from "react";
 import {
   QuestionContent,
   QuestionPersonImg,
@@ -23,14 +23,22 @@ interface Props {
 
 const texts = {
   en: {
-    examPart: "Exam Part",
+    examPart: {
+      1: "Exam Part 1",
+      2: "Exam Part 2",
+      3: "Exam Part 3",
+    },
     timeAllotted: "Time allotted",
     minutes: "Minutes",
     f12: "(F12 to hide the clock)",
     enter: "Select an answer and press <Enter>; to confirm.",
   },
   "he-IL": {
-    examPart: "חלק במבחן",
+    examPart: {
+      1: "מילולי",
+      2: "כמותי",
+      3: "אנגלית",
+    },
     timeAllotted: "זמן מוקצב",
     minutes: "דקות",
     f12: "(F12 להסתרת השעון)",
@@ -47,12 +55,13 @@ const getType = (question: Question): string => {
 };
 
 export const QuestionLayout: FC<Props> = ({ type }) => {
-  const lang: "en" | "he-IL" = document.documentElement.lang as "en" | "he-IL";
-  const { pageData, activePage } = useNavigationContext();
+  const lang: "en" | "he-IL" = (document.documentElement.lang || "en") as
+    | "en"
+    | "he-IL";
+  const { pageData, activePage, modal, setModal, timer, timerIsVisible } =
+    useNavigationContext();
   const Content: FC = QuestionContent[type];
   const personImg: string = QuestionPersonImg[type];
-  const { timer, timerIsVisible } = useNavigationContext();
-  const [modal, setModal] = useState<"question" | "answer" | null>(null);
 
   useEffect(() => {
     if (activePage) {
@@ -101,7 +110,7 @@ export const QuestionLayout: FC<Props> = ({ type }) => {
           <img src={Logo} alt="logo" className={styles.questionLogoImage} />
         </div>
         <p className={styles.questionLogoTitle}>
-          {texts[lang].examPart} {part}
+          {texts[lang].examPart[part as 1 | 2 | 3]}
         </p>
         <p className={styles.questionLogoSubtitle}>
           {getType(pageData[activePage] as Question)}

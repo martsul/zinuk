@@ -34,9 +34,13 @@
   gap: 8px;
 }
 
+:global(.rtl) .arrow svg {
+  transform: scaleX(-1);
+}
+
 .actionText {
   color: #fff;
-  font: 400 20px / 1 var(--font-i);
+  font: 400 20px / 1 var(--font-a);
 }
 
 .score {

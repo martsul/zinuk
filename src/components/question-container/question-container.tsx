@@ -11,6 +11,17 @@ interface Props {
   showAnswer?: boolean;
 }
 
+const text = {
+  en: {
+    theAnswer: "The Answer",
+    select: "Select the answer and press ENTER",
+  },
+  "he-IL": {
+    theAnswer: "התשובה",
+    select: "בחר את התשובה ולחץ על Enter",
+  },
+};
+
 export const QuestionContainer: FC<Props> = ({
   question,
   answers,
@@ -20,6 +31,9 @@ export const QuestionContainer: FC<Props> = ({
   const [formattedAnswers, setFormattedAnswers] = useState<
     { img: string; audio: string }[]
   >([]);
+  const lang: "en" | "he-IL" = (document.documentElement.lang || "en") as
+    | "en"
+    | "he-IL";
 
   useEffect(() => {
     setFormattedAnswers([]);
@@ -38,7 +52,7 @@ export const QuestionContainer: FC<Props> = ({
         const el = document.querySelector(`.${styles.contentContainer}`);
         if (el && e.target instanceof Node && el.contains(e.target)) {
           e.stopPropagation();
-          el.scrollTop += e.deltaY;
+          el.scrollTop += e.deltaY * 0.6;
         }
       },
       { passive: false }
@@ -80,7 +94,7 @@ export const QuestionContainer: FC<Props> = ({
       {showAnswer && (
         <div className={styles.questionFooter}>
           <div className={styles.questionAnswer}>
-            <p className={styles.questionAnswerText}>The answer</p>
+            <p className={styles.questionAnswerText}>{text[lang].theAnswer}</p>
             <div
               className={classNames(styles.questionInputContainer, {
                 [styles.questionInputError]: error,
@@ -96,7 +110,7 @@ export const QuestionContainer: FC<Props> = ({
           </div>
           {error && (
             <div className={styles.questionError}>
-              Select the answer and press ENTER
+              {text[lang].select}
             </div>
           )}
         </div>

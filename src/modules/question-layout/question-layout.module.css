@@ -49,7 +49,7 @@
   align-items: center;
   gap: 20px;
   color: #fff;
-  font: 400 32px / 1 var(--font-i);
+  font: 400 32px / 1 var(--font-a);
   text-align: center;
 }
 
@@ -75,10 +75,15 @@
   left: 0;
 }
 
+:global(.rtl) .questionAsideBottom,
+:global(.rtl) .questionAsideTop {
+  transform: scaleX(-1);
+}
+
 .questionLogo {
   position: absolute;
   top: 0;
-  right: 50px;
+  inset-inline-end: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -192,6 +197,10 @@
   bottom: 0;
   transform: translate(-50%, 0);
   height: 200px;
+}
+
+:global(.rtl) .person {
+  transform: translate(-50%, 0) scaleX(-1);
 }
 
 .questionContent {

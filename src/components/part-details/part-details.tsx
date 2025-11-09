@@ -25,7 +25,8 @@ export const PartDetails: FC<Props> = ({
   selectedQuestion,
 }) => {
   const { pageData } = useNavigationContext();
-  const lang: "en" | "he-IL" = document.documentElement.lang as "en" | "he-IL";
+  
+  const lang: "en" | "he-IL" = (document.documentElement.lang || 'en') as "en" | "he-IL";
   const [questions, setQuestions] = useState<
     (SimpleQuestionItem | TQQuestionItem)[]
   >([]);

@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { useEffect, type FC } from "react";
 import styles from "./modal.module.css";
 import { Cross } from "../../svg/cross";
 
@@ -7,7 +7,36 @@ interface Props {
   onClose: () => void;
 }
 
+const text = {
+  en: {
+    close: "Close",
+    enter: "or press <Enter> to exit",
+  },
+  "he-IL": {
+    close: "לסגור",
+    enter: "או לחצו <Enter> כדי לצאת",
+  },
+};
+
 export const Modal: FC<Props> = ({ children, onClose }) => {
+  const lang: "en" | "he-IL" = (document.documentElement.lang || "en") as
+    | "en"
+    | "he-IL";
+
+  useEffect(() => {
+    document.addEventListener(
+      "wheel",
+      (e) => {
+        const el = document.querySelector(`.${styles.content}`);
+        if (el && e.target instanceof Node && el.contains(e.target)) {
+          e.stopPropagation();
+          el.scrollTop += e.deltaY * 0.6;
+        }
+      },
+      { passive: false }
+    );
+  }, []);
+
   return (
     <div
       className={styles.modal}
@@ -21,7 +50,13 @@ export const Modal: FC<Props> = ({ children, onClose }) => {
       <button onClick={onClose} className={styles.cross}>
         <Cross />
       </button>
-      <div className={styles.modalWrapper}>{children}</div>
+      <div className={styles.modalWrapper}>
+        <div className={styles.content}>{children}</div>
+        <button onClick={() => onClose()} className={styles.close}>
+          {text[lang].close}
+        </button>
+        <p className={styles.enter}>{text[lang].enter}</p>
+      </div>
     </div>
   );
 };

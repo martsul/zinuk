@@ -4,11 +4,11 @@
   background: #fff;
   padding: 20px;
   min-height: 0;
+  overflow: auto;
 }
 
 .content {
   height: 100%;
-  overflow: auto;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -19,6 +19,7 @@
   align-items: center;
   width: 100%;
   gap: 20px;
+  justify-content: space-between;
 }
 
 .imgContainer {

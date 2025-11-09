@@ -7,14 +7,18 @@
 
 .trig {
   position: absolute;
-  right: 0;
   top: 0;
+  inset-inline-end: 0;
+}
+
+:global(.rtl) .trig {
+  transform: scaleX(-1);
 }
 
 .logoContainer {
   position: absolute;
   top: 50%;
-  right: 140px;
+  inset-inline-end: 140px;
   transform: translate(0, -50%);
   z-index: 1;
 }

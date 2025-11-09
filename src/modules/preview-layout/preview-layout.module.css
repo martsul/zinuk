@@ -37,7 +37,7 @@
   max-width: 100%;
   text-align: center;
   color: var(--yellow);
-  font: 600 40px / 1 var(--font-i);
+  font: 600 40px / 1 var(--font-a);
 }
 
 .content {
@@ -62,11 +62,16 @@
   color: var(--blue);
   font: 700 96px / 1 var(--font-a);
   position: relative;
+  transform: translate(100%, 0);
+}
+
+:global(.rtl) .contentTitle {
+  transform: translate(-100%, 0);
 }
 
 .contentContainer {
   display: flex;
-  justify-content: end;
+  justify-content: center;
   align-items: center;
   height: 100%;
   max-width: var(--container-width);
@@ -80,4 +85,8 @@
   bottom: -65px;
   height: 100%;
   inset-inline-start: 10%;
+}
+
+:global(.rtl) .contentImg {
+  transform: scaleX(-1);
 }
