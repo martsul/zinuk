@@ -24,8 +24,10 @@ const texts = {
 };
 
 export const IntroLayout: FC<Props> = ({ type }) => {
-  const { pageData, activePage } = useNavigationContext();
-  const lang: "en" | "he-IL" = (document.documentElement.lang || 'en') as "en" | "he-IL";
+  const { pageData, activePage, navigateToNextPage } = useNavigationContext();
+  const lang: "en" | "he-IL" = (document.documentElement.lang || "en") as
+    | "en"
+    | "he-IL";
 
   if (!activePage) {
     return;
@@ -33,6 +35,14 @@ export const IntroLayout: FC<Props> = ({ type }) => {
 
   const introData: IntroItem = pageData[activePage] as IntroItem;
   const img: string = type === IntroType.EXAM ? examIntro1 : questionIntro1;
+
+  if (
+    !introData.img &&
+    ((Array.isArray(introData) && !introData.texts.length) || !introData.texts)
+  ) {
+    navigateToNextPage();
+    return;
+  }
 
   return (
     <div className={styles.introContainer}>
@@ -50,7 +60,9 @@ export const IntroLayout: FC<Props> = ({ type }) => {
           {type === IntroType.EXAM ? (
             <div
               className={styles.contentText}
-              dangerouslySetInnerHTML={{ __html: introData.img }}
+              dangerouslySetInnerHTML={{
+                __html: introData.img || introData.texts[0],
+              }}
             />
           ) : (
             <div

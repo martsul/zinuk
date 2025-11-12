@@ -46,17 +46,19 @@ export const QuestionContainer: FC<Props> = ({
   }, [answers]);
 
   useEffect(() => {
-    document.addEventListener(
-      "wheel",
-      (e) => {
-        const el = document.querySelector(`.${styles.contentContainer}`);
-        if (el && e.target instanceof Node && el.contains(e.target)) {
-          e.stopPropagation();
-          el.scrollTop += e.deltaY * 0.6;
-        }
-      },
-      { passive: false }
-    );
+    const handler = (e: WheelEvent) => {
+      const el = document.querySelector(`.${styles.contentContainer}`);
+      if (el && e.target instanceof Node && el.contains(e.target)) {
+        e.stopPropagation();
+        el.scrollBy({ top: e.deltaY, behavior: "smooth" });
+      }
+    };
+
+    document.addEventListener("wheel", handler, { passive: false });
+
+    return () => {
+      document.removeEventListener("wheel", handler);
+    };
   }, []);
 
   return (
@@ -109,9 +111,7 @@ export const QuestionContainer: FC<Props> = ({
             </div>
           </div>
           {error && (
-            <div className={styles.questionError}>
-              {text[lang].select}
-            </div>
+            <div className={styles.questionError}>{text[lang].select}</div>
           )}
         </div>
       )}

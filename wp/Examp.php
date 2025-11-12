@@ -10,9 +10,13 @@ class Exam extends BaseModel {
 	
 	public function getSettings(): array {
 		return [
+			'exam_intro'      => get_field( 'exam_intro', 'option' ),
 			'exam_intro_1'      => get_field( 'exam_intro_1', 'option' ),
 			'exam_intro_2'      => get_field( 'exam_intro_2', 'option' ),
 			'exam_intro_3'      => get_field( 'exam_intro_3', 'option' ),
+			'exam_part_1_title'      => get_field( 'exam_part_1_title', 'option' ),
+			'exam_part_2_title'      => get_field( 'exam_part_2_title', 'option' ),
+			'exam_part_3_title'      => get_field( 'exam_part_3_title', 'option' ),
 			'question_setting' => get_field( 'question_setting', 'option' ),
 		];
 	}

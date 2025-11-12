@@ -64,6 +64,12 @@ export const PreviewLayout = () => {
     return;
   }
 
+  const data = pageData[activePage];
+
+  if (data.type !== ExamType.PREVIEW) {
+    return
+  }
+
   return (
     <div className={styles.previewContainer}>
       <LogoHeader />
@@ -75,7 +81,7 @@ export const PreviewLayout = () => {
             className={styles.contentImg}
           />
           <p className={styles.contentTitle}>
-            {previewTexts[lang].title[`${previewIndex}` as "0" | "1" | "2"]}
+            {data.title}
           </p>
         </div>
         <div className={styles.contentDecor}>

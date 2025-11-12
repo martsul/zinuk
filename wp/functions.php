@@ -103,9 +103,9 @@ function ms_enqueue_posts_fadein()
     is_search() ||
     is_singular(['post', 'product'])
   ) {
-    $rel  = '/js/posts-fadein.js';
+    $rel = '/js/posts-fadein.js';
     $path = get_stylesheet_directory() . $rel;
-    $uri  = get_stylesheet_directory_uri() . $rel;
+    $uri = get_stylesheet_directory_uri() . $rel;
 
     wp_enqueue_script(
       'ms-posts-fadein',
@@ -151,48 +151,50 @@ add_action('wp_enqueue_scripts', function () {
 });
 
 // === Exams ===
-function register_exam_cpt() {
-    register_post_type('exam', [
-        'labels' => [
-            'name' => 'Exams',
-            'singular_name' => 'Exam',
-        ],
-        'public' => true,
-        'show_in_rest' => true,
-        'menu_icon' => 'dashicons-welcome-learn-more',
-        'supports' => ['title', 'editor', 'thumbnail'],
-    ]);
+function register_exam_cpt()
+{
+  register_post_type('exam', [
+    'labels' => [
+      'name' => 'Exams',
+      'singular_name' => 'Exam',
+    ],
+    'public' => true,
+    'show_in_rest' => true,
+    'menu_icon' => 'dashicons-welcome-learn-more',
+    'supports' => ['title', 'editor', 'thumbnail'],
+  ]);
 }
 add_action('init', 'register_exam_cpt');
 
 // === Questions ===
-function register_question_cpt() {
-    register_post_type('question', [
-        'labels' => [
-            'name' => 'Questions',
-            'singular_name' => 'Question',
-        ],
-        'public' => true,
-        'show_in_rest' => true,
-        'menu_icon' => 'dashicons-editor-help',
-        'supports' => ['title', 'editor'],
-    ]);
+function register_question_cpt()
+{
+  register_post_type('question', [
+    'labels' => [
+      'name' => 'Questions',
+      'singular_name' => 'Question',
+    ],
+    'public' => true,
+    'show_in_rest' => true,
+    'menu_icon' => 'dashicons-editor-help',
+    'supports' => ['title', 'editor'],
+  ]);
 }
 add_action('init', 'register_question_cpt');
 
-if( function_exists('acf_add_options_page') ) {
-    acf_add_options_page([
-        'page_title'  => 'Exam Settings',
-        'menu_title'  => 'Exam Settings',
-        'menu_slug'   => 'exam-settings',
-        'capability'  => 'manage_options',
-        'redirect'    => false,
-        'position'    => 25,
-        'icon_url'    => 'dashicons-welcome-learn-more',
-    ]);
+if (function_exists('acf_add_options_page')) {
+  acf_add_options_page([
+    'page_title' => 'Exam Settings',
+    'menu_title' => 'Exam Settings',
+    'menu_slug' => 'exam-settings',
+    'capability' => 'manage_options',
+    'redirect' => false,
+    'position' => 25,
+    'icon_url' => 'dashicons-welcome-learn-more',
+  ]);
 }
 
-add_action('init', function() {
+add_action('init', function () {
   register_taxonomy('question_type', 'question', [
     'label' => 'Questions Type',
     'public' => false,
@@ -203,43 +205,21 @@ add_action('init', function() {
   ]);
 });
 
-add_filter('acf/load_field/name=question_type', function($field) {
-    $terms = get_terms([
-        'taxonomy' => 'question_type',
-        'hide_empty' => false,
-        'lang' => '',
-    ]);
+add_filter('acf/load_field/name=question_type', function ($field) {
+  $terms = get_terms([
+    'taxonomy' => 'question_type',
+    'hide_empty' => false,
+    'lang' => '',
+  ]);
 
-    $choices = [];
-    if (!is_wp_error($terms)) {
-        foreach ($terms as $term) {
-            $choices[$term->slug] = $term->name;
-        }
+  $choices = [];
+  if (!is_wp_error($terms)) {
+    foreach ($terms as $term) {
+      $choices[$term->slug] = $term->name;
     }
+  }
 
-    $field['choices'] = $choices;
-    return $field;
+  $field['choices'] = $choices;
+  return $field;
 });
 
-add_filter('acf/load_value/name=question_settings', function($value, $post_id, $field) {
-
-    if(!empty($value)) return $value;
-
-    $terms = get_terms([
-        'taxonomy' => 'question_type',
-        'hide_empty' => false,
-        'lang' => '',
-    ]);
-
-    if(!empty($terms) && !is_wp_error($terms)) {
-        $value = [];
-        foreach($terms as $term) {
-            $value[] = [
-                'question_type' => $term->name,             
-            ];
-        }
-    }
-
-    return $value;
-
-}, 10, 3);

@@ -9,5 +9,6 @@ export interface NavigationContextModel {
   pageData: ExamDto;
   activePage: null | number | "results" | string;
   modal: "question" | "answer" | null;
-  setModal: React.Dispatch<React.SetStateAction<"question" | "answer" | null>>
+  setModal: React.Dispatch<React.SetStateAction<"question" | "answer" | null>>;
+  navigateToNextPage: () => void;
 }

@@ -24,17 +24,19 @@ export const Modal: FC<Props> = ({ children, onClose }) => {
     | "he-IL";
 
   useEffect(() => {
-    document.addEventListener(
-      "wheel",
-      (e) => {
-        const el = document.querySelector(`.${styles.content}`);
-        if (el && e.target instanceof Node && el.contains(e.target)) {
-          e.stopPropagation();
-          el.scrollTop += e.deltaY * 0.6;
-        }
-      },
-      { passive: false }
-    );
+    const handler = (e: WheelEvent) => {
+      const el = document.querySelector(`.${styles.content}`);
+      if (el && e.target instanceof Node && el.contains(e.target)) {
+        e.stopPropagation();
+        el.scrollBy({ top: e.deltaY, behavior: "smooth" });
+      }
+    };
+
+    document.addEventListener("wheel", handler, { passive: false });
+
+    return () => {
+      document.removeEventListener("wheel", handler);
+    };
   }, []);
 
   return (

@@ -5,6 +5,7 @@ import {
   ExamStorageName,
   ExamType,
   getPartsCount,
+  getPartTitle,
   type SimpleQuestionItem,
   type TQQuestionItem,
 } from "../../../const/exam";
@@ -62,17 +63,19 @@ export const ResultsDetails = () => {
   }, [pageData]);
 
   useEffect(() => {
-    document.addEventListener(
-      "wheel",
-      (e) => {
-        const el = document.querySelector(`.${styles.all}`);
-        if (el && e.target instanceof Node && el.contains(e.target)) {
-          e.stopPropagation();
-          el.scrollTop += e.deltaY * 0.6;
-        }
-      },
-      { passive: false }
-    );
+    const handler = (e: WheelEvent) => {
+      const el = document.querySelector(`.${styles.all}`);
+      if (el && e.target instanceof Node && el.contains(e.target)) {
+        e.stopPropagation();
+        el.scrollBy({ top: e.deltaY, behavior: "smooth" });
+      }
+    };
+
+    document.addEventListener("wheel", handler, { passive: false });
+
+    return () => {
+      document.removeEventListener("wheel", handler);
+    };
   }, []);
 
   return (
@@ -107,7 +110,7 @@ export const ResultsDetails = () => {
         <div className={styles.details}>
           <div className={styles.detailsHeader}>
             <div className={styles.detailsTitle}>
-              {texts[lang].part} {selectedQuestion?.part},{" "}
+              {getPartTitle(pageData, selectedQuestion?.part || 1)},{" "}
               {texts[lang].questions} {questionNumber ? questionNumber : ""}
             </div>
             <button>

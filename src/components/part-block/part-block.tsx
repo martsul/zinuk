@@ -1,6 +1,6 @@
 import { useEffect, useState, type FC } from "react";
 import styles from "./part-block.module.css";
-import { ExamStorageName, getQuestionTypeByParts } from "../../const/exam";
+import { ExamStorageName, getPartTitle, getQuestionTypeByParts } from "../../const/exam";
 import { PartItem } from "../part-item/part-item";
 import { useNavigationContext } from "../../contexts/navigation-context/use-navigation-context";
 
@@ -37,17 +37,19 @@ export const PartBlock: FC<Props> = ({ part, openDetails }) => {
   );
 
   useEffect(() => {
-    document.addEventListener(
-      "wheel",
-      (e) => {
-        const el = document.querySelector(`.${styles.items}`);
-        if (el && e.target instanceof Node && el.contains(e.target)) {
-          e.stopPropagation();
-          el.scrollTop += e.deltaY * 0.6;
-        }
-      },
-      { passive: false }
-    );
+    const handler = (e: WheelEvent) => {
+      const el = document.querySelector(`.${styles.items}`);
+      if (el && e.target instanceof Node && el.contains(e.target)) {
+        e.stopPropagation();
+        el.scrollBy({ top: e.deltaY, behavior: "smooth" });
+      }
+    };
+
+    document.addEventListener("wheel", handler, { passive: false });
+
+    return () => {
+      document.removeEventListener("wheel", handler);
+    };
   }, []);
 
   useEffect(() => {
@@ -71,7 +73,7 @@ export const PartBlock: FC<Props> = ({ part, openDetails }) => {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.headerText}>
-          {texts[lang].part} {part}
+          {getPartTitle(pageData, part)}
         </div>
         <div className={styles.headerText}>
           {Math.round((correctCount.correct * 100) / correctCount.total)}%

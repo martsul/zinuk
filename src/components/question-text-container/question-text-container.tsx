@@ -9,17 +9,19 @@ interface Props {
 
 export const QuestionTextContainer: FC<Props> = ({ questions }) => {
   useEffect(() => {
-    document.addEventListener(
-      "wheel",
-      (e) => {
-        const el = document.querySelector(`.${styles.container}`);
-        if (el && e.target instanceof Node && el.contains(e.target)) {
-          e.stopPropagation();
-          el.scrollTop += e.deltaY * 0.6;
-        }
-      },
-      { passive: false }
-    );
+    const handler = (e: WheelEvent) => {
+      const el = document.querySelector(`.${styles.container}`);
+      if (el && e.target instanceof Node && el.contains(e.target)) {
+        e.stopPropagation();
+        el.scrollBy({ top: e.deltaY, behavior: "smooth" });
+      }
+    };
+
+    document.addEventListener("wheel", handler, { passive: false });
+
+    return () => {
+      document.removeEventListener("wheel", handler);
+    };
   }, []);
 
   return (

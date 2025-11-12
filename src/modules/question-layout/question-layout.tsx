@@ -11,7 +11,7 @@ import { Document } from "../../svg/document";
 import Logo from "../../assets/logo.png";
 import { Clock } from "../../svg/clock";
 import classNames from "classnames";
-import { type Question } from "../../const/exam";
+import { getPartTitle, type Question } from "../../const/exam";
 import { useNavigationContext } from "../../contexts/navigation-context/use-navigation-context";
 import { QuestionText } from "../question-content/question-text/question-text";
 import { SimpleQuestion } from "../question-content/simple-question/simple-question";
@@ -110,7 +110,7 @@ export const QuestionLayout: FC<Props> = ({ type }) => {
           <img src={Logo} alt="logo" className={styles.questionLogoImage} />
         </div>
         <p className={styles.questionLogoTitle}>
-          {texts[lang].examPart[part as 1 | 2 | 3]}
+          {getPartTitle(pageData, part)}
         </p>
         <p className={styles.questionLogoSubtitle}>
           {getType(pageData[activePage] as Question)}

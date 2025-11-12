@@ -28,7 +28,11 @@ export const ResultsLayout = () => {
   const { pageData } = useNavigationContext();
   const questionsCount = getQuestionCount(pageData);
   const [correctAnswers, setCorrectAnswers] = useState(0);
-  const lang: "en" | "he-IL" = (document.documentElement.lang || 'en') as "en" | "he-IL";
+  const lang: "en" | "he-IL" = (document.documentElement.lang || "en") as
+    | "en"
+    | "he-IL";
+  const percents: number = Math.round((correctAnswers * 100) / questionsCount);
+  const count: number = Math.round((percents / 100) * 600 + 200);
 
   useEffect(() => {
     const results: Record<string, string> = JSON.parse(
@@ -64,11 +68,11 @@ export const ResultsLayout = () => {
           </div>
           <div className={styles.score}>
             <p className={styles.percent}>
-              {texts[lang].percentage}{" "}
-              {Math.round((correctAnswers * 100) / questionsCount)}%
+              {texts[lang].percentage}
+              {percents}%
             </p>
             <p className={styles.num}>
-              {texts[lang].numerical} {correctAnswers}
+              {texts[lang].numerical} {count}
             </p>
           </div>
           <div className={styles.empty}></div>

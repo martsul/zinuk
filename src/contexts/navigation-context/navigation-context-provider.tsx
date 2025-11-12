@@ -8,7 +8,6 @@ import {
 } from "react";
 import { NavigationContext } from ".";
 import {
-  EXAM,
   ExamStorageName,
   ExamType,
   type ExamDto,
@@ -65,10 +64,10 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
   const [canContinue, setCanContinue] = useState<boolean>(true);
   const [timerIsVisible, setTimerIsVisible] = useState<boolean>(true);
   const [timer, setTimer] = useState<number | undefined>(undefined);
-  const [pageData, setPageData] = useState<ExamDto>(EXAM);
+  const [pageData, setPageData] = useState<ExamDto>({});
   const [activePage, setActivePage] = useState<
     null | number | "results" | string
-  >(1);
+  >(null);
   const intervalRef = useRef<number | undefined>(undefined);
   const [modal, setModal] = useState<"question" | "answer" | null>(null);
 
@@ -115,7 +114,7 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
         const currentPage = pageData[activePage];
 
         if (code === "KeyO") {
-          setActivePage('results');
+          setActivePage("results");
         }
 
         if (code === "Enter") {
@@ -177,11 +176,11 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
   useEffect(() => {
     if (activePage) {
       const currentPage = pageData[activePage] || {};
-      if ('visible' in currentPage && !currentPage.visible) {
+      if ("visible" in currentPage && !currentPage.visible) {
         navigateToNextPage();
       }
     }
-  }, [activePage, navigateToNextPage, pageData])
+  }, [activePage, navigateToNextPage, pageData]);
 
   useEffect(() => {
     fetch(getExamDataUrl(testId))
@@ -259,6 +258,7 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
         activePage,
         modal,
         setModal,
+        navigateToNextPage,
       }}
     >
       {children}

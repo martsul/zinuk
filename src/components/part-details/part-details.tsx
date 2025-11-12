@@ -2,6 +2,7 @@ import { useEffect, useState, type FC } from "react";
 import styles from "./part-details.module.css";
 import {
   ExamStorageName,
+  getPartTitle,
   type SimpleQuestionItem,
   type TQQuestionItem,
 } from "../../const/exam";
@@ -26,7 +27,6 @@ export const PartDetails: FC<Props> = ({
 }) => {
   const { pageData } = useNavigationContext();
   
-  const lang: "en" | "he-IL" = (document.documentElement.lang || 'en') as "en" | "he-IL";
   const [questions, setQuestions] = useState<
     (SimpleQuestionItem | TQQuestionItem)[]
   >([]);
@@ -49,7 +49,7 @@ export const PartDetails: FC<Props> = ({
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        {lang === "en" ? "Part" : "חלק"} {part}
+        {getPartTitle(pageData, part)}
       </div>
       <div className={styles.answers}>
         {questions.map((q, i) => {
