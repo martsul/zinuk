@@ -133,3 +133,9 @@
 .wrong .answerSq {
   background: #ed2374;
 }
+
+@media (max-width: 991px) {
+  .container {
+    grid-template-columns: 200px 1fr;
+  }
+}

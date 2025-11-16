@@ -26,6 +26,7 @@
   gap: 20px;
   height: 100%;
   width: 100%;
+  overflow: hidden;
 }
 
 .questionFooter {
@@ -123,6 +124,7 @@
   gap: 10px;
   position: relative;
   z-index: 1;
+  min-height: min-content;
 }
 
 .questionBoxClock {
@@ -175,6 +177,7 @@
 .questionBoxSubtitle {
   font: 400 16px / 25px var(--font-a);
   color: #fff;
+  text-align: center;
 }
 
 .yellow {
@@ -218,6 +221,16 @@
 
 button {
   cursor: pointer;
+}
+
+@media (max-width: 991px) {
+  .questionContainer {
+    grid-template-columns: 1fr 200px;
+  }
+
+  .questionBox {
+    width: 180px;
+  }
 }
 
 @media (max-height: 760px) {

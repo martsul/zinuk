@@ -157,3 +157,13 @@
   color: #fff;
   margin: 0 10px;
 }
+
+@media (max-width: 1024px) {
+  .person {
+    display: none;
+  }
+
+  .contentContainer {
+    justify-content: center;
+  }
+}

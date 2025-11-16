@@ -67,7 +67,7 @@ export const PartBlock: FC<Props> = ({ part, openDetails }) => {
       }
     }
     setCorrectCount({ total, correct });
-  }, [pageData, part, results]);
+  }, [pageData, part]);
 
   return (
     <div className={styles.container}>

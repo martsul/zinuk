@@ -263,6 +263,7 @@ class ExamRepository
         'questionTQ' => array_merge($baseItem, [
           'type' => 'questionTQ',
           'visible' => $visible,
+          'name' => $questionSettings['question_type'],
           'question' => [
             'question' => $questionData['question_text'] ?? '',
             'audio' => $questionData['question_audio'] ?? '',
@@ -285,6 +286,7 @@ class ExamRepository
           'question' => $questionData['question_text'] ?? '',
           'audio' => $questionData['question_audio'] ?? '',
         ],
+        'name' => $questionSettings['question_type'],
         'title' => $question->post_title,
         'answers' => $this->formatAnswers($answerData ?? []),
         'correctAnswer' => (int) get_field('correct_answer', $question->ID),

@@ -90,3 +90,20 @@
 :global(.rtl) .contentImg {
   transform: scaleX(-1);
 }
+
+@media (max-width: 1444px) {
+  .contentImg {
+    inset-inline-start: 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .contentImg {
+    display: none;
+  }
+
+  .contentTitle,
+  :global(.rtl) .contentTitle {
+    transform: translate(0);
+  }
+}

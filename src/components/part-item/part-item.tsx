@@ -18,6 +18,9 @@ export const PartItem: FC<Props> = ({ type, part }) => {
   const results: Record<string, string> = JSON.parse(
     sessionStorage.getItem(ExamStorageName) || "{}"
   );
+  const percents: number =
+    Math.round((100 * correct.correct) / correct.total) || 0;
+  const count: number = Math.round(percents / 10);
 
   useEffect(() => {
     let total = 0;
@@ -34,25 +37,23 @@ export const PartItem: FC<Props> = ({ type, part }) => {
       }
     }
     setCorrect({ total, correct });
-  }, [pageData, part, results, type]);
+  }, [pageData, part, type]);
 
   return (
     <div className={styles.container}>
       <div className={styles.title}>{type}</div>
       <div className={styles.progress}>
         <div className={styles.circles}>
-          {[...new Array(correct.total)].map((_, i) => (
+          {[...new Array(10)].map((_, i) => (
             <div
               className={classNames(styles.circle, {
-                [styles.active]: correct.correct > i,
+                [styles.active]: count >= i + 1,
               })}
               key={i}
             ></div>
           ))}
         </div>
-        <div className={styles.percents}>
-          {Math.round((100 * correct.correct) / correct.total) || 0}%
-        </div>
+        <div className={styles.percents}>{percents}%</div>
       </div>
     </div>
   );

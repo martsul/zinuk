@@ -22,18 +22,25 @@ const text = {
   },
 };
 
+const ltrQuestions: Set<string> = new Set([
+  "english-sentence-completion",
+  "english-restatements",
+  "english-reading-comprehension",
+]);
+
 export const QuestionContainer: FC<Props> = ({
   question,
   answers,
   showAnswer = true,
 }) => {
-  const { error, answer } = useNavigationContext();
+  const { error, answer, pageData, activePage } = useNavigationContext();
   const [formattedAnswers, setFormattedAnswers] = useState<
     { img: string; audio: string }[]
   >([]);
   const lang: "en" | "he-IL" = (document.documentElement.lang || "en") as
     | "en"
     | "he-IL";
+  const currentPage = pageData[activePage || ""];
 
   useEffect(() => {
     setFormattedAnswers([]);
@@ -63,7 +70,11 @@ export const QuestionContainer: FC<Props> = ({
 
   return (
     <div className={styles.container}>
-      <div className={styles.contentContainer}>
+      <div
+        className={classNames(styles.contentContainer, {
+          [styles.ltr]: ltrQuestions.has(currentPage?.name),
+        })}
+      >
         <div className={styles.content}>
           <div className={styles.audioContainer}>
             <div className={styles.questionImgContainer}>

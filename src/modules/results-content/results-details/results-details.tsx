@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FC } from "react";
 import { PartDetails } from "../../../components/part-details/part-details";
 import { QuestionContainer } from "../../../components/question-container/question-container";
 import {
@@ -14,6 +14,7 @@ import { Copy } from "../../../svg/copy";
 import styles from "./results-details.module.css";
 import { useNavigationContext } from "../../../contexts/navigation-context/use-navigation-context";
 import classNames from "classnames";
+import { CrossStatus } from "../../../svg/cross-status";
 
 const texts = {
   en: {
@@ -34,7 +35,11 @@ const texts = {
   },
 };
 
-export const ResultsDetails = () => {
+interface Props {
+  detailsNumber: number;
+}
+
+export const ResultsDetails: FC<Props> = ({ detailsNumber }) => {
   const { pageData } = useNavigationContext();
   const [selectedQuestion, setSelectedQuestion] = useState<
     SimpleQuestionItem | TQQuestionItem | null
@@ -49,18 +54,20 @@ export const ResultsDetails = () => {
   );
 
   useEffect(() => {
-    for (const key in pageData) {
-      const currentPage = pageData[key];
-      if (
-        currentPage.type === ExamType.SIMPLE_QUESTION ||
-        currentPage.type === ExamType.QUESTION_TQ
-      ) {
-        setSelectedQuestion(currentPage);
+    const values = Object.values(pageData);
+    const firstQuestion: SimpleQuestionItem | TQQuestionItem | undefined =
+      values.find((v) => {
+        if (
+          (v.type === ExamType.SIMPLE_QUESTION && v.part === detailsNumber) ||
+          (v.type === ExamType.QUESTION_TQ && v.part === detailsNumber)
+        ) {
+          return true;
+        }
 
-        return;
-      }
-    }
-  }, [pageData]);
+        return false;
+      }) as SimpleQuestionItem | TQQuestionItem | undefined;
+    setSelectedQuestion(firstQuestion || null);
+  }, [detailsNumber, pageData]);
 
   useEffect(() => {
     const handler = (e: WheelEvent) => {
@@ -154,7 +161,14 @@ export const ResultsDetails = () => {
                 </span>
               </div>
             </div>
-            <Check className={styles.check} />
+            {results[selectedQuestion?.id || 0] &&
+              +results[selectedQuestion?.id || 0] ===
+                selectedQuestion?.correctAnswer && (
+                <Check className={styles.check} />
+              )}
+            {results[selectedQuestion?.id || 0] &&
+              +results[selectedQuestion?.id || 0] !==
+                selectedQuestion?.correctAnswer && <CrossStatus />}
           </div>
         </div>
       </div>

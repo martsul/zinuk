@@ -24,7 +24,6 @@ const texts = {
 };
 
 export const ResultsLayout = () => {
-  const [detailsIsOpen, setDetailsIsOpen] = useState(false);
   const { pageData } = useNavigationContext();
   const questionsCount = getQuestionCount(pageData);
   const [correctAnswers, setCorrectAnswers] = useState(0);
@@ -33,6 +32,7 @@ export const ResultsLayout = () => {
     | "he-IL";
   const percents: number = Math.round((correctAnswers * 100) / questionsCount);
   const count: number = Math.round((percents / 100) * 600 + 200);
+  const [detailsNumber, setDetailsNumber] = useState<number | null>(null)
 
   useEffect(() => {
     const results: Record<string, string> = JSON.parse(
@@ -55,7 +55,7 @@ export const ResultsLayout = () => {
         <div className={styles.headerContainer}>
           <div className={styles.actions}>
             <div
-              onClick={() => setDetailsIsOpen(false)}
+              onClick={() => setDetailsNumber(null)}
               className={`${styles.action} ${styles.arrow}`}
             >
               <Arrow />
@@ -79,10 +79,10 @@ export const ResultsLayout = () => {
         </div>
       </LogoHeader>
       <div className={styles.content}>
-        {detailsIsOpen ? (
-          <ResultsDetails />
+        {detailsNumber ? (
+          <ResultsDetails detailsNumber={detailsNumber} />
         ) : (
-          <ResultsBase openDetails={() => setDetailsIsOpen(true)} />
+          <ResultsBase openDetails={setDetailsNumber} />
         )}
       </div>
       <div className={styles.footer}></div>

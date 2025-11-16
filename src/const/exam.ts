@@ -25,6 +25,7 @@ export enum ExamType {
 export interface ExamItem {
   next?: number;
   id: number;
+  name: string
 }
 
 export interface PreviewItem extends ExamItem {

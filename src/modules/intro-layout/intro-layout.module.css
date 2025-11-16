@@ -108,3 +108,9 @@ ul li {
 ol {
   list-style: decimal;
 }
+
+@media (max-width: 991px) {
+  .content {
+    padding: 100px 40px 40px;
+  }
+}
