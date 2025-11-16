@@ -39,6 +39,7 @@ export interface IntroItem extends ExamItem {
   img: string;
   texts: string[];
   part: number;
+  title?: string;
   questionPart?: string;
 }
 

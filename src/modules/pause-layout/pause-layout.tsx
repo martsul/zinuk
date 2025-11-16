@@ -17,6 +17,8 @@ const text = {
     pause: "Pause",
     timeRemaining: "Time remaining",
     f12: "(F12 to hide the clock)",
+    five: "To skip a paragraph, press the number <5> ",
+    enter: "followed by <Enter>",
     skip: "To skip a paragraph, press the number <5> followed by <Enter>",
   },
   "he-IL": {
@@ -24,14 +26,18 @@ const text = {
     timeRemaining: "זמן שנותר",
     f12: "(F12 להסתרת השעון)",
     skip: "כדי לדלג על פסקה, לחץ על המספר <5> ואחריו <Enter>",
+    five: "כדי לדלג על ההפסקה, לחץ על המספר <5>",
+    enter: "ואז על <Enter>",
   },
 };
 
 export const PauseLayout = () => {
-  const { timer, timerIsVisible, activePage, pageData } =
+  const { timer, timerIsVisible, activePage, pageData, canContinue } =
     useNavigationContext();
   const [pauseIndex, setPauseIndex] = useState(0);
-  const lang: "en" | "he-IL" = (document.documentElement.lang || 'en') as "en" | "he-IL";
+  const lang: "en" | "he-IL" = (document.documentElement.lang || "en") as
+    | "en"
+    | "he-IL";
 
   useEffect(() => {
     for (const key in pageData) {
@@ -75,7 +81,9 @@ export const PauseLayout = () => {
         </div>
       </div>
       <div className={styles.footer}>
-        <span className={styles.footerText}>{text[lang].skip}</span>
+        <span className={styles.footerText}>{text[lang].five}</span>
+        <span className={styles.five}>{canContinue && "5"}</span>
+        <span className={styles.footerText}>{text[lang].enter}</span>
       </div>
     </div>
   );

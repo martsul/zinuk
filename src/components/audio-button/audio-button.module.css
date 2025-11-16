@@ -1,5 +1,10 @@
 .audioButton {
   cursor: pointer;
+  transition: .2s ease;
+}
+
+.active.audioButton {
+  opacity: 0.7;
 }
 
 :global(.rtl) .audioButton  {

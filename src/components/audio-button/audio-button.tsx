@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type FC } from "react";
 import styles from "./audio-button.module.css";
+import classNames from "classnames";
 
 interface Props {
   audioUrl: string;
@@ -61,7 +62,7 @@ export const AudioButton: FC<Props> = ({ audioUrl }) => {
   };
 
   return (
-    <button className={styles.audioButton} onClick={onClick}>
+    <button className={classNames(styles.audioButton, {[styles.active]: isPlaying})} onClick={onClick}>
       <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="none" viewBox="0 0 45 45">
         <mask
           id="mask0_103_1238"

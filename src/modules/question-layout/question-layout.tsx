@@ -29,6 +29,7 @@ const texts = {
       3: "Exam Part 3",
     },
     timeAllotted: "Time allotted",
+    timeLeft: "Time left",
     minutes: "Minutes",
     f12: "(F12 to hide the clock)",
     enter: "Select an answer and press <Enter>; to confirm.",
@@ -39,6 +40,7 @@ const texts = {
       2: "כמותי",
       3: "אנגלית",
     },
+    timeLeft: "זמן נותר",
     timeAllotted: "זמן מוקצב",
     minutes: "דקות",
     f12: "(F12 להסתרת השעון)",
@@ -129,7 +131,7 @@ export const QuestionLayout: FC<Props> = ({ type }) => {
               <Clock color="#ffe700" />
             </div>
             <p className={styles.questionBoxTitle}>
-              {texts[lang].timeAllotted}:
+              {texts[lang].timeLeft}:
             </p>
             <p className={styles.questionBoxSubtitle}>{texts[lang].f12}</p>
             <p className={styles.questionBoxTime}>{timer}</p>

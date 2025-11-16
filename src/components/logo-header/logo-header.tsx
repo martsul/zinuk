@@ -13,12 +13,12 @@ export const LogoHeader: FC<Props> = ({ children }) => {
       <svg
         className={styles.trig}
         xmlns="http://www.w3.org/2000/svg"
-        width="390"
-        height="184"
+        width="355"
+        height="160"
         fill="none"
-        viewBox="0 0 390 184"
+        viewBox="0 0 355 160"
       >
-        <path fill="#fff" d="m.222-.807 394.385 184.786V-.807z"></path>
+        <path fill="#fff" d="m0-4.625 354.75 164.5v-164.5z"></path>
       </svg>
       <div className={styles.logoContainer}>
         <svg

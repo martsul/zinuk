@@ -30,6 +30,7 @@ class ExamRepository
       'type' => 'examIntro',
       'img' => '',
       'part' => 1,
+      'title' => $settings['exam_intro_title'],
       'texts' => [
         $settings['exam_intro'],
       ],
@@ -173,12 +174,18 @@ class ExamRepository
       2 => $settings['exam_intro_2'] ?? '',
       3 => $settings['exam_intro_3'] ?? ''
     ];
+    $introTitles = [
+      1 => $settings['exam_intro_1_title'] ?? '',
+      2 => $settings['exam_intro_2_title'] ?? '',
+      3 => $settings['exam_intro_3_title'] ?? ''
+    ];
 
     return [
       'id' => $id,
       'type' => 'examIntro',
       'img' => $introImages[$partNumber] ?? '',
       'part' => $partNumber,
+      'title' => $introTitles[$partNumber],
       'texts' => [
         'At the end of the test, the scores in the three areas (verbal reasoning, quantitative reasoning and English) and general scores will be displayed: a general multidisciplinary score, a general score with a verbal emphasis and a score with a quantitative emphasis.',
         'The test scores are only an estimate of the psychometric exam scores, and do not serve as a substitute for the scores of a standardized psychometric exam.'
@@ -203,7 +210,8 @@ class ExamRepository
           'texts' => [
             'This section contains questions of type: ' . $this->getQuestionTypeDisplayName($questionType),
             'Please read each question carefully and select the best answer.'
-          ]
+          ],
+          'title' => $questionSettings['intro'][0]['intro_type_title'],
         ]
       ];
     }
@@ -216,6 +224,7 @@ class ExamRepository
         'part' => $partNumber,
         'questionPart' => $this->getQuestionTypeDisplayName($questionType),
         'texts' => $row['text'] ?? '',
+        'title' => $questionSettings['intro'][0]['intro_type_title'],
       ];
     }
 
@@ -236,7 +245,7 @@ class ExamRepository
     $baseItem = [
       'pid' => $question->ID,
       'part' => $partNumber,
-      'time' => (int) $time,
+      'time' => (float) $time,
       'questionsPart' => $questionSettings['question_title'] ?? '',
     ];
 

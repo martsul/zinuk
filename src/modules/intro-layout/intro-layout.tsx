@@ -7,10 +7,14 @@ import { type IntroItem } from "../../const/exam";
 import { useNavigationContext } from "../../contexts/navigation-context/use-navigation-context";
 import examIntro1 from "@/assets/exam-intro-1.png";
 import questionIntro1 from "@/assets/question-intro-1.png";
+import questionIntro2 from "@/assets/question-intro-2.png";
+import questionIntro3 from "@/assets/question-intro-3.png";
 
 interface Props {
   type: IntroType;
 }
+
+const imgs = [ examIntro1, questionIntro1, questionIntro2, questionIntro3 ];
 
 const texts = {
   en: {
@@ -34,7 +38,6 @@ export const IntroLayout: FC<Props> = ({ type }) => {
   }
 
   const introData: IntroItem = pageData[activePage] as IntroItem;
-  const img: string = type === IntroType.EXAM ? examIntro1 : questionIntro1;
 
   if (
     !introData.img &&
@@ -48,9 +51,9 @@ export const IntroLayout: FC<Props> = ({ type }) => {
     <div className={styles.introContainer}>
       <div className={styles.header}>
         <div className={styles.imgContainer}>
-          <img className={styles.img} src={img} alt="person" />
+          <img className={styles.img} src={imgs[Math.floor(Math.random() * 4)] || imgs[0]} alt="person" />
         </div>
-        <p className={styles.title}>{texts[lang][type]}</p>
+        <p className={styles.title}>{introData.title ?? texts[lang][type]}</p>
         <div className={styles.decor}>
           <Decor />
         </div>

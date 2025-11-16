@@ -56,7 +56,6 @@
   bottom: -105px;
   inset-inline-start: 0;
   height: 115%;
-  z-index: 1;
 }
 
 :global(.rtl) .person {
@@ -145,4 +144,16 @@
   text-align: center;
   color: var(--blue);
   font: 600 24px / 1.2 var(--font-a);
+}
+
+.five {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #fff;
+  height: 40px;
+  width: 40px;
+  font: 400 32px / 1 var(--font-a);
+  color: #fff;
+  margin: 0 10px;
 }
