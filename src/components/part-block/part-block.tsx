@@ -1,4 +1,4 @@
-import { useEffect, useState, type FC } from "react";
+import { useEffect, useRef, useState, type FC } from "react";
 import styles from "./part-block.module.css";
 import { ExamStorageName, getPartTitle, getQuestionTypeByParts } from "../../const/exam";
 import { PartItem } from "../part-item/part-item";
@@ -23,13 +23,14 @@ const texts = {
 export const PartBlock: FC<Props> = ({ part, openDetails }) => {
   const { pageData } = useNavigationContext();
   const lang: "en" | "he-IL" = (document.documentElement.lang || 'en') as "en" | "he-IL";
-  const [correctCount, setCorrectCount] = useState<{
-    correct: number;
-    total: number;
-  }>({
+  
+  const itemsRef = useRef<HTMLDivElement | null>(null);
+
+  const [correctCount, setCorrectCount] = useState({
     correct: 0,
     total: 0,
   });
+
   const questionTypeByParts = getQuestionTypeByParts(pageData);
   const items: string[] = questionTypeByParts[part] || [];
   const results: Record<string, string> = JSON.parse(
@@ -38,8 +39,11 @@ export const PartBlock: FC<Props> = ({ part, openDetails }) => {
 
   useEffect(() => {
     const handler = (e: WheelEvent) => {
-      const el = document.querySelector(`.${styles.items}`);
-      if (el && e.target instanceof Node && el.contains(e.target)) {
+      const el = itemsRef.current;
+
+      if (!el) return;
+
+      if (e.target instanceof Node && el.contains(e.target)) {
         e.stopPropagation();
         el.scrollBy({ top: e.deltaY, behavior: "smooth" });
       }
@@ -76,14 +80,19 @@ export const PartBlock: FC<Props> = ({ part, openDetails }) => {
           {getPartTitle(pageData, part)}
         </div>
         <div className={styles.headerText}>
-          {Math.round((correctCount.correct * 100) / correctCount.total)}%
+          {correctCount.total > 0
+            ? Math.round((correctCount.correct * 100) / correctCount.total)
+            : 0
+          }%
         </div>
       </div>
-      <div className={styles.items}>
+
+      <div className={styles.items} ref={itemsRef}>
         {items.map((item, i) => (
           <PartItem type={item} part={part} key={i} />
         ))}
       </div>
+
       <div className={styles.link} onClick={openDetails}>
         {texts[lang].more}
       </div>

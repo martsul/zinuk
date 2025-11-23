@@ -70,7 +70,7 @@ export const PauseLayout = () => {
           {timerIsVisible && (
             <div className={styles.box}>
               <div className={styles.clock}>
-                <Clock color="#30326d" />
+                <Clock className={styles.clockSvg} />
               </div>
               <p className={styles.boxTitle}>{text[lang].timeRemaining}:</p>
               <p className={styles.boxSubtitle}>{text[lang].f12}</p>

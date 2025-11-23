@@ -63,7 +63,7 @@ export const AudioButton: FC<Props> = ({ audioUrl }) => {
 
   return (
     <button className={classNames(styles.audioButton, {[styles.active]: isPlaying})} onClick={onClick}>
-      <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="none" viewBox="0 0 45 45">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 45 45">
         <mask
           id="mask0_103_1238"
           width="45"

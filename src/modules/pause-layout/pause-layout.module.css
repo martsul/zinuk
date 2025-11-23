@@ -158,12 +158,61 @@
   margin: 0 10px;
 }
 
-@media (max-width: 1024px) {
-  .person {
-    display: none;
+.clockSvg {
+  width: 46px;
+  height: 46px;
+  fill: #30326d;
+}
+
+@media (max-width: 1200px) {
+  .pauseContainer {
+    grid-template-rows: 125px 1fr 80px;
   }
 
+  .title {
+    font-size: 38px;
+  }
+
+  .boxTitle {
+    font-size: 26px;
+  }
+
+  .boxSubtitle {
+    font-size: 18px;
+  }
+
+  .boxTime {
+    font-size: 46px;
+  }
+
+  .box {
+    height: 180px;
+    max-width: 200px;
+    margin-bottom: 20px;
+  }
+
+  .subBox {
+    font-size: 20px;
+  }
+
+  .footerText,
+  .footerFive {
+    font-size: 24px;
+  }
+
+  .five {
+    width: 28px;
+    height: 28px;
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 991px) {
   .contentContainer {
     justify-content: center;
+  }
+
+  .person {
+    display: none;
   }
 }

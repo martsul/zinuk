@@ -223,13 +223,83 @@ button {
   cursor: pointer;
 }
 
-@media (max-width: 991px) {
+.circle {
+  width: 133px;
+  height: 128px;
+}
+
+.clockSvg {
+  width: 48px;
+  height: 48px;
+  fill: #fff;
+}
+
+.yellow .clockSvg {
+  fill: #ffe700;
+}
+
+@media (max-width: 1200px) {
   .questionContainer {
     grid-template-columns: 1fr 200px;
+    grid-template-rows: 1fr 60px;
+  }
+
+  .questionFooterText {
+    font-size: 24px;
+  }
+
+  .check {
+    width: 36px;
+    height: 36px;
   }
 
   .questionBox {
     width: 180px;
+    padding: 25px 15px 5px;
+    width: 150px;
+    height: 130px;
+  }
+
+  .circle {
+    width: 80px;
+    height: 80px;
+  }
+
+  .questionLogoImage {
+    width: 80px;
+  }
+
+  .questionLogoTitle,
+  .questionLogoSubtitle {
+    font-size: 24px;
+  }
+
+  .questionAside {
+    gap: 14px;
+  }
+
+  .questionBoxText,
+  .questionBoxTitle,
+  .questionBoxTime {
+    font-size: 18px;
+  }
+
+  .questionBoxTime {
+    font-size: 24px;
+  }
+
+  .questionBoxSubtitle {
+    font-size: 14px;
+  }
+
+  .clockSvg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .questionBoxClock::before,
+  .questionBoxClock::after {
+    width: calc(50% - 30px);
   }
 }
 

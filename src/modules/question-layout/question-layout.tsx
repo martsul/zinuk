@@ -95,9 +95,8 @@ export const QuestionLayout: FC<Props> = ({ type }) => {
         </svg>
         <div className={styles.questionLogo}>
           <svg
+            className={styles.circle}
             xmlns="http://www.w3.org/2000/svg"
-            width="133"
-            height="128"
             fill="none"
             viewBox="0 0 133 128"
           >
@@ -119,7 +118,7 @@ export const QuestionLayout: FC<Props> = ({ type }) => {
         </p>
         <div className={styles.questionBox}>
           <div className={styles.questionBoxClock}>
-            <Clock />
+            <Clock className={styles.clockSvg} />
           </div>
           <p className={styles.questionBoxText}>{texts[lang].timeAllotted}</p>
           <p className={styles.questionBoxTime}>{time}</p>
@@ -128,11 +127,9 @@ export const QuestionLayout: FC<Props> = ({ type }) => {
         {timerIsVisible && (
           <div className={classNames(styles.questionBox, styles.yellow)}>
             <div className={styles.questionBoxClock}>
-              <Clock color="#ffe700" />
+              <Clock className={styles.clockSvg} />
             </div>
-            <p className={styles.questionBoxTitle}>
-              {texts[lang].timeLeft}:
-            </p>
+            <p className={styles.questionBoxTitle}>{texts[lang].timeLeft}:</p>
             <p className={styles.questionBoxSubtitle}>{texts[lang].f12}</p>
             <p className={styles.questionBoxTime}>{timer}</p>
           </div>

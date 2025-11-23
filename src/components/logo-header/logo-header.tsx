@@ -13,8 +13,6 @@ export const LogoHeader: FC<Props> = ({ children }) => {
       <svg
         className={styles.trig}
         xmlns="http://www.w3.org/2000/svg"
-        width="355"
-        height="160"
         fill="none"
         viewBox="0 0 355 160"
       >

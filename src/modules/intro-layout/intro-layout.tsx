@@ -2,7 +2,7 @@ import { Decor } from "../../svg/decor";
 import styles from "./intro-layout.module.css";
 import { BlueDecor } from "../../svg/blue-decor";
 import { IntroType } from "./intro-layout.const";
-import type { FC } from "react";
+import { useEffect, type FC } from "react";
 import { type IntroItem } from "../../const/exam";
 import { useNavigationContext } from "../../contexts/navigation-context/use-navigation-context";
 import examIntro1 from "@/assets/exam-intro-1.png";
@@ -14,7 +14,7 @@ interface Props {
   type: IntroType;
 }
 
-const imgs = [ examIntro1, questionIntro1, questionIntro2, questionIntro3 ];
+const imgs = [examIntro1, questionIntro1, questionIntro2, questionIntro3];
 
 const texts = {
   en: {
@@ -32,6 +32,22 @@ export const IntroLayout: FC<Props> = ({ type }) => {
   const lang: "en" | "he-IL" = (document.documentElement.lang || "en") as
     | "en"
     | "he-IL";
+
+  useEffect(() => {
+    const handler = (e: WheelEvent) => {
+      const el = document.querySelector(`.${styles.contentContainer}`);
+      if (el && e.target instanceof Node && el.contains(e.target)) {
+        e.stopPropagation();
+        el.scrollBy({ top: e.deltaY, behavior: "smooth" });
+      }
+    };
+
+    document.addEventListener("wheel", handler, { passive: false });
+
+    return () => {
+      document.removeEventListener("wheel", handler);
+    };
+  }, []);
 
   if (!activePage) {
     return;
@@ -51,7 +67,11 @@ export const IntroLayout: FC<Props> = ({ type }) => {
     <div className={styles.introContainer}>
       <div className={styles.header}>
         <div className={styles.imgContainer}>
-          <img className={styles.img} src={imgs[Math.floor(Math.random() * 4)] || imgs[0]} alt="person" />
+          <img
+            className={styles.img}
+            src={imgs[Math.floor(Math.random() * 4)] || imgs[0]}
+            alt="person"
+          />
         </div>
         <p className={styles.title}>{introData.title ?? texts[lang][type]}</p>
         <div className={styles.decor}>

@@ -9,6 +9,7 @@
   position: absolute;
   top: 0;
   inset-inline-end: 0;
+  height: 100%;
 }
 
 :global(.rtl) .trig {
@@ -18,7 +19,7 @@
 .logoContainer {
   position: absolute;
   top: 50%;
-  inset-inline-end: 140px;
+  inset-inline-end: 80px;
   transform: translate(0, -50%);
   z-index: 1;
 }
@@ -28,4 +29,10 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+
+@media (max-width: 1200px) {
+  .logoContainer {
+    transform: translate(0, -50%) scale(0.7);
+  }
 }

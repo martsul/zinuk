@@ -97,13 +97,17 @@
   }
 }
 
-@media (max-width: 1024px) {
-  .contentImg {
-    display: none;
+@media (max-width: 1200px) {
+  .previewContainer {
+    grid-template-rows: 125px 1fr 180px;
   }
 
-  .contentTitle,
-  :global(.rtl) .contentTitle {
-    transform: translate(0);
+  .contentTitle {
+    padding: 10px 20px;
+    font-size: 64px;
+  }
+
+  .footerText {
+    font-size: 28px;
   }
 }

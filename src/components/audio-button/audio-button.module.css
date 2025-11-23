@@ -7,6 +7,19 @@
   opacity: 0.7;
 }
 
+.audioButton {
+  width: 45px;
+  height: 45px;
+  flex-shrink: 0;
+}
+
 :global(.rtl) .audioButton  {
   transform: scaleX(-1);
+}
+
+@media (max-width: 1200px) {
+  .audioButton {
+    width: 32px;
+    height: 32px;
+  }
 }

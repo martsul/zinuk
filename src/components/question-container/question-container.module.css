@@ -114,3 +114,27 @@
 .img {
   width: 100%;
 }
+
+@media (max-width: 1200px) {
+  .questionFooter {
+    padding: 10px;
+  }
+
+  .questionAnswerText {
+    font-size: 20px;
+  }
+
+  .questionInputContainer {
+    width: 30px;
+    height: 30px;
+  }
+
+  .questionInput {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .questionError {
+    font-size: 18px;
+  }
+}

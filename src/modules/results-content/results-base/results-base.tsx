@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { PartBlock } from "../../../components/part-block/part-block";
 import { getPartsCount } from "../../../const/exam";
 import { useNavigationContext } from "../../../contexts/navigation-context/use-navigation-context";
@@ -10,6 +11,22 @@ export const ResultsBase = ({
 }) => {
   const { pageData } = useNavigationContext();
   const partsCount = getPartsCount(pageData);
+
+  useEffect(() => {
+    const handler = (e: WheelEvent) => {
+      const el = document.querySelector(`.${styles.wrapper}`);
+      if (el && e.target instanceof Node && el.contains(e.target)) {
+        e.stopPropagation();
+        el.scrollBy({ top: e.deltaY, behavior: "smooth" });
+      }
+    };
+
+    document.addEventListener("wheel", handler, { passive: false });
+
+    return () => {
+      document.removeEventListener("wheel", handler);
+    };
+  }, []);
 
   return (
     <div className={styles.container}>
