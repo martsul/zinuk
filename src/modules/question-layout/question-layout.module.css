@@ -238,6 +238,11 @@ button {
   fill: #ffe700;
 }
 
+.questionAction {
+  padding: 0;
+  background: transparent;
+}
+
 @media (max-width: 1200px) {
   .questionContainer {
     grid-template-columns: 1fr 200px;

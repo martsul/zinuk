@@ -5,7 +5,6 @@ import {
   ExamStorageName,
   ExamType,
   getPartsCount,
-  getPartTitle,
   type SimpleQuestionItem,
   type TQQuestionItem,
 } from "../../../const/exam";
@@ -15,6 +14,7 @@ import styles from "./results-details.module.css";
 import { useNavigationContext } from "../../../contexts/navigation-context/use-navigation-context";
 import classNames from "classnames";
 import { CrossStatus } from "../../../svg/cross-status";
+import { getType } from "../../question-layout/question-layout.util";
 
 const texts = {
   en: {
@@ -117,7 +117,7 @@ export const ResultsDetails: FC<Props> = ({ detailsNumber }) => {
         <div className={styles.details}>
           <div className={styles.detailsHeader}>
             <div className={styles.detailsTitle}>
-              {getPartTitle(pageData, selectedQuestion?.part || 1)},{" "}
+              {selectedQuestion ? getType(selectedQuestion) : ''},{" "}
               {texts[lang].questions} {questionNumber ? questionNumber : ""}
             </div>
             <button>

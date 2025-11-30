@@ -61,10 +61,10 @@ export const ResultsLayout = () => {
               <Arrow />
               <span className={styles.actionText}>{texts[lang].back}</span>
             </div>
-            <div className={styles.action}>
+            <a href="https://znk.co.il/student/%D7%9E%D7%A2%D7%A8%D7%9B%D7%AA-%D7%AA%D7%A8%D7%92%D7%95%D7%9C-%D7%9E%D7%A4%D7%A2%D7%9D/" className={styles.action}>
               <Home />
               <span className={styles.actionText}>{texts[lang].home}</span>
-            </div>
+            </a>
           </div>
           <div className={styles.score}>
             <p className={styles.percent}>

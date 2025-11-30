@@ -113,12 +113,7 @@ export const QuestionContainer: FC<Props> = ({
                 [styles.questionInputError]: error,
               })}
             >
-              <input
-                type="text"
-                value={answer || ""}
-                className={styles.questionInput}
-                readOnly
-              />
+              <div className={styles.questionInput}>{answer || ""}</div>
             </div>
           </div>
           {error && (

@@ -16,6 +16,7 @@ import { useNavigationContext } from "../../contexts/navigation-context/use-navi
 import { QuestionText } from "../question-content/question-text/question-text";
 import { SimpleQuestion } from "../question-content/simple-question/simple-question";
 import { Modal } from "../../components/modal/modal";
+import { getType } from "./question-layout.util";
 
 interface Props {
   type: QuestionType;
@@ -48,13 +49,6 @@ const texts = {
   },
 };
 
-const getType = (question: Question): string => {
-  if ("questionsPart" in question) {
-    return question.questionsPart as string;
-  }
-
-  return "Question Type";
-};
 
 export const QuestionLayout: FC<Props> = ({ type }) => {
   const lang: "en" | "he-IL" = (document.documentElement.lang || "en") as
@@ -153,10 +147,10 @@ export const QuestionLayout: FC<Props> = ({ type }) => {
         </div>
         {type === QuestionType.TQ && (
           <div className={styles.questionFooterActions}>
-            <button onClick={() => setModal("question")}>
+            <button className={styles.questionAction} onClick={() => setModal("question")}>
               <Document />
             </button>
-            <button onClick={() => setModal("answer")}>
+            <button className={styles.questionAction} onClick={() => setModal("answer")}>
               <Copy />
             </button>
           </div>
