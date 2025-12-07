@@ -243,6 +243,20 @@ button {
   background: transparent;
 }
 
+@media (max-width: 1440px) {
+  .questionFooterText {
+    font: 400 28px / 1 var(--font-a);
+  }
+
+  .questionLogoSubtitle {
+    margin-top: -10px;
+  }
+
+    .questionContainer {
+    grid-template-rows: 1fr 80px;
+  }
+}
+
 @media (max-width: 1200px) {
   .questionContainer {
     grid-template-columns: 1fr 200px;

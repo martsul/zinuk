@@ -70,6 +70,21 @@
   background: var(--blue);
 }
 
+@media (max-width: 1440px) {
+  .score {
+    justify-content: center;
+    gap: 0px;
+  }
+
+  .container {
+    grid-template-rows: auto 1fr 50px;
+  }
+
+  .headerContainer {
+    padding: 20px;
+  }
+}
+
 @media (max-width: 1200px) {
   .container {
     grid-template-rows: 125px 1fr 60px;

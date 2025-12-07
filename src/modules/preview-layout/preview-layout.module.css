@@ -91,9 +91,18 @@
   transform: scaleX(-1);
 }
 
-@media (max-width: 1444px) {
+@media (max-width: 1440px) {
   .contentImg {
     inset-inline-start: 0;
+  }
+
+  .footerText {
+    color: #fff;
+    font: 600 26px / 1 var(--font-a);
+  }
+
+  .previewContainer {
+    grid-template-rows: 168px 1fr 200px;
   }
 }
 

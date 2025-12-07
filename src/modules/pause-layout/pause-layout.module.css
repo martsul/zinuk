@@ -164,6 +164,21 @@
   fill: #30326d;
 }
 
+@media (max-width: 1440px) {
+  .box {
+    height: 100%;
+    margin-bottom: 30px;
+  }
+
+  .title {
+    font: 700 76px / 1 var(--font-a);
+  }
+  .footerText {
+    color: #fff;
+    font: 600 26px / 1 var(--font-a);
+  }
+}
+
 @media (max-width: 1200px) {
   .pauseContainer {
     grid-template-rows: 125px 1fr 80px;

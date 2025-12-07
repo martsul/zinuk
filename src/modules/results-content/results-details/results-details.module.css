@@ -134,6 +134,24 @@
   background: #ed2374;
 }
 
+.copyButton {
+  border-color: transparent !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+@media (max-width: 1440px) {
+  .details {
+    display: grid;
+    grid-template-rows: 50px 1fr 70px;
+  }
+
+  .footerText {
+    color: #fff;
+    font: 600 26px / 1 var(--font-a);
+  }
+}
+
 @media (max-width: 991px) {
   .container {
     grid-template-columns: 200px 1fr;

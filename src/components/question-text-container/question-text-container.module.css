@@ -33,3 +33,9 @@
 .audio {
   flex-shrink: 0;
 }
+
+@media (max-content: 1440px) {
+  .questionContainer {
+    grid-template-rows: 1fr 80px;
+  }
+}

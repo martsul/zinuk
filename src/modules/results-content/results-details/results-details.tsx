@@ -14,7 +14,7 @@ import styles from "./results-details.module.css";
 import { useNavigationContext } from "../../../contexts/navigation-context/use-navigation-context";
 import classNames from "classnames";
 import { CrossStatus } from "../../../svg/cross-status";
-import { getType } from "../../question-layout/question-layout.util";
+import { getTitle } from "../../question-layout/question-layout.util";
 
 const texts = {
   en: {
@@ -117,10 +117,10 @@ export const ResultsDetails: FC<Props> = ({ detailsNumber }) => {
         <div className={styles.details}>
           <div className={styles.detailsHeader}>
             <div className={styles.detailsTitle}>
-              {selectedQuestion ? getType(selectedQuestion) : ''},{" "}
+              {selectedQuestion ? getTitle(selectedQuestion) : ''},{" "}
               {texts[lang].questions} {questionNumber ? questionNumber : ""}
             </div>
-            <button>
+            <button className={styles.copyButton}>
               <Copy />
             </button>
           </div>

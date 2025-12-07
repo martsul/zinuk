@@ -1,6 +1,6 @@
 .introContainer {
   display: grid;
-  grid-template-rows: 154px 1fr;
+  grid-template-rows: 154px 1fr 100px;
   max-width: var(--container-width);
   width: calc(100% - 40px);
   height: calc(100vh - 40px);
@@ -107,6 +107,23 @@ ul li {
 
 ol {
   list-style: decimal;
+}
+
+.footer {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 500 32px / 1 var(--font-a);
+  color: var(--blue);
+  border-top: 1px solid #d9d9ff;
+  position: relative;
+}
+
+@media (max-width: 1440px) {
+  .footer {
+    font: 500 28px / 1 var(--font-a);
+  }
 }
 
 @media (max-width: 991px) {

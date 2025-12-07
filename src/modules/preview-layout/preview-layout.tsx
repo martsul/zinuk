@@ -67,7 +67,7 @@ export const PreviewLayout = () => {
   const data = pageData[activePage];
 
   if (data.type !== ExamType.PREVIEW) {
-    return
+    return;
   }
 
   return (
@@ -80,9 +80,7 @@ export const PreviewLayout = () => {
             alt="person"
             className={styles.contentImg}
           />
-          <p className={styles.contentTitle}>
-            {data.title}
-          </p>
+          <p className={styles.contentTitle}>{data.title}</p>
         </div>
         <div className={styles.contentDecor}>
           <Decor />

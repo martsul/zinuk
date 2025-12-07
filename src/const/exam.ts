@@ -25,7 +25,7 @@ export enum ExamType {
 export interface ExamItem {
   next?: number;
   id: number;
-  name: string
+  name: string;
 }
 
 export interface PreviewItem extends ExamItem {
@@ -917,7 +917,7 @@ export const getQuestionCount = (exam: ExamDto) => {
   const AllQuestions: Record<string, SimpleQuestionItem | TQQuestionItem> = {};
   for (const key in exam) {
     const element = exam[key];
-    if ("correctAnswer" in element) {
+    if ("correctAnswer" in element && element.visible) {
       AllQuestions[key] = element;
     }
   }

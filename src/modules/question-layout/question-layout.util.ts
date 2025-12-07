@@ -7,3 +7,11 @@ export const getType = (question: Question): string => {
 
   return "Question Type";
 };
+
+export const getTitle = (question: Question): string => {
+  if ("title" in question) {
+    return question.title as string;
+  }
+
+  return "";
+};

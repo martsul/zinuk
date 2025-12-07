@@ -94,9 +94,12 @@ export const IntroLayout: FC<Props> = ({ type }) => {
             />
           )}
         </div>
+      </div>
+      <div className={styles.footer}>
         <div className={styles.contentDecor}>
           <BlueDecor />
         </div>
+        <span>להמשך יש להקיש &lt;Enter&gt;</span>
       </div>
     </div>
   );

@@ -171,6 +171,18 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
 
   useEffect(() => {
     if (activePage) {
+      const currentPage = pageData[activePage];
+      if (
+        "texts" in currentPage &&
+        (!currentPage.texts || !currentPage.texts.length)
+      ) {
+        navigateToNextPage();
+      }
+    }
+  }, [activePage, navigateToNextPage, pageData]);
+
+  useEffect(() => {
+    if (activePage) {
       const currentPage = pageData[activePage] || {};
       if ("visible" in currentPage && !currentPage.visible) {
         navigateToNextPage();

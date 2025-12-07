@@ -33,10 +33,17 @@ export const QuestionTextContainer: FC<Props> = ({ questions }) => {
           const audio: string | undefined =
             typeof question === "string" ? undefined : question.audio;
 
-          return (
+          return questionUrl ? (
             <div key={index} className={styles.questionContainer}>
               <div className={styles.imgContainer}>
-                <img src={questionUrl} alt="question" className={styles.img} />
+                <img
+                  src={questionUrl}
+                  alt="question"
+                  className={styles.img}
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                  }}
+                />
               </div>
               {audio && (
                 <div className={styles.audio}>
@@ -44,6 +51,8 @@ export const QuestionTextContainer: FC<Props> = ({ questions }) => {
                 </div>
               )}
             </div>
+          ) : (
+            <></>
           );
         })}
       </div>

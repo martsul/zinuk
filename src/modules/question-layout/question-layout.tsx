@@ -49,7 +49,6 @@ const texts = {
   },
 };
 
-
 export const QuestionLayout: FC<Props> = ({ type }) => {
   const lang: "en" | "he-IL" = (document.documentElement.lang || "en") as
     | "en"
@@ -102,7 +101,11 @@ export const QuestionLayout: FC<Props> = ({ type }) => {
               transform="matrix(-1 0 0 1 133 -5)"
             ></circle>
           </svg>
-          <img src={Logo} alt="logo" className={styles.questionLogoImage} />
+          <img
+            src={Logo}
+            alt="logo"
+            className={styles.questionLogoImage}
+          />
         </div>
         <p className={styles.questionLogoTitle}>
           {getPartTitle(pageData, part)}
@@ -128,7 +131,11 @@ export const QuestionLayout: FC<Props> = ({ type }) => {
             <p className={styles.questionBoxTime}>{timer}</p>
           </div>
         )}
-        <img src={personImg} alt="person" className={styles.person} />
+        <img
+          src={personImg}
+          alt="person"
+          className={styles.person}
+        />
         <svg
           className={styles.questionAsideBottom}
           xmlns="http://www.w3.org/2000/svg"
@@ -147,10 +154,16 @@ export const QuestionLayout: FC<Props> = ({ type }) => {
         </div>
         {type === QuestionType.TQ && (
           <div className={styles.questionFooterActions}>
-            <button className={styles.questionAction} onClick={() => setModal("question")}>
+            <button
+              className={styles.questionAction}
+              onClick={() => setModal("question")}
+            >
               <Document />
             </button>
-            <button className={styles.questionAction} onClick={() => setModal("answer")}>
+            <button
+              className={styles.questionAction}
+              onClick={() => setModal("answer")}
+            >
               <Copy />
             </button>
           </div>

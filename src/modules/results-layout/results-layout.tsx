@@ -32,7 +32,7 @@ export const ResultsLayout = () => {
     | "he-IL";
   const percents: number = Math.round((correctAnswers * 100) / questionsCount);
   const count: number = Math.round((percents / 100) * 600 + 200);
-  const [detailsNumber, setDetailsNumber] = useState<number | null>(null)
+  const [detailsNumber, setDetailsNumber] = useState<number | null>(null);
 
   useEffect(() => {
     const results: Record<string, string> = JSON.parse(
@@ -54,14 +54,19 @@ export const ResultsLayout = () => {
       <LogoHeader>
         <div className={styles.headerContainer}>
           <div className={styles.actions}>
-            <div
-              onClick={() => setDetailsNumber(null)}
-              className={`${styles.action} ${styles.arrow}`}
+            {detailsNumber && (
+              <div
+                onClick={() => setDetailsNumber(null)}
+                className={`${styles.action} ${styles.arrow}`}
+              >
+                <Arrow />
+                <span className={styles.actionText}>{texts[lang].back}</span>
+              </div>
+            )}
+            <a
+              href="https://znk.co.il/student/%D7%9E%D7%A2%D7%A8%D7%9B%D7%AA-%D7%AA%D7%A8%D7%92%D7%95%D7%9C-%D7%9E%D7%A4%D7%A2%D7%9D/"
+              className={styles.action}
             >
-              <Arrow />
-              <span className={styles.actionText}>{texts[lang].back}</span>
-            </div>
-            <a href="https://znk.co.il/student/%D7%9E%D7%A2%D7%A8%D7%9B%D7%AA-%D7%AA%D7%A8%D7%92%D7%95%D7%9C-%D7%9E%D7%A4%D7%A2%D7%9D/" className={styles.action}>
               <Home />
               <span className={styles.actionText}>{texts[lang].home}</span>
             </a>
