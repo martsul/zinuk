@@ -18,7 +18,7 @@
   height: 45px;
 }
 
-:global(.rtl) .audioButton {
+:global(.rtl) .audioButton:not(.ltr) {
   transform: scaleX(-1);
 }
 

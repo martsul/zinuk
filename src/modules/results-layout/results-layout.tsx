@@ -73,8 +73,7 @@ export const ResultsLayout = () => {
           </div>
           <div className={styles.score}>
             <p className={styles.percent}>
-              {texts[lang].percentage}
-              {percents}%
+              {texts[lang].percentage} {percents}%
             </p>
             <p className={styles.num}>
               {texts[lang].numerical} {count}

@@ -21,6 +21,7 @@ class Exam extends BaseModel {
 			'exam_intro_2_title'      => get_field( 'exam_intro_2_title', 'option' ),
 			'exam_intro_3_title'      => get_field( 'exam_intro_3_title', 'option' ),
 			'exam_intro_title'      => get_field( 'exam_intro_title', 'option' ),
+			'second_reading_passage'      => get_field( 'second_reading_passage', 'option' ),
 			'question_setting' => get_field( 'question_setting', 'option' ),
 		];
 	}

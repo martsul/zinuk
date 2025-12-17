@@ -7,6 +7,10 @@
   overflow: auto;
 }
 
+.container:has(.ltr) {
+  direction: ltr;
+}
+
 .content {
   height: 100%;
   display: flex;
@@ -20,6 +24,10 @@
   width: 100%;
   gap: 20px;
   justify-content: space-between;
+}
+
+.questionContainer.ltr {
+  direction: ltr;
 }
 
 .imgContainer {

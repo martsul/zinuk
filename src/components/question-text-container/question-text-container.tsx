@@ -2,12 +2,18 @@ import { useEffect, type FC } from "react";
 import type { AudioQuestion } from "../../models/question.models";
 import styles from "./question-text-container.module.css";
 import { AudioButton } from "../audio-button/audio-button";
+import classNames from "classnames";
+import { ltrQuestions } from "../question-container/question-container.model";
+import { useNavigationContext } from "../../contexts/navigation-context/use-navigation-context";
 
 interface Props {
   questions: (AudioQuestion | string)[];
 }
 
 export const QuestionTextContainer: FC<Props> = ({ questions }) => {
+  const { pageData, activePage } = useNavigationContext();
+  const currentPage = pageData[activePage || ""];
+
   useEffect(() => {
     const handler = (e: WheelEvent) => {
       const el = document.querySelector(`.${styles.container}`);
@@ -34,7 +40,12 @@ export const QuestionTextContainer: FC<Props> = ({ questions }) => {
             typeof question === "string" ? undefined : question.audio;
 
           return questionUrl ? (
-            <div key={index} className={styles.questionContainer}>
+            <div
+              key={index}
+              className={classNames(styles.questionContainer, {
+                [styles.ltr]: ltrQuestions.has(currentPage?.name),
+              })}
+            >
               <div className={styles.imgContainer}>
                 <img
                   src={questionUrl}
@@ -47,7 +58,10 @@ export const QuestionTextContainer: FC<Props> = ({ questions }) => {
               </div>
               {audio && (
                 <div className={styles.audio}>
-                  <AudioButton audioUrl={audio} />
+                  <AudioButton
+                    ltr={ltrQuestions.has(currentPage?.name)}
+                    audioUrl={audio}
+                  />
                 </div>
               )}
             </div>

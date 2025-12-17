@@ -46,6 +46,10 @@
   flex-shrink: 0;
 }
 
+.audioButton.ltr {
+  transform: rotate(180deg);
+}
+
 .questionTitle {
   font: 700 24px / 1 var(--font-a);
 }

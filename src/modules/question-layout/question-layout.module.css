@@ -239,8 +239,9 @@ button {
 }
 
 .questionAction {
-  padding: 0;
-  background: transparent;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
 }
 
 @media (max-width: 1440px) {

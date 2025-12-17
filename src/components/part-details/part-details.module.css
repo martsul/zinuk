@@ -1,12 +1,33 @@
-.container {
+.header {
+  font: 600 32px/1 var(--font-a);
+  padding: 10px;
+  margin-bottom: 10px;
+  color: #fff;
+  background: var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.answerContainers {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.answerContainer {
   background: #fff;
   padding: 10px;
 }
 
-.header {
+.percents {
+  color: #FFE700;
+}
+
+.answerContainerHeader {
   color: var(--blue-2);
   font: 600 32px/1 var(--font-a);
-  border-bottom: 3px solid #0A294B2B;
+  border-bottom: 3px solid #0a294b2b;
   padding-bottom: 10px;
   margin-bottom: 10px;
 }
@@ -27,7 +48,7 @@
 }
 
 .answerNum {
-  font-optical-sizing: 600 12px/1 var(--font-a);
+  font: 600 12px/1 var(--font-a);
 }
 
 .answerSq {
@@ -40,15 +61,15 @@
 }
 
 .warning .answerSq {
-  background: #FFE700;
+  background: #ffe700;
 }
 
 .correct .answerSq {
-  background: #009A40;
+  background: #009a40;
 }
 
 .wrong .answerSq {
-  background: #ED2374;
+  background: #ed2374;
 }
 
 .check {

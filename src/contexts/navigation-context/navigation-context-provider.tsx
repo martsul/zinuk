@@ -60,6 +60,7 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
   const [canContinue, setCanContinue] = useState<boolean>(true);
   const [timerIsVisible, setTimerIsVisible] = useState<boolean>(true);
   const [timer, setTimer] = useState<number | undefined>(undefined);
+  const [timeVariant, setTimeVariant] = useState<'short' | 'full'>('full')
   const [pageData, setPageData] = useState<ExamDto>({});
   const [activePage, setActivePage] = useState<
     null | number | "results" | string
@@ -173,8 +174,9 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
     if (activePage) {
       const currentPage = pageData[activePage];
       if (
-        "texts" in currentPage &&
-        (!currentPage.texts || !currentPage.texts.length)
+        currentPage?.type === ExamType.QUESTION_INTRO &&
+        (currentPage.questionPart === "Geometry" ||
+          currentPage.questionPart === "Algebra")
       ) {
         navigateToNextPage();
       }
@@ -215,7 +217,9 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
         currentPage?.type === ExamType.QUESTION_TQ ||
         currentPage?.type === ExamType.QUESTION_TEXT
       ) {
-        setTimer(currentPage.time * 60);
+        const time: number = (timeVariant === 'full' || currentPage?.type === ExamType.PAUSE) ? currentPage.time : currentPage.question_time_lightweight;
+
+        setTimer(time * 60);
         intervalRef.current = setInterval(() => {
           setTimer((prev) => {
             return typeof prev === "number" ? prev - 1 : undefined;
@@ -227,7 +231,7 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
     return () => {
       clearInterval(intervalRef.current);
     };
-  }, [activePage, pageData]);
+  }, [activePage, pageData, timeVariant]);
 
   useEffect(() => {
     if (activePage) {
@@ -267,6 +271,8 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
         modal,
         setModal,
         navigateToNextPage,
+        setTimeVariant,
+        timeVariant,
       }}
     >
       {children}

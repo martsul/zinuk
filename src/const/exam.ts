@@ -48,7 +48,9 @@ export interface Question extends ExamItem {
   part: number;
   id: number;
   time: number;
+  question_time_lightweight: number;
   visible?: boolean;
+  subgroup: string;
 }
 
 export interface SimpleQuestionItem extends Question {

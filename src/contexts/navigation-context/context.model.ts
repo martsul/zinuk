@@ -11,4 +11,6 @@ export interface NavigationContextModel {
   modal: "question" | "answer" | null;
   setModal: React.Dispatch<React.SetStateAction<"question" | "answer" | null>>;
   navigateToNextPage: () => void;
+  setTimeVariant: React.Dispatch<React.SetStateAction<"short" | "full">>
+  timeVariant: "short" | "full";
 }

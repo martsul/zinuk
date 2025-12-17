@@ -1,7 +1,6 @@
-const TEST: string = "https://staging-ms.znk.co.il";
-// const PROD: string = "https://znk.co.il";
+const BASE_DOMAIN = window.location.origin;
 
-const BASE_URL: string = TEST + "/student/api/v1";
+const BASE_URL: string = BASE_DOMAIN + "/student/api/v1";
 
 export enum ENDPOINTS {
   TEST = "test",

@@ -71,38 +71,22 @@ class ExamRepository
         foreach ($typeQuestions as $question) {
           $questionItems = $this->createQuestionItem($currentId, $question, $partNumber, $questionType, $settings);
 
-          $isSecond = !empty($questionItems['secondReadingPassage']);
-
-          if ($isSecond && isset($questionItems['questionText'])) {
-            $textItem = $questionItems['questionText'];
-            $textItem['id'] = $currentId;
-            $examData[$currentId] = $textItem;
-            $currentId++;
-          }
-
-          /**
-           * 2️⃣ Если обычный readingPassage → вставляем questionText только один раз
-           */
-          if (!$isSecond && isset($questionItems['questionText']) && !$readingTextAdded) {
-            $textItem = $questionItems['questionText'];
-            $textItem['id'] = $currentId;
-            $examData[$currentId] = $textItem;
+          // Если есть questionText — вставляем только один раз
+          if (isset($questionItems['questionText']) && !$readingTextAdded) {
+            $questionItems['questionText']['id'] = $currentId;
+            $examData[$currentId] = $questionItems['questionText'];
             $currentId++;
 
             $readingTextAdded = true;
           }
 
-          /**
-           * 3️⃣ Добавляем questionTQ всегда
-           */
+          // questionTQ добавляется всегда
           $questionItems['questionTQ']['id'] = $currentId;
           $examData[$currentId] = $questionItems['questionTQ'];
           $currentId++;
           $questionsProcessed++;
 
-          /**
-           * 4️⃣ Пауза после половины вопросов
-           */
+          // Вставляем паузу внутри part после половины вопросов
           if (!$pauseInserted && $questionsProcessed >= floor($totalQuestionsInPart / 2)) {
             $examData[$currentId] = $this->createPauseItem($currentId, $partNumber, $settings, 2.5);
             $currentId++;
@@ -249,43 +233,40 @@ class ExamRepository
 
   private function createQuestionItem(int $id, object $question, int $partNumber, string $questionType, array $settings): array
   {
-    $questionSettings = $this->getQuestionSettingsByType($questionType, $settings);
+    $questionSettings = $this->getQuestionSettingsByType($questionType, settings: $settings);
     $time = $questionSettings['question_time'] ?? 4;
-    //try{
-
-    //}
-//catch( \Throwable $e ){
-// var_dump( $e->getMessage() );
-// var_dump( $e->getTraceAsString() );
-//var_dump( $question->ID );
-//die();
-//}
+	//try{
+	  
     $questionData = get_field('question', $question->ID);
+// 	}
+// 	  catch( \Throwable $e ){
+// 		  var_dump( $e->getMessage() );
+// 		  var_dump( $e->getTraceAsString() );
+// 		  var_dump( $question->ID );
+// 		  die();
+// 	  }
     $answerData = get_field('answer', $question->ID);
     $readingPassage = get_field('reading_passage', $question->ID);
     $visible = get_field('visible', $question->ID);
     $hasReadingPassage = get_field('there_is_reading_passage', $question->ID);
-    $secondReadingPassage = get_field('second_reading_passage', $question->ID);
 
     $baseItem = [
-      'question_time_lightweight' => 4,
+      'question_time_lightweight' => (float) $questionSettings['question_time_lightweight'] ?: $questionSettings['reading_time_lightweight'] ?: 99,
+      'subgroup' => $question->subgroup, 
       'pid' => $question->ID,
       'part' => $partNumber,
-      'time' => (float) $time,
       'questionsPart' => $questionSettings['question_title'] ?? '',
-      'subgroup' => $question->subgroup,
     ];
 
     // ✅ если есть Passage → два элемента
     if ($hasReadingPassage === true) {
       return [
-        'secondReadingPassage' => $secondReadingPassage,
         'questionText' => array_merge($baseItem, [
           'id' => $id,
           'type' => 'questionText',
-          'question_time_lightweight' => 4,
           'visible' => $visible,
           'title' => $question->post_title,
+          'time' => (float) get_field('reading_time', $question->ID) ?: 7,
           'questions' => $this->formatReadingPassage($readingPassage),
         ]),
 
@@ -293,6 +274,7 @@ class ExamRepository
           'type' => 'questionTQ',
           'visible' => $visible,
           'name' => $questionSettings['question_type'],
+          'time' => (float) $time,
           'question' => [
             'question' => $questionData['question_text'] ?? '',
             'audio' => $questionData['question_audio'] ?? '',
@@ -311,6 +293,7 @@ class ExamRepository
         'id' => $id,
         'type' => 'simpleQuestion',
         'visible' => $visible,
+        'time' => (float) $time,
         'question' => [
           'question' => $questionData['question_text'] ?? '',
           'audio' => $questionData['question_audio'] ?? '',

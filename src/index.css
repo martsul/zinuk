@@ -22,3 +22,16 @@ html {
 body.rtl {
   direction: rtl;
 }
+
+*::-webkit-scrollbar {
+  width: 18px !important;
+}
+
+*::-webkit-scrollbar-track {
+  background: #20487F33 !important;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #20487F !important; 
+  border-radius: 20px !important;
+}

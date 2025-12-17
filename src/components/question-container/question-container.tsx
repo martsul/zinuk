@@ -4,6 +4,7 @@ import type { AudioQuestion } from "../../models/question.models";
 import { AudioButton } from "../audio-button/audio-button";
 import classNames from "classnames";
 import { useNavigationContext } from "../../contexts/navigation-context/use-navigation-context";
+import { ltrQuestions } from "./question-container.model";
 
 interface Props {
   question: AudioQuestion | string;
@@ -21,12 +22,6 @@ const text = {
     select: "בחר את התשובה ולחץ על Enter",
   },
 };
-
-const ltrQuestions: Set<string> = new Set([
-  "english-sentence-completion",
-  "english-restatements",
-  "english-reading-comprehension",
-]);
 
 export const QuestionContainer: FC<Props> = ({
   question,
@@ -77,18 +72,24 @@ export const QuestionContainer: FC<Props> = ({
       >
         <div className={styles.content}>
           <div className={styles.audioContainer}>
-            <div className={styles.questionImgContainer}>
-              <img
-                src={
-                  typeof question === "string" ? question : question.question
-                }
-                alt="question"
-                className={styles.questionImg}
-              />
-            </div>
+            {(typeof question === "string" ? question : question.question) && (
+              <div className={styles.questionImgContainer}>
+                <img
+                  src={
+                    typeof question === "string" ? question : question.question
+                  }
+                  alt="question"
+                  className={styles.questionImg}
+                />
+              </div>
+            )}
+
             {typeof question !== "string" && question.audio && (
-              <div className={styles.audioButton}>
-                <AudioButton audioUrl={question.audio} />
+              <div className={classNames(styles.audioButton)}>
+                <AudioButton
+                  ltr={ltrQuestions.has(currentPage?.name)}
+                  audioUrl={question.audio}
+                />
               </div>
             )}
           </div>
@@ -98,7 +99,10 @@ export const QuestionContainer: FC<Props> = ({
                 <div>
                   <img className={styles.img} src={answer.img} />
                 </div>
-                <AudioButton audioUrl={answer.audio} />
+                <AudioButton
+                  ltr={ltrQuestions.has(currentPage?.name)}
+                  audioUrl={answer.audio}
+                />
               </div>
             ))}
           </div>

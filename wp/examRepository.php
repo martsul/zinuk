@@ -71,22 +71,38 @@ class ExamRepository
         foreach ($typeQuestions as $question) {
           $questionItems = $this->createQuestionItem($currentId, $question, $partNumber, $questionType, $settings);
 
-          // Если есть questionText — вставляем только один раз
-          if (isset($questionItems['questionText']) && !$readingTextAdded) {
-            $questionItems['questionText']['id'] = $currentId;
-            $examData[$currentId] = $questionItems['questionText'];
+          $isSecond = !empty($questionItems['secondReadingPassage']);
+
+          if ($isSecond && isset($questionItems['questionText'])) {
+            $textItem = $questionItems['questionText'];
+            $textItem['id'] = $currentId;
+            $examData[$currentId] = $textItem;
+            $currentId++;
+          }
+
+          /**
+           * 2️⃣ Если обычный readingPassage → вставляем questionText только один раз
+           */
+          if (!$isSecond && isset($questionItems['questionText']) && !$readingTextAdded) {
+            $textItem = $questionItems['questionText'];
+            $textItem['id'] = $currentId;
+            $examData[$currentId] = $textItem;
             $currentId++;
 
             $readingTextAdded = true;
           }
 
-          // questionTQ добавляется всегда
+          /**
+           * 3️⃣ Добавляем questionTQ всегда
+           */
           $questionItems['questionTQ']['id'] = $currentId;
           $examData[$currentId] = $questionItems['questionTQ'];
           $currentId++;
           $questionsProcessed++;
 
-          // Вставляем паузу внутри part после половины вопросов
+          /**
+           * 4️⃣ Пауза после половины вопросов
+           */
           if (!$pauseInserted && $questionsProcessed >= floor($totalQuestionsInPart / 2)) {
             $examData[$currentId] = $this->createPauseItem($currentId, $partNumber, $settings, 2.5);
             $currentId++;
@@ -235,38 +251,53 @@ class ExamRepository
   {
     $questionSettings = $this->getQuestionSettingsByType($questionType, $settings);
     $time = $questionSettings['question_time'] ?? 4;
+    //try{
 
     $questionData = get_field('question', $question->ID);
+    //}
+//catch( \Throwable $e ){
+// var_dump( $e->getMessage() );
+// var_dump( $e->getTraceAsString() );
+//var_dump( $question->ID );
+//die();
+//}
     $answerData = get_field('answer', $question->ID);
     $readingPassage = get_field('reading_passage', $question->ID);
     $visible = get_field('visible', $question->ID);
     $hasReadingPassage = get_field('there_is_reading_passage', $question->ID);
+    $secondReadingPassage = get_field('second_reading_passage', $question->ID);
+    $readingTime = get_field('reading_time', $question->ID) ?: get_field('reading_time_lightweight', $question->ID) ?: 7;
 
     $baseItem = [
+      'question_time_lightweight' => (float) $questionSettings['question_time_lightweight'] ?: 99,
       'pid' => $question->ID,
       'part' => $partNumber,
-      'time' => (float) $time,
       'questionsPart' => $questionSettings['question_title'] ?? '',
+      'subgroup' => get_field('subgroupp', $question->ID),
+      'name' => $questionSettings['question_type'],
     ];
 
     // ✅ если есть Passage → два элемента
     if ($hasReadingPassage === true) {
       return [
+        'secondReadingPassage' => $secondReadingPassage,
         'questionText' => array_merge($baseItem, [
           'id' => $id,
           'type' => 'questionText',
-          'visible' => $visible,
+          'visible' => true,
           'title' => $question->post_title,
           'questions' => $this->formatReadingPassage($readingPassage),
+          'question_time_lightweight' => (float) get_field('reading_time_lightweight', $question->ID) ?: 99,
+          'time' => (float) $readingTime,
         ]),
 
         'questionTQ' => array_merge($baseItem, [
           'type' => 'questionTQ',
           'visible' => $visible,
-          'name' => $questionSettings['question_type'],
+          'time' => (float) $time,
           'question' => [
-            'question' => $questionData['question_text'] ?? '',
-            'audio' => $questionData['question_audio'] ?? '',
+            'question' => $questionData['question_text']['url'] ?? '',
+            'audio' => $questionData['question_audio']['url'] ?? '',
           ],
           'questions' => $this->formatReadingPassage($readingPassage),
           'title' => $question->post_title,
@@ -282,11 +313,11 @@ class ExamRepository
         'id' => $id,
         'type' => 'simpleQuestion',
         'visible' => $visible,
+        'time' => (float) $time,
         'question' => [
-          'question' => $questionData['question_text'] ?? '',
-          'audio' => $questionData['question_audio'] ?? '',
+          'question' => $questionData['question_text']['url'] ?? '',
+          'audio' => $questionData['question_audio']['url'] ?? '',
         ],
-        'name' => $questionSettings['question_type'],
         'title' => $question->post_title,
         'answers' => $this->formatAnswers($answerData ?? []),
         'correctAnswer' => (int) get_field('correct_answer', $question->ID),

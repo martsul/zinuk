@@ -4,6 +4,7 @@ import classNames from "classnames";
 
 interface Props {
   audioUrl: string;
+  ltr?: boolean;
 }
 
 const audioInstances: {
@@ -11,7 +12,7 @@ const audioInstances: {
   stop: () => void;
 }[] = [];
 
-export const AudioButton: FC<Props> = ({ audioUrl }) => {
+export const AudioButton: FC<Props> = ({ audioUrl, ltr }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -62,7 +63,7 @@ export const AudioButton: FC<Props> = ({ audioUrl }) => {
   };
 
   return (
-    <button className={classNames(styles.audioButton, {[styles.active]: isPlaying})} onClick={onClick}>
+    <button className={classNames(styles.audioButton, {[styles.active]: isPlaying, [styles.ltr]: ltr})} onClick={onClick}>
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 45 45">
         <mask
           id="mask0_103_1238"

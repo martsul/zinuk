@@ -53,8 +53,15 @@ export const QuestionLayout: FC<Props> = ({ type }) => {
   const lang: "en" | "he-IL" = (document.documentElement.lang || "en") as
     | "en"
     | "he-IL";
-  const { pageData, activePage, modal, setModal, timer, timerIsVisible } =
-    useNavigationContext();
+  const {
+    pageData,
+    activePage,
+    modal,
+    setModal,
+    timer,
+    timerIsVisible,
+    timeVariant,
+  } = useNavigationContext();
   const Content: FC = QuestionContent[type];
   const personImg: string = QuestionPersonImg[type];
 
@@ -68,7 +75,9 @@ export const QuestionLayout: FC<Props> = ({ type }) => {
     return null;
   }
 
-  const { part, time }: Question = pageData[activePage] as Question;
+  const { part, time, question_time_lightweight }: Question = pageData[
+    activePage
+  ] as Question;
 
   return (
     <div className={styles.questionContainer}>
@@ -101,11 +110,7 @@ export const QuestionLayout: FC<Props> = ({ type }) => {
               transform="matrix(-1 0 0 1 133 -5)"
             ></circle>
           </svg>
-          <img
-            src={Logo}
-            alt="logo"
-            className={styles.questionLogoImage}
-          />
+          <img src={Logo} alt="logo" className={styles.questionLogoImage} />
         </div>
         <p className={styles.questionLogoTitle}>
           {getPartTitle(pageData, part)}
@@ -118,7 +123,9 @@ export const QuestionLayout: FC<Props> = ({ type }) => {
             <Clock className={styles.clockSvg} />
           </div>
           <p className={styles.questionBoxText}>{texts[lang].timeAllotted}</p>
-          <p className={styles.questionBoxTime}>{time}</p>
+          <p className={styles.questionBoxTime}>
+            {timeVariant === "full" ? time : question_time_lightweight}
+          </p>
           <p className={styles.questionBoxText}>{texts[lang].minutes}</p>
         </div>
         {timerIsVisible && (
@@ -131,11 +138,7 @@ export const QuestionLayout: FC<Props> = ({ type }) => {
             <p className={styles.questionBoxTime}>{timer}</p>
           </div>
         )}
-        <img
-          src={personImg}
-          alt="person"
-          className={styles.person}
-        />
+        <img src={personImg} alt="person" className={styles.person} />
         <svg
           className={styles.questionAsideBottom}
           xmlns="http://www.w3.org/2000/svg"
