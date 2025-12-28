@@ -53,6 +53,7 @@ export interface Question extends ExamItem {
   visible?: boolean;
   subgroup: string;
   order: number;
+  type: string;
 }
 
 export interface Writing extends Question {

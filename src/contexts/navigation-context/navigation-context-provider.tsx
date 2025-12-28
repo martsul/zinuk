@@ -10,6 +10,7 @@ import { NavigationContext } from ".";
 import { ExamStorageName, ExamType, type ExamDto } from "../../const/exam";
 import type { AudioQuestion } from "../../models/question.models";
 import { getExamDataUrl, postExamResultUrl } from "../../const/routs";
+import { TimeDuration } from "../../modules/question-layout/time-add-modal/time-add-modal.model";
 
 interface Props {
   children: ReactElement;
@@ -76,7 +77,7 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
   const [activePage, setActivePage] = useState<
     null | number | "results" | string
   >("1");
-  const intervalRef = useRef<number | undefined>(undefined);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
   const [modal, setModal] = useState<"question" | "answer" | null>(null);
 
   const saveResults = useCallback(() => {
@@ -278,6 +279,23 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
     };
   }, [handleKeyDown]);
 
+
+  const addTime = (timeDuration: TimeDuration) => {
+    if (timer) {
+      switch (timeDuration) {
+        case TimeDuration.ONE_MINUTE:
+          setTimer((timer + 60));
+          break;
+        case TimeDuration.TWO_MINUTES:
+          setTimer((timer + 120));
+          break;
+        case TimeDuration.THREE_MINUTES:
+          setTimer((timer + 180));
+          break;
+      }
+    }
+  }
+
   return (
     <NavigationContext.Provider
       value={{
@@ -293,6 +311,7 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
         navigateToNextPage,
         setTimeVariant,
         timeVariant,
+        addTime,
       }}
     >
       {children}

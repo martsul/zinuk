@@ -109,6 +109,12 @@ export const WritingContentAnswer = () => {
     setModalOpen(true);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.stopPropagation();
+    }
+  };
+
   return (
     <EditorProvider>
       <div className={styles.modal}>
@@ -120,24 +126,26 @@ export const WritingContentAnswer = () => {
       </div>
       <div className={styles.container}>
         <div className={styles.title}>כתוב את תשובתך כאן</div>
-        <Editor value={value} onChange={(e) => setValue(e.target.value)}>
-          <Toolbar>
-            <div className={styles.actions}>
-              <div className={styles.action}>
-                <BtnBold />
+        <div className={styles.editorContainer} onKeyDown={handleKeyDown}>
+          <Editor value={value} onChange={(e) => setValue(e.target.value)}>
+            <Toolbar>
+              <div className={styles.actions}>
+                <div className={styles.action}>
+                  <BtnBold />
+                </div>
+                <div className={styles.action}>
+                  <BtnUnderline />
+                </div>
+                <button className={styles.action} onClick={handleCopy}>
+                  Copy
+                </button>
+                <button className={styles.action} onClick={handlePaste}>
+                  Paste
+                </button>
               </div>
-              <div className={styles.action}>
-                <BtnUnderline />
-              </div>
-              <button className={styles.action} onClick={handleCopy}>
-                Copy
-              </button>
-              <button className={styles.action} onClick={handlePaste}>
-                Paste
-              </button>
-            </div>
-          </Toolbar>
-        </Editor>
+            </Toolbar>
+          </Editor>
+        </div>
         <div className={styles.footer}>
           <button
             className={`${styles.saveButton} ${styles.button}`}

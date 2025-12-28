@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { WritingContentQuestion } from "./writing-content-question/writing-content-question";
 import { WritingContentAnswer } from "./writing-content-answer/writing-content-answer";
 import styles from "./writing-content.module.css"
+import classNames from "classnames";
 
 enum WritingStep {
   QUESTION = "question",
@@ -17,7 +18,6 @@ export const WritingContent = () => {
     const handle = (event: KeyboardEvent) => {
       if (event.code === "Enter" && currentStep === WritingStep.QUESTION) {
         event.stopImmediatePropagation();
-        event.preventDefault()
         setCurrentStep(WritingStep.ANSWER);
       }
     };
@@ -30,7 +30,7 @@ export const WritingContent = () => {
   }, [currentStep]);
 
   return (
-    <div className={styles.writingContent}>
+    <div className={classNames(styles.writingContent, [styles[currentStep]])}>
       {currentStep === WritingStep.QUESTION ? (
         <WritingContentQuestion />
       ) : (

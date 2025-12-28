@@ -1,0 +1,33 @@
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+}
+
+.checkboxContainer {
+  border: 3px solid #20487F;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.checkboxInput {
+  display: none;
+}
+
+.checkboxSvg {
+  opacity: 0;
+  transition: 0.2s ease;
+}
+
+.checkboxInput:checked + .checkboxSvg {
+  opacity: 1;
+}
+
+.checkboxLabelText {
+  font: 400 24px/1 var(--font-i);
+}

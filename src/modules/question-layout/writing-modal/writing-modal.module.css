@@ -1,0 +1,38 @@
+.writingModalContent {
+  max-width: 1095px;
+  width: 1095px;
+  height: 85vh;
+  padding: 30px;
+  background: #d2dae5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.writingModalQuestion {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 30px;
+}
+
+.writingModalCloseButton {
+  margin-bottom: 10px;
+  display: inline-block;
+  max-width: 190px;
+  width: 100%;
+  padding: 10px;
+  background: #ed2374;
+  border-radius: 50px;
+  color: #fff;
+  cursor: pointer;
+  font: 400 22px/1 var(--font-i);
+}
+
+.writingModalInstructions {
+  color: #30326d;
+  text-align: center;
+  font: 400 16px/1 var(--font-i);
+}

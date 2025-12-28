@@ -73,6 +73,10 @@
   margin-bottom: 20px;
 }
 
+.editorContainer {
+  height: 100%;
+}
+
 .button {
   display: flex;
   align-items: center;

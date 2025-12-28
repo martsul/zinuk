@@ -244,6 +244,24 @@ button {
   background: transparent !important;
 }
 
+.addTimeButton {
+  padding: 4px;
+  max-width: 115px;
+  width: 115px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  background: #ed2374;
+  color: #fff;
+  font: 400 14px/1 var(--font-i);
+}
+
+.questionFooterWriting {
+  display: block;
+  margin: 0 auto 0 0;
+}
+
 @media (max-width: 1440px) {
   .questionFooterText {
     font: 400 28px / 1 var(--font-a);
@@ -253,7 +271,7 @@ button {
     margin-top: -10px;
   }
 
-    .questionContainer {
+  .questionContainer {
     grid-template-rows: 1fr 80px;
   }
 }

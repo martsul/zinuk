@@ -1,4 +1,5 @@
 import type { ExamDto } from "../../const/exam";
+import type { TimeDuration } from "../../modules/question-layout/time-add-modal/time-add-modal.model";
 
 export interface NavigationContextModel {
   answer?: string;
@@ -13,4 +14,5 @@ export interface NavigationContextModel {
   navigateToNextPage: () => void;
   setTimeVariant: React.Dispatch<React.SetStateAction<"short" | "full">>
   timeVariant: "short" | "full";
+  addTime: (timeDuration: TimeDuration) => void;
 }
