@@ -51,6 +51,7 @@ export interface Question extends ExamItem {
   question_time_lightweight: number;
   visible?: boolean;
   subgroup: string;
+  order: number;
 }
 
 export interface SimpleQuestionItem extends Question {

@@ -44,7 +44,6 @@ export const ResultsDetails: FC<Props> = ({ detailsNumber }) => {
   const [selectedQuestion, setSelectedQuestion] = useState<
     SimpleQuestionItem | TQQuestionItem | null
   >(null);
-  const [questionNumber, setQuestionNumber] = useState<number | null>(1);
   const partsCount = getPartsCount(pageData);
   const lang: "en" | "he-IL" = (document.documentElement.lang || "en") as
     | "en"
@@ -107,7 +106,6 @@ export const ResultsDetails: FC<Props> = ({ detailsNumber }) => {
             <PartDetails
               onSelectQuestion={setSelectedQuestion}
               selectedQuestion={selectedQuestion}
-              setQuestionNumber={setQuestionNumber}
               part={i + 1}
             />
           ))}
@@ -117,8 +115,7 @@ export const ResultsDetails: FC<Props> = ({ detailsNumber }) => {
         <div className={styles.details}>
           <div className={styles.detailsHeader}>
             <div className={styles.detailsTitle}>
-              {selectedQuestion ? getTitle(selectedQuestion) : ''},{" "}
-              {texts[lang].questions} {questionNumber ? questionNumber : ""}
+              {selectedQuestion ? getTitle(selectedQuestion) : ''}
             </div>
             <button className={styles.copyButton}>
               <Copy />

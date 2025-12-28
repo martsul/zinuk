@@ -28,7 +28,7 @@ export const PartItem: FC<Props> = ({ type, part }) => {
     for (const key in pageData) {
       const element = pageData[key];
       if ("correctAnswer" in element) {
-        if (element.part === part && element.questionsPart === type) {
+        if (element.part === part && element.questionsPart === type && element.visible) {
           total++;
           if (element.correctAnswer === +results[element.id]) {
             correct++;

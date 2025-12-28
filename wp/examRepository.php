@@ -275,6 +275,7 @@ class ExamRepository
       'questionsPart' => $questionSettings['question_title'] ?? '',
       'subgroup' => get_field('subgroupp', $question->ID),
       'name' => $questionSettings['question_type'],
+      'order' => (float) get_field('order', $question->ID),
     ];
 
     // ✅ если есть Passage → два элемента

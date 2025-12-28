@@ -62,7 +62,7 @@ export const PartBlock: FC<Props> = ({ part, openDetails }) => {
     for (const key in pageData) {
       const element = pageData[key];
       if ("correctAnswer" in element) {
-        if (element.part === part) {
+        if (element.part === part && element.visible) {
           total++;
           if (element.correctAnswer === +results[element.id]) {
             correct++;

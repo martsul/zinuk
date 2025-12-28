@@ -16,13 +16,11 @@ interface Props {
   onSelectQuestion: (
     question: SimpleQuestionItem | TQQuestionItem | null
   ) => void;
-  setQuestionNumber: (value: number | null) => void;
 }
 
 export const PartDetails: FC<Props> = ({
   part,
   onSelectQuestion,
-  setQuestionNumber,
   selectedQuestion,
 }) => {
   const { pageData } = useNavigationContext();
@@ -44,7 +42,7 @@ export const PartDetails: FC<Props> = ({
     for (const key in pageData) {
       const element = pageData[key];
       if ("correctAnswer" in element) {
-        if (element.part === part) {
+        if (element.part === part && element.visible) {
           total++;
           if (element.correctAnswer === +results[element.id]) {
             correct++;
@@ -90,7 +88,7 @@ export const PartDetails: FC<Props> = ({
             <div className={styles.answerContainer} key={group}>
               <div className={styles.answerContainerHeader}>{group}</div>
               <div className={styles.answers}>
-                {questions[group].map((q, i) => {
+                {questions[group].sort((a, b) => a.order - b.order).map((q, i) => {
                   let status: string;
                   if (!results[q.id]) {
                     status = "warning";
@@ -106,7 +104,6 @@ export const PartDetails: FC<Props> = ({
                       className={classNames(styles.answer, styles[status])}
                       onClick={() => {
                         onSelectQuestion(q);
-                        setQuestionNumber(i + 1);
                       }}
                     >
                       <div className={styles.answerNum}>{i + 1}</div>
