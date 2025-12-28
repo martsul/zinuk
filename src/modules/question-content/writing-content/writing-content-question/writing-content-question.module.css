@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 20px;
+}
+
+.title {
+  font: 700 32px/1 var(--font-a);
+}
+
+.text {
+  font: 400 16px/1 var(--font-a);
+}

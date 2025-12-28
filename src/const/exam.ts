@@ -15,6 +15,7 @@ export const ExamStorageName = "zinukExam";
 export enum ExamType {
   PREVIEW = "preview",
   EXAM_INTRO = "examIntro",
+  WRITING = "writing",
   QUESTION_INTRO = "questionIntro",
   SIMPLE_QUESTION = "simpleQuestion",
   QUESTION_TEXT = "questionText",
@@ -52,6 +53,14 @@ export interface Question extends ExamItem {
   visible?: boolean;
   subgroup: string;
   order: number;
+}
+
+export interface Writing extends Question {
+  type: ExamType.WRITING;
+  title: string;
+  text: string;
+  question: string;
+  questionsPart: string;
 }
 
 export interface SimpleQuestionItem extends Question {
@@ -92,6 +101,7 @@ export type ExamDto = Record<
   | TextQuestionItem
   | TQQuestionItem
   | PauseItem
+  | Writing
 >;
 
 // export const EXAM: ExamDto = {

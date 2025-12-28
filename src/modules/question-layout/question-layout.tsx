@@ -1,4 +1,4 @@
-import { useEffect, type FC } from "react";
+import { type FC } from "react";
 import {
   QuestionContent,
   QuestionPersonImg,
@@ -64,12 +64,6 @@ export const QuestionLayout: FC<Props> = ({ type }) => {
   } = useNavigationContext();
   const Content: FC = QuestionContent[type];
   const personImg: string = QuestionPersonImg[type];
-
-  useEffect(() => {
-    if (activePage) {
-      console.log(pageData[activePage]);
-    }
-  }, [activePage]);
 
   if (!activePage) {
     return null;

@@ -60,11 +60,22 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
   const [canContinue, setCanContinue] = useState<boolean>(true);
   const [timerIsVisible, setTimerIsVisible] = useState<boolean>(true);
   const [timer, setTimer] = useState<number | undefined>(undefined);
-  const [timeVariant, setTimeVariant] = useState<'short' | 'full'>('full')
-  const [pageData, setPageData] = useState<ExamDto>({});
+  const [timeVariant, setTimeVariant] = useState<"short" | "full">("full");
+  const [pageData, setPageData] = useState<ExamDto>({
+    "1": {
+      id: 1,
+      type: ExamType.WRITING,
+      title: "Writing Task 1",
+      text: "Please write about the following topic...",
+      question: "What is your opinion on this topic?",
+      time: 30,
+      name: "Writing Task 1",
+      questionsPart: "Writing",
+    },
+  });
   const [activePage, setActivePage] = useState<
     null | number | "results" | string
-  >(null);
+  >("1");
   const intervalRef = useRef<number | undefined>(undefined);
   const [modal, setModal] = useState<"question" | "answer" | null>(null);
 
@@ -215,9 +226,18 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
         currentPage?.type === ExamType.PAUSE ||
         currentPage?.type === ExamType.SIMPLE_QUESTION ||
         currentPage?.type === ExamType.QUESTION_TQ ||
-        currentPage?.type === ExamType.QUESTION_TEXT
+        currentPage?.type === ExamType.QUESTION_TEXT ||
+        currentPage?.type === ExamType.WRITING
       ) {
-        const time: number = (timeVariant === 'full' || currentPage?.type === ExamType.PAUSE) ? currentPage.time : currentPage.question_time_lightweight;
+        let time: number = currentPage.time;
+        if (
+          timeVariant !== "full" &&
+          currentPage?.type !== ExamType.PAUSE &&
+          "question_time_lightweight" in currentPage &&
+          typeof currentPage.question_time_lightweight === "number"
+        ) {
+          time = currentPage.question_time_lightweight;
+        }
 
         setTimer(time * 60);
         intervalRef.current = setInterval(() => {

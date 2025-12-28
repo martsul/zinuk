@@ -65,6 +65,9 @@ export const Layout = () => {
           {currentPageData?.type === ExamType.QUESTION_TEXT && (
             <QuestionLayout type={QuestionType.TEXT} />
           )}
+          {currentPageData?.type === ExamType.WRITING && (
+            <QuestionLayout type={QuestionType.WRITING} />
+          )}
           {currentPageData?.type === ExamType.QUESTION_TQ && (
             <QuestionLayout type={QuestionType.TQ} />
           )}
