@@ -49,11 +49,13 @@
 }
 
 .cancelButton {
-  border: 1px solid #ed2374;
-  color: #20487f;
+  border: 1px solid #ed2374 !important;
+  color: #20487f !important;
+  background: transparent !important;
 }
 
 .confirmButton {
-  background: #ed2374;
-  color: #fff;
+  background: #ed2374 !important;
+  color: #fff !important;
+  border: 1px solid #ed2374 !important;
 }

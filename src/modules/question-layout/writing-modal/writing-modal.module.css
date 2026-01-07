@@ -24,9 +24,10 @@
   max-width: 190px;
   width: 100%;
   padding: 10px;
-  background: #ed2374;
+  background: #ed2374 !important;
   border-radius: 50px;
-  color: #fff;
+  border: none;
+  color: #fff !important;
   cursor: pointer;
   font: 400 22px/1 var(--font-i);
 }

@@ -51,7 +51,8 @@
 
 .continueButton {
   padding: 10px 50px;
-  background: #ED2374;
+  background: #ED2374 !important;
+  border: none !important;
   border-radius: 50px;
   color: #fff;
   font: 400 22px/1 var(--font-i);

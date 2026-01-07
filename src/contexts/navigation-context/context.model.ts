@@ -15,4 +15,5 @@ export interface NavigationContextModel {
   setTimeVariant: React.Dispatch<React.SetStateAction<"short" | "full">>
   timeVariant: "short" | "full";
   addTime: (timeDuration: TimeDuration) => void;
+  setCanContinue: React.Dispatch<React.SetStateAction<boolean>>;
 }

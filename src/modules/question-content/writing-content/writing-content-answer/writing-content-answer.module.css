@@ -17,19 +17,27 @@
   display: flex;
   gap: 10px;
   padding: 5px;
-  border: 1px solid #000000;
+  border: 1px solid #000000 !important;
   width: max-content;
   margin-bottom: 10px;
+  background: transparent !important;
 }
 
 .action {
   width: 70px;
   height: 39px;
-  border: 1px solid #000000;
+  border: 1px solid #000000 !important;
+  border-radius: 0 !important;
   font: 700 16px/1 var(--font-i);
+  color: #000000 !important;
+  background: transparent !important;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.action span {
+  color: #000 !important;
 }
 
 :global(.rsw-toolbar) {
@@ -44,21 +52,28 @@
   height: 100%;
   background: #fff;
   outline: none !important;
-  font: 400 18px/1 var(--font-i);
   overflow: auto;
   margin-bottom: 20px;
   word-wrap: break-word;
   word-break: break-word;
   overflow-wrap: break-word;
+  font: 400 18px/1.4 var(--font-i) !important;
+  color: #000 !important;
+}
+
+:global(.rsw-ce) * {
+  font: 400 18px/1.4 var(--font-i) !important;
+  color: #000 !important;
 }
 
 :global(.rsw-ce) b {
   font-weight: 500;
 }
-:global(.rsw-btn)  {
+:global(.rsw-btn) {
   background: transparent !important;
   width: 100% !important;
   height: 100% !important;
+  color: #000 !important;
 }
 
 :global(.rsw-ce) u {
@@ -88,19 +103,19 @@
 }
 
 .sendButton {
-  background: #fff;
-  border: 1px solid #ED2374;
-  color: #30326D;
+  background: #fff !important;
+  border: 1px solid #ed2374 !important;
+  color: #30326d !important;
 }
 
 .saveButton {
-  background: #ED2374;
-  border: 1px solid #ED2374;
-  color: #fff;
+  background: #ed2374 !important;
+  border: 1px solid #ed2374 !important;
+  color: #fff !important;
 }
 
 .autoSaveNotice {
   text-align: center;
-  color: #30326D;
+  color: #30326d;
   font: 400 16px/1 var(--font-i);
 }

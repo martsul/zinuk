@@ -67,7 +67,7 @@ export const QuestionLayout: FC<Props> = ({ type }) => {
   const Content: FC = QuestionContent[type];
   const personImg: string = QuestionPersonImg[type];
   const [modalTimeInOpen, setModalTimeInOpen] = useState(false);
-  const [modalWritingOpen, setModalWritingOpen] = useState(true);
+  const [modalWritingOpen, setModalWritingOpen] = useState(false);
 
   if (!activePage) {
     return null;
@@ -79,11 +79,18 @@ export const QuestionLayout: FC<Props> = ({ type }) => {
 
   return (
     <>
-      <TimeAddModal
-        isOpen={modalTimeInOpen}
-        onClose={() => setModalTimeInOpen(false)}
-      />
-      <WritingModal isOpen={modalWritingOpen} onClose={() => setModalWritingOpen(false)} />
+      {type === QuestionType.WRITING && (
+        <TimeAddModal
+          isOpen={modalTimeInOpen}
+          onClose={() => setModalTimeInOpen(false)}
+        />
+      )}
+      {type === QuestionType.WRITING && (
+        <WritingModal
+          isOpen={modalWritingOpen}
+          onClose={() => setModalWritingOpen(false)}
+        />
+      )}
       <div className={styles.questionContainer}>
         <div className={styles.questionContent}>
           <Content />
@@ -168,7 +175,10 @@ export const QuestionLayout: FC<Props> = ({ type }) => {
             {texts[lang].enter}
           </div>
           {type === QuestionType.WRITING && (
-            <button onClick={() => setModalWritingOpen(true)} className={`${styles.questionFooterWriting} questionFooterWriting`}>
+            <button
+              onClick={() => setModalWritingOpen(true)}
+              className={`${styles.questionFooterWriting} questionFooterWriting`}
+            >
               <Document />
             </button>
           )}

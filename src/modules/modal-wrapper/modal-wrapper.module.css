@@ -22,9 +22,12 @@
 
 .closeButton {
   position: absolute;
-  inset-inline-end: 101%;
-  bottom: 101%;
+  inset-inline-end: calc(100% + 10px);
+  bottom: calc(100% + 10px);
   cursor: pointer;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
 }
 
 .content {

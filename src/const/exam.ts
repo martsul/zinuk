@@ -60,7 +60,7 @@ export interface Writing extends Question {
   type: ExamType.WRITING;
   title: string;
   text: string;
-  question: string;
+  question: AudioQuestion;
   questionsPart: string;
 }
 

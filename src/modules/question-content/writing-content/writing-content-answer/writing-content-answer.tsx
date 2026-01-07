@@ -84,7 +84,9 @@ export const WritingContentAnswer = () => {
     const blob = await Packer.toBlob(doc);
     saveAs(blob, `answer-${new Date().toISOString().slice(0, 10)}.docx`);
     setSuccessText(successTexts.export);
-    setModalOpen(true);
+    setTimeout(() => {
+      setModalOpen(true);
+    }, 1500);
   };
 
   const handleCopy = async () => {
@@ -106,11 +108,13 @@ export const WritingContentAnswer = () => {
 
   const sendEmail = () => {
     setSuccessText(successTexts.email);
-    setModalOpen(true);
+    setTimeout(() => {
+      setModalOpen(true);
+    }, 1500);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' || e.key === ' ') {
+    if (e.key === "Enter" || e.key === " ") {
       e.stopPropagation();
     }
   };

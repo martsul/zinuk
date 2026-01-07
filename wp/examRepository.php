@@ -17,6 +17,18 @@ class ExamRepository
 
     $questions = $exam->getRelatedQuestions();
     $settings = $exam->getSettings();
+    $questionsTypes = array_map(function ($question) {
+      return get_field('question_type', $question->ID);
+    }, $questions);
+
+    $writing_assignment = null;
+
+    foreach ($questions as $question) {
+      if (get_field('question_type', $question->ID) === 'writing-assignment') {
+        $writing_assignment = $question;
+        break;
+      }
+    }
 
     if (empty($questions)) {
       return [];
@@ -24,6 +36,9 @@ class ExamRepository
 
     $examData = [];
     $currentId = 1;
+
+    $writingSettings = $this->getQuestionSettingsByType('writing-assignment', $settings);
+    $questionsByParts = $this->groupQuestionsByParts($questions);
 
     $examData[$currentId] = [
       'id' => $currentId,
@@ -34,11 +49,35 @@ class ExamRepository
       'texts' => [
         $settings['exam_intro'],
       ],
+      'questionsTypes' => $questionsTypes,
+      '$writing_assignment' => $writing_assignment,
     ];
     $currentId++;
 
+
+    if ($writing_assignment) {
+      $writingQuestionData = get_field('question', $question->ID);
+
+      $examData[$currentId] = [
+        'id' => $currentId,
+        'part' => 2,
+        'type' => 'writing',
+        'questionsPart' => 'חשיבה מילולית',
+        'title' => $writingSettings['intro'][0]['intro_type_title'],
+        'text' => $writingSettings['intro'][0]['text'],
+        'visible' => true,
+        'time' => $writingSettings['question_time'],
+        'question_time_lightweight' => $writingSettings['question_time_lightweight'],
+        'question' => [
+          'question' => $writingQuestionData['question_text']['url'] ?? '',
+          'audio' => $writingQuestionData['question_audio']['url'] ?? '',
+        ],
+      ];
+      $currentId++;
+    }
+
     // Группируем вопросы по частям
-    $questionsByParts = $this->groupQuestionsByParts($questions);
+
     foreach ($questionsByParts as $partNumber => $partQuestions) {
       // Добавляем preview для каждой части
       $examData[$currentId] = $this->createPreviewItem($currentId, $partNumber, $settings);

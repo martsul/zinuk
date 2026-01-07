@@ -16,7 +16,7 @@
 }
 
 .checkboxInput {
-  display: none;
+  display: none !important;
 }
 
 .checkboxSvg {

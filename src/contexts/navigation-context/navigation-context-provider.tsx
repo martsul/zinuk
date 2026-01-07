@@ -62,23 +62,20 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
   const [timerIsVisible, setTimerIsVisible] = useState<boolean>(true);
   const [timer, setTimer] = useState<number | undefined>(undefined);
   const [timeVariant, setTimeVariant] = useState<"short" | "full">("full");
-  const [pageData, setPageData] = useState<ExamDto>({
-    "1": {
-      id: 1,
-      type: ExamType.WRITING,
-      title: "Writing Task 1",
-      text: "Please write about the following topic...",
-      question: "What is your opinion on this topic?",
-      time: 30,
-      name: "Writing Task 1",
-      questionsPart: "Writing",
-    },
-  });
+  const [pageData, setPageData] = useState<ExamDto>({});
   const [activePage, setActivePage] = useState<
     null | number | "results" | string
-  >("1");
-  const intervalRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
+  >(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | undefined>(
+    undefined
+  );
   const [modal, setModal] = useState<"question" | "answer" | null>(null);
+
+  useEffect(() => {
+    if (activePage) {
+      console.log(pageData[activePage])
+    }
+  }, [pageData, activePage])
 
   const saveResults = useCallback(() => {
     if (activePage) {
@@ -279,22 +276,21 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
     };
   }, [handleKeyDown]);
 
-
   const addTime = (timeDuration: TimeDuration) => {
     if (timer) {
       switch (timeDuration) {
         case TimeDuration.ONE_MINUTE:
-          setTimer((timer + 60));
+          setTimer(timer + 60);
           break;
         case TimeDuration.TWO_MINUTES:
-          setTimer((timer + 120));
+          setTimer(timer + 120);
           break;
         case TimeDuration.THREE_MINUTES:
-          setTimer((timer + 180));
+          setTimer(timer + 180);
           break;
       }
     }
-  }
+  };
 
   return (
     <NavigationContext.Provider
@@ -312,6 +308,7 @@ export const NavigationContextProvider: FC<Props> = ({ children }) => {
         setTimeVariant,
         timeVariant,
         addTime,
+        setCanContinue,
       }}
     >
       {children}

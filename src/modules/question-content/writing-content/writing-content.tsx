@@ -3,6 +3,7 @@ import { WritingContentQuestion } from "./writing-content-question/writing-conte
 import { WritingContentAnswer } from "./writing-content-answer/writing-content-answer";
 import styles from "./writing-content.module.css"
 import classNames from "classnames";
+import { useNavigationContext } from "../../../contexts/navigation-context/use-navigation-context";
 
 enum WritingStep {
   QUESTION = "question",
@@ -10,14 +11,18 @@ enum WritingStep {
 }
 
 export const WritingContent = () => {
+  const { setCanContinue } = useNavigationContext();
   const [currentStep, setCurrentStep] = useState<WritingStep>(
     WritingStep.QUESTION
   );
 
   useEffect(() => {
+    setCanContinue(currentStep === WritingStep.ANSWER);
+  }, [currentStep, setCanContinue])
+
+  useEffect(() => {
     const handle = (event: KeyboardEvent) => {
-      if (event.code === "Enter" && currentStep === WritingStep.QUESTION) {
-        event.stopImmediatePropagation();
+      if (event.code === "Enter") {
         setCurrentStep(WritingStep.ANSWER);
       }
     };

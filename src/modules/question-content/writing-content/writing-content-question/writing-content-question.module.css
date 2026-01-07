@@ -9,6 +9,31 @@
   font: 700 32px/1 var(--font-a);
 }
 
-.text {
-  font: 400 16px/1 var(--font-a);
+.text  {
+  font: 400 18px/1.4em var(--font-a) !important;
+  color: #000 !important;
+}
+
+.audioContainer {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.questionImgContainer {
+  max-width: 100%;
+}
+
+.questionImg {
+  width: 100%;
+}
+
+.audioButton {
+  flex-shrink: 0;
+}
+
+.audioButton.ltr {
+  transform: rotate(180deg);
 }
